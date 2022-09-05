@@ -36,7 +36,7 @@
     <th width="30%">Preview</th>
   </tr>
   <tr>
-    <td>A descrition here ... </td>
+    <td>A description here ... </td>
     <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329109-9e9be1ae-1dd3-4e1e-ab75-35072e8eae78.png?raw=true" width="80%" /></th>
   </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
@@ -55,7 +55,7 @@
     <th width="30%">Preview</th>
   </tr>
   <tr>
-    <td>A descrition here ... </td>
+    <td>A description here ... </td>
     <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329271-13cf5a76-4c75-4c90-9bf7-932b6838c1bc.png?raw=true" width="80%" /></th>
   </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
@@ -74,7 +74,7 @@
     <th width="30%">Preview</th>
   </tr>
   <tr>
-    <td>A descrition here ... </td>
+    <td>A description here ... </td>
     <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329376-6d467641-1513-4ffb-a12f-8b1046eea35a.png?raw=true" width="80%" /></th>
   </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
@@ -94,7 +94,7 @@
     <th width="30%">Preview</th>
   </tr>
   <tr>
-    <td>A descrition here ... </td>
+    <td>A description here ... </td>
     <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329421-335f1443-f030-4b55-beb7-5437589b4bb2.png?raw=true" width="80%" /></th>
   </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
