@@ -21,7 +21,7 @@
 
 <div align="center">  
 
- [![Skills](https://skillicons.dev/icons?i=react,ts,graphql,vscode,styledcomponents,redux,&perline=6)](https://github.com/BinaryLeo/react_native_find_dev)
+ [![Skills](https://skillicons.dev/icons?i=react,ts,graphql,vscode,aws,styledcomponents,redux,&perline=7)](https://github.com/BinaryLeo/react_native_find_dev)
  
 </div>
 
