@@ -1,30 +1,38 @@
-import { useState } from "react";
+import {
+  Container,
+  DevContainer,
+  DevImage,
+  ProgrammerImage,
+  FindDevContainer,
+  Title,
+  Subtitle,
+  KnowMoreContainer,
+  KnowMoreText,
+} from "./styles";
 
-import Button from "../../components/button";
-import Header from "../../components/header";
-import OkModal from "../../components/okModal";
+import routeName from "../../constants/routeName";
 
-import { Container } from "./styles";
-
-export default function Home() {
-  const [showModal, setShowModal] = useState(false);
-
-  function handlePressButton() {
-    setShowModal(true);
+export default function Home({ navigation }) {
+  function handlePressKnowMore() {
+    //TODO: Trocar para rota correta
+    navigation.navigate(routeName.signIn);
   }
 
   return (
     <Container>
-      <Header title="Home Screen" />
-      <Button title="Open modal" onPress={handlePressButton} />
-      {
-        <OkModal
-          title="Modal title"
-          text="Some text...."
-          showModal={showModal}
-          setShowModal={setShowModal}
-        />
-      }
+      <DevContainer>
+        <DevImage source={require("../../assets/images/dev_1.png")} />
+        <DevImage source={require("../../assets/images/dev_2.png")} />
+        <DevImage source={require("../../assets/images/dev_3.png")} />
+      </DevContainer>
+      <ProgrammerImage source={require("../../assets/images/programmer.png")} />
+      <FindDevContainer>
+        <Title>Find Dev</Title>
+        <Subtitle>The best place to find a tech talent</Subtitle>
+        <KnowMoreContainer onPress={handlePressKnowMore}>
+          <KnowMoreText>Know more</KnowMoreText>
+        </KnowMoreContainer>
+      </FindDevContainer>
     </Container>
   );
 }
