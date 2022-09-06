@@ -1,19 +1,23 @@
-import { Button as ButtonRN } from "react-native";
+import { DefaultButton, Title } from "./styles";
 
-import { Container } from "./styles";
-
-interface IButtonProps {
+type IButtonProps = ButtonProps & {
   title: string;
   onPress: () => void;
   //TODO - Analisar as props necessárias
-}
+  //* qualquer coisa *
+};
+
+export type ButtonProps = {
+  background: string;
+  color: string;
+};
 
 //TODO - Implementar variações de tipos de botões, estilos, etc
 
 export default function Button({ title, onPress }: IButtonProps) {
   return (
-    <Container>
-      <ButtonRN title={title} onPress={onPress} />
-    </Container>
+    <DefaultButton onPress={onPress}>
+      <Title>{title}</Title>
+    </DefaultButton>
   );
 }
