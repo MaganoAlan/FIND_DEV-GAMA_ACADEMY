@@ -10,12 +10,10 @@ import {
   KnowMoreText,
 } from "./styles";
 
-import routeName from "../../constants/routeName";
-
 export default function Home({ navigation }) {
   function handlePressKnowMore() {
     //TODO: Trocar para rota correta
-    navigation.navigate(routeName.signIn);
+    navigation.navigate('signIn');
   }
 
   return (
