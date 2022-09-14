@@ -9,15 +9,14 @@ type IButtonProps = ButtonProps & {
 
 export type ButtonProps = {
   background: string;
-  color: string;
 };
 
 //TODO - Implementar variações de tipos de botões, estilos, etc
 
-export default function Button({ title, onPress }: IButtonProps) {
+export default function Button({ title, onPress, background }: IButtonProps) {
   return (
-    <DefaultButton onPress={onPress}>
-      <Title>{title}</Title>
+    <DefaultButton background={background} onPress={onPress}>
+      <Title background={background}>{title}</Title>
     </DefaultButton>
   );
 }

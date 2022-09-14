@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 import {
   getProportionalHeightByPixel,
   getProportionalWidthByPixel,
@@ -84,4 +84,13 @@ export const KnowMoreText = styled.Text`
   font-size: 28px;
   line-height: 34px;
   color: #000;
+`;
+
+export const Buttons = styled.View`
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-bottom: 4%;
+  margin-top: auto;
 `;

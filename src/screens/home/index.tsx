@@ -1,3 +1,4 @@
+import Button from "../../components/button";
 import {
   Container,
   DevContainer,
@@ -8,14 +9,14 @@ import {
   Subtitle,
   KnowMoreContainer,
   KnowMoreText,
+  Buttons,
 } from "./styles";
-
-import routeName from "../../constants/routeName";
 
 export default function Home({ navigation }) {
   function handlePressKnowMore() {
     //TODO: Trocar para rota correta
-    navigation.navigate(routeName.signIn);
+    /* navigation.navigate("signIn"); */
+    console.log("Know more");
   }
 
   return (
@@ -29,9 +30,10 @@ export default function Home({ navigation }) {
       <FindDevContainer>
         <Title>Find Dev</Title>
         <Subtitle>The best place to find a tech talent</Subtitle>
-        <KnowMoreContainer onPress={handlePressKnowMore}>
-          <KnowMoreText>Know more</KnowMoreText>
-        </KnowMoreContainer>
+        <Buttons>
+          <Button title="Login" background="primary" onPress={() => {}} />
+          <Button title="Cadastrar" background="secondary" onPress={() => {}} />
+        </Buttons>
       </FindDevContainer>
     </Container>
   );
