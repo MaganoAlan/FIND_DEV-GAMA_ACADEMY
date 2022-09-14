@@ -15,12 +15,9 @@ import {
 export default function Home({ navigation }) {
   function handlePressKnowMore() {
     //TODO: Trocar para rota correta
-<<<<<<< HEAD
+
     /* navigation.navigate("signIn"); */
     console.log("Know more");
-=======
-    navigation.navigate('signIn');
->>>>>>> ed3df73d19e82b680d05a45045b3764d63498b03
   }
 
   return (
