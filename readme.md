@@ -5,9 +5,9 @@
   <p>A  react native application to find the best tech talent for your project</p>
   <p>A project built during the Dev for Tech - Gama Academy</p>
  
-  [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/BinaryLeo/react_native_find_dev/blob/main/LICENSE)
-  ![GitHub last commit](https://img.shields.io/github/last-commit/BinaryLeo/react_native_find_dev?style=flat-square)
-  ![GitHub top language](https://img.shields.io/github/languages/top/BinaryLeo/react_native_find_dev?style=flat-square)
+  [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](MaganoAlan/FIND_DEV-GAMA_ACADEMY/blob/main/LICENSE)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/MaganoAlan/FIND_DEV-GAMA_ACADEMY?style=flat-square)
+  ![GitHub top language](https://img.shields.io/github/languages/top/MaganoAlan/FIND_DEV-GAMA_ACADEMY?style=flat-square)
  
 </div>
 <p align="center">
@@ -37,7 +37,7 @@
   </tr>
   <tr>
     <td>A description here ... </td>
-    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329109-9e9be1ae-1dd3-4e1e-ab75-35072e8eae78.png?raw=true" width="80%" /></th>
+    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/190306101-279d86d3-dcab-4d3e-bf2c-5e52c54b7d64.png?raw=true" width="80%" /></th>
   </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
@@ -48,7 +48,7 @@
   </tr>
 </table>
 
-## Menu - Drawer
+## Sign In
 <table>
   <tr>
     <th width="50%">Features</th>
@@ -56,7 +56,7 @@
   </tr>
   <tr>
     <td>A description here ... </td>
-    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329271-13cf5a76-4c75-4c90-9bf7-932b6838c1bc.png?raw=true" width="80%" /></th>
+    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/190306294-c27877a2-4d80-4131-b5e3-3f8eb4a45193.png?raw=true" width="80%" /></th>
   </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
@@ -75,7 +75,7 @@
   </tr>
   <tr>
     <td>A description here ... </td>
-    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329376-6d467641-1513-4ffb-a12f-8b1046eea35a.png?raw=true" width="80%" /></th>
+    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/190305899-ca1436d2-e4ba-47d6-b8d3-fc07a2d25acf.png?raw=true" width="80%" /></th>
   </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
@@ -95,7 +95,7 @@
   </tr>
   <tr>
     <td>A description here ... </td>
-    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329421-335f1443-f030-4b55-beb7-5437589b4bb2.png?raw=true" width="80%" /></th>
+    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/190306110-b8f05a56-26e0-49d6-97c7-1954ab282636.png?raw=true" width="80%" /></th>
   </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
    <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
@@ -114,8 +114,7 @@
 - ``Redux Toolkit``
 - ``Typescript``
 - ``Phopsphor icons`` 
-- ``GraphQL``
-- ``Apollo Client``  
+- ``Vector Icons`` 
 - ``responsive font-size`` 
 - ``styled components``
 
