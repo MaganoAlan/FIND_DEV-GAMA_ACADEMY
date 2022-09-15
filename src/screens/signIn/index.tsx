@@ -11,17 +11,6 @@ import {
 } from "./styles";
 
 export default function Home({ navigation }) {
-  function handleLogin() {
-    //TODO: Trocar para rota correta
-    /* navigation.navigate("Login"); */
-    console.log("handleLogin");
-  }
-
-  function handleRegister() {
-    //TODO: Trocar para rota correta
-    /* navigation.navigate("signUp"); */
-    console.log("handleRegister");
-  }
 
   return (
     <Container>
