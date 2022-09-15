@@ -7,15 +7,20 @@ import {
   FindDevContainer,
   Title,
   Subtitle,
-  Buttons,
+  ButtonsContainer,
 } from "./styles";
 
 export default function Home({ navigation }) {
-  function handlePressKnowMore() {
+  function handleLogin() {
     //TODO: Trocar para rota correta
+    /* navigation.navigate("Login"); */
+    console.log("handleLogin");
+  }
 
-    /* navigation.navigate("signIn"); */
-    console.log("Know more");
+  function handleRegister() {
+    //TODO: Trocar para rota correta
+    /* navigation.navigate("signUp"); */
+    console.log("handleRegister");
   }
 
   return (
@@ -29,10 +34,10 @@ export default function Home({ navigation }) {
       <FindDevContainer>
         <Title>Find Dev</Title>
         <Subtitle>The best place to find a tech talent</Subtitle>
-        <Buttons>
-          <Button title="Login" background="primary" onPress={() => {}} />
-          <Button title="Cadastrar" background="secondary" onPress={() => {}} />
-        </Buttons>
+        <ButtonsContainer>
+          <Button title="sign in" primary onPress={handleLogin} />
+          <Button title="sign up" onPress={handleRegister} />
+        </ButtonsContainer>
       </FindDevContainer>
     </Container>
   );
