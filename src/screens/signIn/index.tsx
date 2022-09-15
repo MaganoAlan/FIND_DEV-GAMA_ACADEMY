@@ -35,8 +35,8 @@ export default function Home({ navigation }) {
         <Title>Find Dev</Title>
         <Subtitle>The best place to find a tech talent</Subtitle>
         <ButtonsContainer>
-          <Button title="sign in" primary onPress={handleLogin} />
-          <Button title="sign up" onPress={handleRegister} />
+          <Button title="Entrar" primary onPress={handleLogin} />
+          <Button title="Cadastrar" onPress={handleRegister} />
         </ButtonsContainer>
       </FindDevContainer>
     </Container>
