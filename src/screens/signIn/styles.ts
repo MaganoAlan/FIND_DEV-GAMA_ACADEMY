@@ -68,32 +68,11 @@ export const Subtitle = styled.Text`
   color: #d9a909;
 `;
 
-export const KnowMoreContainer = styled.TouchableOpacity`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: ${getProportionalHeightByPixel(188)}px;
+export const ButtonsContainer = styled.View`
   width: ${getProportionalWidthByPixel(318)}px;
-  height: ${getProportionalHeightByPixel(70)}px;
-  background: #ffca28;
-  border-radius: 24px;
-`;
-
-export const KnowMoreText = styled.Text`
-  //font-family: "Inter";
-  text-transform: uppercase;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 34px;
-  color: #000;
-`;
-
-export const Buttons = styled.View`
-  width: 100%;
+  height: ${getProportionalWidthByPixel(162)}px;
   flex-direction: column;
   align-items: center;
-  justify-content: space-evenly;
-  margin-bottom: 4%;
-  margin-top: auto;
+  margin-bottom: ${getProportionalHeightByPixel(82)}px;
+  margin-top: ${getProportionalHeightByPixel(101)}px;
 `;
