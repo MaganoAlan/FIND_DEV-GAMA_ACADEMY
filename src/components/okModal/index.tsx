@@ -1,16 +1,16 @@
-import { Modal } from "react-native";
-
-import Button from "../button";
-import { Container, Title, Content } from "./styles";
+import { Button, Modal, Text, View } from "react-native";
+import { Container, Title, Content, BackModal, ModalBtn } from "./styles";
 
 export interface IOkModalProps {
   title: string;
   text: string;
   showModal: boolean;
   setShowModal: (value: boolean) => void;
+  icon?: any;
 }
 
 export default function OkModal({
+  icon,
   showModal,
   title,
   text,
@@ -25,12 +25,20 @@ export default function OkModal({
       animationType="slide"
       visible={showModal}
       onRequestClose={handleCloseModal}
+      transparent={true}
     >
-      <Container>
-        <Title>{title}</Title>
-        <Content>{text}</Content>
-        <Button title="OK" onPress={handleCloseModal} />
-      </Container>
+      <BackModal onPress={handleCloseModal}>
+        <Container>
+          <View>{icon}</View>
+          <Title>{title}</Title>
+          <Content>{text}</Content>
+          <View style={{ width: "30%" }}>
+            <ModalBtn onPress={handleCloseModal}>
+              <Text style={{ textAlign: "center" }}>OK</Text>
+            </ModalBtn>
+          </View>
+        </Container>
+      </BackModal>
     </Modal>
   );
 }

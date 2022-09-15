@@ -11,13 +11,6 @@ import {
 } from "./styles";
 
 export default function Home({ navigation }) {
-  function handlePressKnowMore() {
-    //TODO: Trocar para rota correta
-
-    /* navigation.navigate("signIn"); */
-    console.log("Know more");
-  }
-
   return (
     <Container>
       <DevContainer>
@@ -31,7 +24,11 @@ export default function Home({ navigation }) {
         <Subtitle>The best place to find a tech talent</Subtitle>
         <Buttons>
           <Button title="Login" background="primary" onPress={() => {}} />
-          <Button title="Cadastrar" background="secondary" onPress={() => {}} />
+          <Button
+            title="Cadastrar"
+            background="secondary"
+            onPress={() => navigation.navigate("signUp")}
+          />
         </Buttons>
       </FindDevContainer>
     </Container>
