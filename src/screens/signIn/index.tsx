@@ -11,7 +11,6 @@ import {
 } from "./styles";
 
 export default function Home({ navigation }) {
-
   return (
     <Container>
       <DevContainer>
@@ -24,8 +23,11 @@ export default function Home({ navigation }) {
         <Title>Find Dev</Title>
         <Subtitle>The best place to find a tech talent</Subtitle>
         <ButtonsContainer>
-          <Button title="Entrar" primary onPress={handleLogin} />
-          <Button title="Cadastrar" onPress={handleRegister} />
+          <Button title="Entrar" primary onPress={() => {}} />
+          <Button
+            title="Cadastrar"
+            onPress={() => navigation.navigate("signUp")}
+          />
         </ButtonsContainer>
       </FindDevContainer>
     </Container>

@@ -1,31 +1,34 @@
 import { useState, HTMLInputTypeAttribute } from "react";
-import { Text, StatusBar, Button, Alert } from "react-native";
+import { ScrollView, StatusBar } from "react-native";
 import { DefaultInput } from "../../components/Input";
-import OkModal from "../../components/okModal";
-import { BtnContainer, Container, InputContainer, ScreenTitle } from "./styles";
-import { MaterialIcons } from "@expo/vector-icons";
+import {
+  BtnContainer,
+  Container,
+  Image,
+  InputContainer,
+  ScreenTitle,
+} from "./styles";
 import { SnackSuccess } from "../../components/SnackSuccess";
 import { SnackError } from "../../components/SnackError";
+import Button from "../../components/button";
 
 export default function SignUp() {
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [snackErr, setSnackErr] = useState(false);
   const [snackSuc, setSnackSuc] = useState(false);
   const [snackText, setSnackText] = useState("");
-  /* console.log(name);
+  /* console.log(email);
   console.log(password); */
 
   function handleSignUp() {
-    if (!name || !password || !confirm) {
-      // Alert.alert("Erro", "Preencha todos os dados!");
+    if (!email || !password || !confirm) {
       setSnackText("Por favor preencha todos os dados!");
       setSnackErr(true);
       return;
     }
     if (password !== confirm) {
-      // Alert.alert("As senhas não são iguais");
       setSnackText("As senhas não são iguais.");
       setSnackErr(true);
       return;
@@ -38,44 +41,52 @@ export default function SignUp() {
   return (
     <Container>
       <StatusBar />
-      <SnackSuccess
-        text={snackText}
-        visible={snackSuc}
-        setVisible={setSnackSuc}
-      />
-      <SnackError
-        text={snackText}
-        visible={snackErr}
-        setVisible={setSnackErr}
-      />
-      <ScreenTitle>Finalize seu cadastro</ScreenTitle>
-      <InputContainer>
-        <DefaultInput
-          label="Nome:"
-          placeholder="Informe seu nome"
-          value={name}
-          onChangeText={(e: HTMLInputTypeAttribute) => setName(e)}
+      <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
+        <Image
+          source={require("../../assets/images/header.png")}
+          alt="imagem de findDev"
+          resizeMode="cover"
         />
-      </InputContainer>
-      <InputContainer>
-        <DefaultInput
-          label="Senha"
-          placeholder="Mínimo 8 caracteres"
-          value={password}
-          onChangeText={(e: HTMLInputTypeAttribute) => setPassword(e)}
+        <SnackSuccess
+          text={snackText}
+          visible={snackSuc}
+          setVisible={setSnackSuc}
         />
-      </InputContainer>
-      <InputContainer>
-        <DefaultInput
-          label="Repita a Senha"
-          placeholder="Mínimo 8 caracteres"
-          value={confirm}
-          onChangeText={(e: HTMLInputTypeAttribute) => setConfirm(e)}
+        <SnackError
+          text={snackText}
+          visible={snackErr}
+          setVisible={setSnackErr}
         />
-      </InputContainer>
-      <BtnContainer>
-        <Button title="Cadastrar" onPress={handleSignUp} />
-      </BtnContainer>
+        <ScreenTitle>Informe os dados para realizar seu cadastro</ScreenTitle>
+        <InputContainer>
+          <DefaultInput
+            label="Email:"
+            placeholder="Informe seu nome"
+            value={email}
+            onChangeText={(e: HTMLInputTypeAttribute) => setEmail(e)}
+          />
+        </InputContainer>
+        <InputContainer>
+          <DefaultInput
+            label="Senha:"
+            placeholder="Mínimo 8 caracteres"
+            value={password}
+            onChangeText={(e: HTMLInputTypeAttribute) => setPassword(e)}
+          />
+        </InputContainer>
+        <InputContainer>
+          <DefaultInput
+            label="Repita a Senha:"
+            placeholder="Mínimo 8 caracteres"
+            value={confirm}
+            onChangeText={(e: HTMLInputTypeAttribute) => setConfirm(e)}
+          />
+        </InputContainer>
+        <BtnContainer>
+          <Button primary title="Cadastrar" onPress={handleSignUp} />
+          <Button title="Cancelar" onPress={handleSignUp} />
+        </BtnContainer>
+      </ScrollView>
     </Container>
   );
 }

@@ -13,7 +13,7 @@ export default function Button({
 }: IButtonProps) {
   return (
     <DefaultButton primary={primary} onPress={onPress}>
-      <Title primary={primary}>{title.toUpperCase()}</Title>
+      <Title primary={primary}>{title}</Title>
     </DefaultButton>
   );
 }

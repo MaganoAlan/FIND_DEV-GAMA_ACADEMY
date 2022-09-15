@@ -4,6 +4,7 @@ export default {
       600: "#FFCA28",
     },
     background: "#161620",
+    text: "#fdfdfd",
     green: {
       700: "#368038",
       600: "#4BAC4E",
