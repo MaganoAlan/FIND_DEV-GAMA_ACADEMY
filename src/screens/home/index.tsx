@@ -34,13 +34,7 @@ export default function Home({ navigation }) {
 
   useEffect(() => {
     setLoading(true);
-    Promise.all([
-      getCategories(),
-      getStacks(),
-      getStacks(),
-      getStates(),
-      getDevs(),
-    ])
+    Promise.all([getCategories(), getStacks(), getStates(), getDevs()])
       .then((response) => {
         setCategories(response[0].data);
         setStacks(response[1].data);
@@ -49,9 +43,7 @@ export default function Home({ navigation }) {
       })
       .catch((error) => {
         setShowModal(true);
-        setError(
-          `(${error.name}) Detalhes: ${error.message}`
-        );
+        setError(`(${error.name}) Detalhes: ${error.message}`);
       })
       .finally(() => {
         setLoading(false);
