@@ -57,3 +57,18 @@ export const Icons = styled.View`
   align-items: center;
   justify-content: space-evenly;
 `;
+
+export const SwitchTheme = styled.View`
+  margin-left: auto;
+  margin-right: 2%;
+`;
+
+export const SwitchButton = styled.Pressable`
+  flex-direction: row;
+  align-items: center;
+`;
+
+export const SwitchText = styled.Text`
+  color: #fdfdfd;
+  padding-right: 4px;
+`;

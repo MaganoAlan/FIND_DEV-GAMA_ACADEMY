@@ -5,6 +5,7 @@ import {
   Pressable,
   ScrollView,
   StatusBar,
+  Text,
 } from "react-native";
 import { DefaultInput } from "../../components/Input";
 import {
@@ -12,18 +13,33 @@ import {
   BtnContainer,
   Container,
   Icons,
-  Image,
   InputContainer,
   Logo,
   ScreenTitle,
+  SwitchButton,
+  SwitchText,
+  SwitchTheme,
 } from "../signUp/styles";
 import { SnackSuccess } from "../../components/SnackSuccess";
 import { SnackError } from "../../components/SnackError";
 import Button from "../../components/button";
 import { Feather } from "@expo/vector-icons";
 import { FontAwesome } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
+import { IThemeState } from "../../types/IThemeState";
+import { useDispatch } from "react-redux";
+import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
+
+const city_day = require("../../assets/images/city_day.png");
+const city_night = require("../../assets/images/city_night.png");
 
 export default function SignIn({ navigation }) {
+  const { currentTheme } = useSelector(
+    (state: IThemeState) => state.themeState
+  );
+
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [snackErr, setSnackErr] = useState(false);
@@ -31,6 +47,13 @@ export default function SignIn({ navigation }) {
   const [snackText, setSnackText] = useState("");
   /* console.log(email);
   console.log(password); */
+
+  function setDarkTheme() {
+    dispatch(toDarkTheme());
+  }
+  function setLightTheme() {
+    dispatch(toLightTheme());
+  }
 
   function handleSignIn() {
     if (!email || !password) {
@@ -57,7 +80,7 @@ export default function SignIn({ navigation }) {
         setVisible={setSnackErr}
       />
       <ImageBackground
-        source={require("../../assets/images/city_day.png")}
+        source={currentTheme === "light" ? city_day : city_night}
         resizeMode="cover"
         style={{ width: "100%", height: "100%" }}
       >
@@ -69,6 +92,19 @@ export default function SignIn({ navigation }) {
         <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
           {/* <ScreenTitle>Informe os dados para realizar seu cadastro</ScreenTitle> */}
           <BlurCard>
+            <SwitchTheme>
+              {currentTheme === "light" ? (
+                <SwitchButton onPress={setDarkTheme}>
+                  <SwitchText>Tema escuro</SwitchText>
+                  <Feather name="moon" size={24} color="#fdfdfd" />
+                </SwitchButton>
+              ) : (
+                <SwitchButton onPress={setLightTheme}>
+                  <SwitchText>Tema claro</SwitchText>
+                  <Feather name="sun" size={24} color="#fdfdfd" />
+                </SwitchButton>
+              )}
+            </SwitchTheme>
             <InputContainer>
               <DefaultInput
                 label="Email:"

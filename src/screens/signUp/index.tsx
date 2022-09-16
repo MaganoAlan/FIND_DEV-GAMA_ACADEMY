@@ -17,8 +17,17 @@ import {
 import { SnackSuccess } from "../../components/SnackSuccess";
 import { SnackError } from "../../components/SnackError";
 import Button from "../../components/button";
+import { useSelector } from "react-redux";
+import { IThemeState } from "../../types/IThemeState";
+
+const city_day = require("../../assets/images/city_day.png");
+const city_night = require("../../assets/images/city_night.png");
 
 export default function SignUp({ navigation }) {
+  const { currentTheme } = useSelector(
+    (state: IThemeState) => state.themeState
+  );
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -58,7 +67,7 @@ export default function SignUp({ navigation }) {
         setVisible={setSnackErr}
       />
       <ImageBackground
-        source={require("../../assets/images/city_day.png")}
+        source={currentTheme === "light" ? city_day : city_night}
         resizeMode="cover"
         style={{ width: "100%", height: "100%" }}
       >
