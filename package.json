@@ -11,7 +11,6 @@
     "amplify-push": "node amplify\\scripts\\amplify-push.js"
   },
   "dependencies": {
-    "@apollo/client": "^3.6.9",
     "@expo/vector-icons": "^13.0.0",
     "@expo/webpack-config": "^0.17.2",
     "@react-native-async-storage/async-storage": "^1.17.10",
@@ -43,7 +42,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@types/graphql": "^14.5.0",
     "@types/react": "^18.0.18",
     "@types/react-native": "^0.69.6",
     "@types/styled-components": "^5.1.26",
