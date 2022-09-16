@@ -11,18 +11,16 @@ export const Container = styled.View`
   margin: auto;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   background-color: #fff;
   opacity: 1;
   border-radius: 15px;
 `;
 
 export const Title = styled.Text`
-  font-size: 22px;
+  font-size: 16px;
   font-weight: bold;
-  text-align: center;
-  margin-top: 5%;
-  margin-bottom: 10%;
+  margin: 0 0 0 5px;
 `;
 
 export const Content = styled.Text`
