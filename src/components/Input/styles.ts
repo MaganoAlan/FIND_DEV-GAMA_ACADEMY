@@ -18,6 +18,6 @@ export const NativeInput = styled.TextInput`
   padding: 2px 10px;
   font-size: 16px;
   height: 50px;
-  color: ${({ theme }) => theme.colors.text};
-  background-color: #2d2d36;
+  color: #575757;
+  background-color: #d9d9d9;
 `;

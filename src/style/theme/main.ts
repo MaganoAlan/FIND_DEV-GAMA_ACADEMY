@@ -1,7 +1,7 @@
 export default {
   colors: {
     primary: {
-      600: "#FFCA28",
+      600: "#28393A",
     },
     background: "#161620",
     text: "#fdfdfd",

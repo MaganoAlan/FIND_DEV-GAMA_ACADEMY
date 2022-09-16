@@ -1,7 +1,13 @@
 import { useState, HTMLInputTypeAttribute } from "react";
-import { ScrollView, StatusBar } from "react-native";
+import {
+  ImageBackground,
+  Pressable,
+  ScrollView,
+  StatusBar,
+} from "react-native";
 import { DefaultInput } from "../../components/Input";
 import {
+  BlurCard,
   BtnContainer,
   Container,
   Image,
@@ -12,7 +18,7 @@ import { SnackSuccess } from "../../components/SnackSuccess";
 import { SnackError } from "../../components/SnackError";
 import Button from "../../components/button";
 
-export default function SignUp() {
+export default function SignUp({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -41,52 +47,65 @@ export default function SignUp() {
   return (
     <Container>
       <StatusBar />
-      <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
-        <Image
-          source={require("../../assets/images/header.png")}
-          alt="imagem de findDev"
-          resizeMode="cover"
-        />
-        <SnackSuccess
-          text={snackText}
-          visible={snackSuc}
-          setVisible={setSnackSuc}
-        />
-        <SnackError
-          text={snackText}
-          visible={snackErr}
-          setVisible={setSnackErr}
-        />
-        <ScreenTitle>Informe os dados para realizar seu cadastro</ScreenTitle>
-        <InputContainer>
-          <DefaultInput
-            label="Email:"
-            placeholder="Informe seu nome"
-            value={email}
-            onChangeText={(e: HTMLInputTypeAttribute) => setEmail(e)}
+      <ImageBackground
+        source={require("../../assets/images/city_day.png")}
+        resizeMode="cover"
+        style={{ width: "100%", height: "100%" }}
+      >
+        <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
+          <SnackSuccess
+            text={snackText}
+            visible={snackSuc}
+            setVisible={setSnackSuc}
           />
-        </InputContainer>
-        <InputContainer>
-          <DefaultInput
-            label="Senha:"
-            placeholder="Mínimo 8 caracteres"
-            value={password}
-            onChangeText={(e: HTMLInputTypeAttribute) => setPassword(e)}
+          <SnackError
+            text={snackText}
+            visible={snackErr}
+            setVisible={setSnackErr}
           />
-        </InputContainer>
-        <InputContainer>
-          <DefaultInput
-            label="Repita a Senha:"
-            placeholder="Mínimo 8 caracteres"
-            value={confirm}
-            onChangeText={(e: HTMLInputTypeAttribute) => setConfirm(e)}
-          />
-        </InputContainer>
-        <BtnContainer>
-          <Button primary title="Cadastrar" onPress={handleSignUp} />
-          <Button title="Cancelar" onPress={handleSignUp} />
-        </BtnContainer>
-      </ScrollView>
+          {/* <ScreenTitle>Informe os dados para realizar seu cadastro</ScreenTitle> */}
+          <BlurCard>
+            <InputContainer>
+              <DefaultInput
+                label="Email:"
+                placeholder="Informe seu email"
+                value={email}
+                onChangeText={(e: HTMLInputTypeAttribute) => setEmail(e)}
+              />
+            </InputContainer>
+            <InputContainer>
+              <DefaultInput
+                label="Senha:"
+                placeholder="Mínimo 8 caracteres"
+                value={password}
+                onChangeText={(e: HTMLInputTypeAttribute) => setPassword(e)}
+              />
+            </InputContainer>
+            <InputContainer>
+              <DefaultInput
+                label="Repita a Senha:"
+                placeholder="Mínimo 8 caracteres"
+                value={confirm}
+                onChangeText={(e: HTMLInputTypeAttribute) => setConfirm(e)}
+              />
+            </InputContainer>
+            <Pressable
+              style={({ pressed }) => [
+                {
+                  opacity: pressed ? 0.6 : 1,
+                },
+              ]}
+              onPress={() => navigation.navigate("signIn")}
+            >
+              <ScreenTitle>Já tem uma conta? Entrar ➝</ScreenTitle>
+            </Pressable>
+            <BtnContainer>
+              <Button primary title="Cadastrar" onPress={handleSignUp} />
+              <Button title="Cancelar" onPress={handleSignUp} />
+            </BtnContainer>
+          </BlurCard>
+        </ScrollView>
+      </ImageBackground>
     </Container>
   );
 }

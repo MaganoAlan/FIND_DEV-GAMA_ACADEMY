@@ -5,7 +5,6 @@ export const Container = styled.View`
   flex-direction: column;
   align-items: center;
   background-color: ${({ theme }) => theme.colors.background};
-  padding-left: 8px;
 `;
 
 export const InputContainer = styled.View`
@@ -15,7 +14,7 @@ export const InputContainer = styled.View`
 `;
 
 export const ScreenTitle = styled.Text`
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
   text-align: center;
   margin-top: 5%;
@@ -31,4 +30,14 @@ export const BtnContainer = styled.View`
 
 export const Image = styled.Image`
   width: 100%;
+`;
+
+export const BlurCard = styled.View`
+  background-color: rgba(255, 255, 255, 0.3);
+  width: 95%;
+  padding: 5px;
+  padding-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50%;
 `;
