@@ -17,6 +17,12 @@ export const Container = styled.View`
   border-radius: 15px;
 `;
 
+export const TitleContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Title = styled.Text`
   font-size: 16px;
   font-weight: bold;

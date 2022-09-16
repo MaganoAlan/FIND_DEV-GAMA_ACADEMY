@@ -1,5 +1,12 @@
 import { Modal, Text, View } from "react-native";
-import { Container, Title, Content, BackModal, ModalBtn } from "./styles";
+import {
+  Container,
+  TitleContainer,
+  Title,
+  Content,
+  BackModal,
+  ModalBtn,
+} from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export interface IOkModalProps {
@@ -23,12 +30,12 @@ export default function OkModal({
 
   function getIcon() {
     switch (type) {
-      case "success":
-        return <MaterialIcons name="done" size={24} color="black" />;
       case "error":
-        return <MaterialIcons name="error" size={24}/>;
+        return <MaterialIcons name="error" size={24} />;
       case "warning":
-        return <MaterialIcons name="warning" size={24} color="black" />;
+        return <MaterialIcons name="warning" size={24} />;
+      default:
+        return <MaterialIcons name="done" size={24} />;
     }
   }
 
@@ -41,17 +48,10 @@ export default function OkModal({
     >
       <BackModal onPress={handleCloseModal}>
         <Container>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <TitleContainer>
             {getIcon()}
             <Title>{title}</Title>
-          </View>
-
+          </TitleContainer>
           <Content>{text}</Content>
           <View style={{ width: "30%" }}>
             <ModalBtn onPress={handleCloseModal}>
