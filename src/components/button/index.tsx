@@ -12,8 +12,20 @@ export default function Button({
   primary = false,
 }: IButtonProps) {
   return (
-    <DefaultButton primary={primary} onPress={onPress}>
-      <Title primary={primary}>{title.toUpperCase()}</Title>
+    <DefaultButton
+      style={({ pressed }) => [
+        {
+          backgroundColor: pressed
+            ? "#858585"
+            : primary
+            ? "#28393A"
+            : "#fdfdfd",
+        },
+      ]}
+      primary={primary}
+      onPress={onPress}
+    >
+      <Title primary={primary}>{title}</Title>
     </DefaultButton>
   );
 }

@@ -20,6 +20,7 @@ export function DefaultInput({
       <InputTitle>{label}</InputTitle>
       <NativeInput
         placeholder={placeholder}
+        placeholderTextColor="#686868"
         value={value}
         onChangeText={onChangeText}
       />

@@ -3,7 +3,7 @@ export default {
     primary: {
       600: "#28393A",
     },
-    background: "#28393A",
+    background: "#161620",
     text: "#fdfdfd",
     green: {
       700: "#368038",

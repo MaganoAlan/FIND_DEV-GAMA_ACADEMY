@@ -7,6 +7,7 @@ declare module "styled-components/native" {
         600: string;
       };
       background: string;
+      text: string;
       green: {
         700: string;
         600: string;
