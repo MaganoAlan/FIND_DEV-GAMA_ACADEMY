@@ -76,7 +76,6 @@ export default function SignUp({ navigation }) {
           alt="Logo"
         />
         <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
-          {/* <ScreenTitle>Informe os dados para realizar seu cadastro</ScreenTitle> */}
           <BlurCard>
             <InputContainer>
               <DefaultInput
