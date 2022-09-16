@@ -1,5 +1,6 @@
 import { useState, HTMLInputTypeAttribute } from "react";
 import {
+  Alert,
   ImageBackground,
   Pressable,
   ScrollView,
@@ -10,13 +11,17 @@ import {
   BlurCard,
   BtnContainer,
   Container,
+  Icons,
   Image,
   InputContainer,
+  Logo,
   ScreenTitle,
 } from "../signUp/styles";
 import { SnackSuccess } from "../../components/SnackSuccess";
 import { SnackError } from "../../components/SnackError";
 import Button from "../../components/button";
+import { Feather } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 
 export default function SignIn({ navigation }) {
   const [email, setEmail] = useState("");
@@ -41,22 +46,27 @@ export default function SignIn({ navigation }) {
   return (
     <Container>
       <StatusBar />
+      <SnackSuccess
+        text={snackText}
+        visible={snackSuc}
+        setVisible={setSnackSuc}
+      />
+      <SnackError
+        text={snackText}
+        visible={snackErr}
+        setVisible={setSnackErr}
+      />
       <ImageBackground
         source={require("../../assets/images/city_day.png")}
         resizeMode="cover"
         style={{ width: "100%", height: "100%" }}
       >
+        <Logo
+          source={require("../../assets/images/logo_auth.png")}
+          alt="Logo"
+        />
+
         <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
-          <SnackSuccess
-            text={snackText}
-            visible={snackSuc}
-            setVisible={setSnackSuc}
-          />
-          <SnackError
-            text={snackText}
-            visible={snackErr}
-            setVisible={setSnackErr}
-          />
           {/* <ScreenTitle>Informe os dados para realizar seu cadastro</ScreenTitle> */}
           <BlurCard>
             <InputContainer>
@@ -88,6 +98,30 @@ export default function SignIn({ navigation }) {
             <BtnContainer>
               <Button primary title="Entrar" onPress={handleSignIn} />
             </BtnContainer>
+            <ScreenTitle>Ou faça login com:</ScreenTitle>
+            <Icons>
+              <Pressable
+                onPress={() => {
+                  Alert.alert("Logar com: LinkedIn?");
+                }}
+              >
+                <Feather name="linkedin" size={32} color="#28393A" />
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  Alert.alert("Logar com: GitHub?");
+                }}
+              >
+                <Feather name="github" size={32} color="#28393A" />
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  Alert.alert("Logar com: Google?");
+                }}
+              >
+                <FontAwesome name="google" size={32} color="#28393A" />
+              </Pressable>
+            </Icons>
           </BlurCard>
         </ScrollView>
       </ImageBackground>

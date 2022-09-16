@@ -10,8 +10,8 @@ import {
   BlurCard,
   BtnContainer,
   Container,
-  Image,
   InputContainer,
+  Logo,
   ScreenTitle,
 } from "./styles";
 import { SnackSuccess } from "../../components/SnackSuccess";
@@ -47,22 +47,26 @@ export default function SignUp({ navigation }) {
   return (
     <Container>
       <StatusBar />
+      <SnackSuccess
+        text={snackText}
+        visible={snackSuc}
+        setVisible={setSnackSuc}
+      />
+      <SnackError
+        text={snackText}
+        visible={snackErr}
+        setVisible={setSnackErr}
+      />
       <ImageBackground
         source={require("../../assets/images/city_day.png")}
         resizeMode="cover"
         style={{ width: "100%", height: "100%" }}
       >
+        <Logo
+          source={require("../../assets/images/logo_auth.png")}
+          alt="Logo"
+        />
         <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
-          <SnackSuccess
-            text={snackText}
-            visible={snackSuc}
-            setVisible={setSnackSuc}
-          />
-          <SnackError
-            text={snackText}
-            visible={snackErr}
-            setVisible={setSnackErr}
-          />
           {/* <ScreenTitle>Informe os dados para realizar seu cadastro</ScreenTitle> */}
           <BlurCard>
             <InputContainer>

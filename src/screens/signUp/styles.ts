@@ -39,5 +39,21 @@ export const BlurCard = styled.View`
   padding-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50%;
+  margin-top: 30%;
+`;
+
+export const Logo = styled.Image`
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5%;
+`;
+
+export const Icons = styled.View`
+  flex-direction: row;
+  width: 60%;
+  margin-top: 4%;
+  margin-left: auto;
+  margin-right: auto;
+  align-items: center;
+  justify-content: space-evenly;
 `;
