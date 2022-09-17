@@ -13,7 +13,7 @@ const store = configureStore({
     getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: false,
-    }),
+    })
 });
 
 export type RootState = ReturnType<typeof store.getState>;

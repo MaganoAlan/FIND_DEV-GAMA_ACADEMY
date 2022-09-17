@@ -24,40 +24,38 @@ import { Auth } from 'aws-amplify';
 const city_day = require("../../assets/images/city_day.png");
 const city_night = require("../../assets/images/city_night.png");
 
-export default function SignUp({ navigation }) {
+export default function VerifyAccount({ navigation, route }) {
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+  const [code, setCode] = useState("");
   const [snackErr, setSnackErr] = useState(false);
   const [snackSuc, setSnackSuc] = useState(false);
   const [snackText, setSnackText] = useState("");
 
-  async function handleSignUp() {
-    if (!email || !password || !confirm) {
-      setSnackText("Por favor preencha todos os dados!");
-      setSnackErr(true);
-      return;
-    }
-    if (password !== confirm) {
-      setSnackText("As senhas não são iguais.");
+  async function handleVerifyAccount() {
+    if (!code) {
+      setSnackText("Informe o código enviado no email");
       setSnackErr(true);
       return;
     }
     try {
-      await Auth.signUp({
-        username: email,
-        password: password,
-        autoSignIn: {
-          enabled: true,
-        }
-      });
-      setSnackText("Cadastro realizado com sucesso!");
+      await Auth.confirmSignUp(route.params.email, code);
+      setSnackText("Conta verificada com sucesso!");
       setSnackSuc(true);
-      navigation.navigate("verifyAccount", { email: email })
+    } catch (error) {
+      setSnackText(error.message);
+      setSnackErr(true);
+    }
+    return;
+  }
+
+  async function handleResendCode() {
+    try {
+      await Auth.resendSignUp(route.params.email);
+      setSnackText("Código reenviado!");
+      setSnackSuc(true);
     } catch (error) {
       setSnackText(error.name);
       setSnackErr(true);
@@ -91,41 +89,15 @@ export default function SignUp({ navigation }) {
           <BlurCard>
             <InputContainer>
               <DefaultInput
-                label="Email:"
-                placeholder="Informe seu email"
-                value={email}
-                onChangeText={(e: HTMLInputTypeAttribute) => setEmail(e)}
+                label="Code:"
+                placeholder="Informe o código"
+                value={code}
+                onChangeText={(e: HTMLInputTypeAttribute) => setCode(e)}
               />
             </InputContainer>
-            <InputContainer>
-              <DefaultInput
-                label="Senha:"
-                placeholder="Mínimo 8 caracteres"
-                value={password}
-                onChangeText={(e: HTMLInputTypeAttribute) => setPassword(e)}
-              />
-            </InputContainer>
-            <InputContainer>
-              <DefaultInput
-                label="Repita a Senha:"
-                placeholder="Mínimo 8 caracteres"
-                value={confirm}
-                onChangeText={(e: HTMLInputTypeAttribute) => setConfirm(e)}
-              />
-            </InputContainer>
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  opacity: pressed ? 0.6 : 1,
-                },
-              ]}
-              onPress={() => navigation.navigate("signIn")}
-            >
-              <ScreenTitle>Já tem uma conta? Entrar ➝</ScreenTitle>
-            </Pressable>
             <BtnContainer>
-              <Button primary title="Cadastrar" onPress={handleSignUp} />
-              <Button title="Cancelar" onPress={() => { navigation.navigate("signIn") }} />
+              <Button primary title="Verificar" onPress={handleVerifyAccount} />
+              <Button title="Reenviar código" onPress={handleResendCode} />
             </BtnContainer>
           </BlurCard>
         </ScrollView>

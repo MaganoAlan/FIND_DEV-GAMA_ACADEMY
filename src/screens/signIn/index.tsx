@@ -29,6 +29,7 @@ import { useSelector } from "react-redux";
 import { IThemeState } from "../../types/IThemeState";
 import { useDispatch } from "react-redux";
 import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
+import { Auth } from 'aws-amplify';
 
 const city_day = require("../../assets/images/city_day.png");
 const city_night = require("../../assets/images/city_night.png");
@@ -55,14 +56,23 @@ export default function SignIn({ navigation }) {
     dispatch(toLightTheme());
   }
 
-  function handleSignIn() {
+  async function handleSignIn() {
     if (!email || !password) {
       setSnackText("Por favor preencha todos os dados!");
       setSnackErr(true);
       return;
     }
-    setSnackText("Login realizado!");
-    setSnackSuc(true);
+    try {
+      const user = await Auth.signIn(email, password);
+      setSnackText("Login realizado!");
+      setSnackSuc(true);
+
+      console.log(user.data)
+
+    } catch (error) {
+      setSnackText(error.name);
+      setSnackErr(true);
+    }
     return;
   }
 
