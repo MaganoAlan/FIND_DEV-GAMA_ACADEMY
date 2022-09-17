@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, HTMLInputTypeAttribute } from "react";
-import { View, Image, Animated } from "react-native";
+import { View, Animated } from "react-native";
 import { useSelector } from "react-redux";
+import { MaterialIcons } from "@expo/vector-icons";
 import Api from "../../services/api";
 import { ICategory, IStack, IState, IDev } from "../../types";
 import { IThemeState } from "../../types/IThemeState";
@@ -13,8 +14,13 @@ import {
   CityImage,
   InLineContainer,
   SearchText,
+  DevInfoContainer,
   DevInfoText,
   InputContainer,
+  StarContainer,
+  TechContainer,
+  AvatarContainer,
+  AvatarImage,
 } from "./styles";
 
 const city_day = require("../../assets/images/city-day.png");
@@ -37,7 +43,8 @@ export default function Home({ navigation }) {
   const [stacks, setStacks] = useState<IStack[]>();
   const [states, setStates] = useState<IState[]>();
   const [devs, setDevs] = useState<IDev[]>();
-  const [name, setName] = useState("");
+  const [devNameFilter, setDevNameFilter] = useState("");
+  const [stackFilter, setStackFilter] = useState("");
 
   const getCategories = () => Api.get("category");
   const getStacks = () => Api.get("stacks");
@@ -62,6 +69,11 @@ export default function Home({ navigation }) {
       });
   }, []);
 
+  const filteredDev =
+    devNameFilter?.length > 0
+      ? devs.filter((dev) => dev.name.includes(devNameFilter))
+      : devs;
+
   return (
     <BackGround>
       <CityImage source={currentTheme === "light" ? city_day : city_night} />
@@ -69,21 +81,24 @@ export default function Home({ navigation }) {
       <InLineContainer>
         <InputContainer>
           <DefaultInput
-            value={name}
-            onChangeText={(e: HTMLInputTypeAttribute) => {
-              setName(e);
+            value={devNameFilter}
+            onChangeText={(value: HTMLInputTypeAttribute) => {
+              setDevNameFilter(value);
             }}
           />
         </InputContainer>
         <InputContainer>
+          {/* TODO Usar combobox */}
           <DefaultInput
-            value={""}
-            onChangeText={(e: HTMLInputTypeAttribute) => {}}
+            value={stackFilter}
+            onChangeText={(value: HTMLInputTypeAttribute) => {
+              setStackFilter(value);
+            }}
           />
         </InputContainer>
       </InLineContainer>
       <Animated.FlatList
-        data={devs}
+        data={filteredDev}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
@@ -106,59 +121,37 @@ export default function Home({ navigation }) {
           return (
             <Animated.View
               style={{
-                width: "80%",
-                paddingHorizontal: spacing,
+                width: "85%",
+                flexDirection: "row",
                 marginBottom: spacing,
                 borderRadius: 15,
                 borderWidth: 1,
-                borderColor: currentTheme == "light1" ? "#FFF" : "#FFCA28",
+                borderColor: currentTheme == "light" ? "#FFF" : "#FFCA28",
                 alignItems: "center",
-                justifyContent: "center",
+                justifyContent: "space-between",
                 opacity,
                 transform: [{ scale }],
               }}
             >
-              <View
-                style={{
-                  width: "100%",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
-              >
-                <View style={{ width: "20%", marginVertical: spacing / 2 }}>
-                  <Image
-                    source={{ uri: item.photo }}
-                    style={{
-                      width: avatarSize,
-                      height: avatarSize,
-                      borderRadius: avatarSize,
-                      marginRight: spacing / 2,
-                    }}
-                  />
-                </View>
-                <View
-                  style={{
-                    alignItems: "center",
-                    width: "70%",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                  }}
-                >
-                  <DevInfoText>{item.name}</DevInfoText>
-                  <DevInfoText>
-                    {stacks.find((stack) => stack.id == item.stack).label}
-                  </DevInfoText>
-                </View>
-                <View
-                  style={{
-                    width: avatarSize,
-                    height: avatarSize,
-                    borderRadius: avatarSize / 2,
-                    backgroundColor: "#FFCA28",
-                  }}
-                ></View>
-              </View>
+              <AvatarContainer>
+                <AvatarImage source={{ uri: item.photo }} />
+              </AvatarContainer>
+              <DevInfoContainer>
+                <DevInfoText>{item.name}</DevInfoText>
+                <DevInfoText>
+                  {stacks.find((stack) => stack.id === item.stack).label}
+                </DevInfoText>
+                <StarContainer>
+                  <MaterialIcons name="star" size={24} color={"#FFCA28"} />
+                  <MaterialIcons name="star" size={24} color={"#FFCA28"} />
+                  <MaterialIcons name="star" size={24} color={"#FFCA28"} />
+                  <MaterialIcons name="star" size={24} color={"#FFCA28"} />
+                  <MaterialIcons name="star" size={24} color={"#FFF"} />
+                </StarContainer>
+              </DevInfoContainer>
+              <TechContainer>
+                <MaterialIcons name={"smartphone"} size={35} />
+              </TechContainer>
             </Animated.View>
           );
         }}
