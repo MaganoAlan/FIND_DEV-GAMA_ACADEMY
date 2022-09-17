@@ -8,6 +8,7 @@ export const Container = styled.View`
 export const InputTitle = styled.Text`
   font-weight: 600;
   padding-left: 8px;
+  margin: 5px 0px;
   color: ${({ theme }) => theme.colors.text};
 `;
 

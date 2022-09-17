@@ -28,47 +28,18 @@ export const BtnContainer = styled.View`
   width: 80%;
 `;
 
-export const Image = styled.Image`
-  width: 100%;
-`;
-
 export const BlurCard = styled.View`
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.2);
   width: 95%;
   padding: 5px;
   padding-bottom: 20px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 30%;
+  margin-top: 15%;
 `;
 
 export const Logo = styled.Image`
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5%;
-`;
-
-export const Icons = styled.View`
-  flex-direction: row;
-  width: 60%;
-  margin-top: 4%;
-  margin-left: auto;
-  margin-right: auto;
-  align-items: center;
-  justify-content: space-evenly;
-`;
-
-export const SwitchTheme = styled.View`
-  margin-left: auto;
-  margin-right: 2%;
-`;
-
-export const SwitchButton = styled.Pressable`
-  flex-direction: row;
-  align-items: center;
-`;
-
-export const SwitchText = styled.Text`
-  color: #fdfdfd;
-  padding-right: 4px;
+  margin-top: 10%;
 `;
