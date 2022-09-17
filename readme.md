@@ -2,12 +2,12 @@
 
    ![banner](https://user-images.githubusercontent.com/72607039/188328311-0fa1f3cd-ee57-46fd-83a7-90495366dded.png)
    
-  <p>A  react native application to find the best tech talent for your project</p>
+  <p>A react native application that works as a network to help you find the best tech talent for your project | job offer.</p>
   <p>A project built during the Dev for Tech - Gama Academy</p>
  
-  [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/BinaryLeo/react_native_find_dev/blob/main/LICENSE)
-  ![GitHub last commit](https://img.shields.io/github/last-commit/BinaryLeo/react_native_find_dev?style=flat-square)
-  ![GitHub top language](https://img.shields.io/github/languages/top/BinaryLeo/react_native_find_dev?style=flat-square)
+  [![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](https://github.com/MaganoAlan/FIND_DEV-GAMA_ACADEMY/blob/main/LICENSE)
+  ![GitHub last commit](https://img.shields.io/github/last-commit/MaganoAlan/FIND_DEV-GAMA_ACADEMY?style=flat-square)
+  ![GitHub top language](https://img.shields.io/github/languages/top/MaganoAlan/FIND_DEV-GAMA_ACADEMY?style=flat-square)
  
 </div>
 <p align="center">
@@ -21,90 +21,22 @@
 
 <div align="center">  
 
- [![Skills](https://skillicons.dev/icons?i=react,ts,graphql,vscode,styledcomponents,redux,&perline=6)](https://github.com/BinaryLeo/react_native_find_dev)
+ [![Skills](https://skillicons.dev/icons?i=react,ts,webpack,vscode,aws,styledcomponents,redux,figma,&perline=8)](/MaganoAlan/FIND_DEV-GAMA_ACADEMY)
  
 </div>
 
 
+``Light Mode``  ``Sign In``   ``Sign Up``    ``Home - Gallery``  ``Profile`` 
+
+![Group 95](https://user-images.githubusercontent.com/72607039/190878900-2e78d017-b4d7-4785-83a8-427d3502a2ec.png)
+
+``Dark Mode``  ``Sign In``   ``Sign Up``    ``Home - Gallery``  ``Profile`` 
+
+![Group 96](https://user-images.githubusercontent.com/72607039/190878904-281488c5-6d3e-4a37-9422-bd3abe50d05a.png)
+
+
 
 ## Quick Overview
-
-## Home
-<table>
-  <tr>
-    <th width="50%">Features</th>
-    <th width="30%">Preview</th>
-  </tr>
-  <tr>
-    <td>A description here ... </td>
-    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329109-9e9be1ae-1dd3-4e1e-ab75-35072e8eae78.png?raw=true" width="80%" /></th>
-  </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-  <tr><td> </td> </tr>
-  </tr>
-</table>
-
-## Menu - Drawer
-<table>
-  <tr>
-    <th width="50%">Features</th>
-    <th width="30%">Preview</th>
-  </tr>
-  <tr>
-    <td>A description here ... </td>
-    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329271-13cf5a76-4c75-4c90-9bf7-932b6838c1bc.png?raw=true" width="80%" /></th>
-  </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-  <tr><td> </td> </tr>
-  </tr>
-</table>
-
-## Tech Talents - Dev List
-<table>
-  <tr>
-    <th width="50%">Features</th>
-    <th width="30%">Preview</th>
-  </tr>
-  <tr>
-    <td>A description here ... </td>
-    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329376-6d467641-1513-4ffb-a12f-8b1046eea35a.png?raw=true" width="80%" /></th>
-  </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-  <tr><td> </td> </tr>
-  </tr>
-</table>
-
-
-## Tech Talents - Profile
-<table>
-  <tr>
-    <th width="50%">Features</th>
-    <th width="30%">Preview</th>
-  </tr>
-  <tr>
-    <td>A description here ... </td>
-    <th rowspan="7"><img src="https://user-images.githubusercontent.com/72607039/188329421-335f1443-f030-4b55-beb7-5437589b4bb2.png?raw=true" width="80%" /></th>
-  </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-   <tr> <td> Lorem Ipsum Neque porro quisquam est qui dolorem ipsum</td> </tr>
-  <tr><td> </td> </tr>
-  </tr>
-</table>
 
 
 ## 💡 technologies
@@ -114,12 +46,18 @@
 - ``Redux Toolkit``
 - ``Typescript``
 - ``Phopsphor icons`` 
-- ``GraphQL``
-- ``Apollo Client``  
+- ``Amazon Cognito``
+- ``Axios``  
 - ``responsive font-size`` 
-- ``styled components``
+- ``Styled components``
 
 ```bash
+# npm i styled-components
+# yarn add styled-components
+
+# npm i @types/styled-components
+# yarn add @types/styled-components
+
 # npm install @reduxjs/toolkit
 # yarn add @reduxjs/toolkit
 
@@ -129,7 +67,29 @@
 # npm i react-native-responsive-fontsize
 # yarn add react-native-responsive-fontsize
 
+# npm i amazon-cognito-identity-js
+# yarn add amazon-cognito-identity-js
 
+# npm i aws-amplify
+# yarn add aws-amplify
+
+# npm i aws-amplify-react-native
+# yarn add aws-amplify-react-native
+
+# npm i axios
+# yarn add axios
+
+# npm i react-native-gesture-handler
+# yarn add react-native-gesture-handler
+
+# npm i inquirer
+# yarn add inquirer
+
+# npm i react-native-paper
+# yarn add react-native-paper
+
+# npm i react-native-reanimated
+# yarn add react-native-reanimated
 
 ```
 
@@ -137,11 +97,17 @@
 
 ## 👤 team
 
+Instructor:
+- `` Douglas Morais`` [Linkedin](https://www.linkedin.com/in/douglasmoraisdev/)
+
+CRM Analyst:
+- `` Karoline Costa `` [Linkedin](https://www.linkedin.com/in/karolinecostaribeiro/)
+
 Squad 3:
-- ``Alan Magano``
-- ``Leonardo Moura - BinaryLeo``
-- ``Gabriel Paulino``
-- ``Lucas Guimarães``
+- ``Alan Magano (Front-end | React | React Native | mobile)`` [Linkedin](https://www.linkedin.com/in/alanmagano/)
+- ``Leonardo Moura - BinaryLeo (React Native | Figma | JS | Kotlin | Jetpack Compose)`` [Linkedin](https://www.linkedin.com/in/leonardo-moura-92b513209/)
+- ``Gabriel Paulino (Desenvolvedor de software pleno)`` [Linkedin](https://www.linkedin.com/in/gabriel-paulin0/)
+- ``Lucas Guimarães (Mobile Developer React Native | Javascript | Computer Engineer)`` [Linkedin](https://www.linkedin.com/in/lukeguima/)
 
 ## 📄 License
 
