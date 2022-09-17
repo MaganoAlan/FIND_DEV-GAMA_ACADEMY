@@ -1,12 +1,5 @@
 import styled from "styled-components/native";
 
-export const Container = styled.View`
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-`;
-
 export const CityImage = styled.Image`
   width: 85%;
   height: 21.5%;
@@ -30,4 +23,13 @@ export const SearchText = styled.Text`
   font-weight: 400;
   font-size: 24px;
   margin-bottom: -8%;
+  color: #fff;
+`;
+
+export const DevInfoText = styled.Text`
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  color: #fff;
 `;
