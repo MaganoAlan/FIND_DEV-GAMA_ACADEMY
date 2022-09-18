@@ -1,10 +1,18 @@
-import { Image } from "react-native";
-import { Container } from "./styles";
+import { Container, Title, Subtitle } from "./styles";
 
-export default function Footer() {
+interface IFooterProps {
+  title?: string;
+  subtitle?: string;
+}
+
+export default function Footer({
+  title = "Find Dev",
+  subtitle = "THE BEST PLACE TO FIND A TECH TALENT",
+}: IFooterProps) {
   return (
     <Container>
-      <Image source={require("../../assets/images/logo.png")} />
+      <Title>{title}</Title>
+      <Subtitle>{subtitle}</Subtitle>
     </Container>
   );
 }

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, HTMLInputTypeAttribute } from "react";
-import { View, Animated } from "react-native";
+import { Animated } from "react-native";
 import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import Api from "../../services/api";
@@ -76,10 +76,12 @@ export default function Home({ navigation }) {
 
   return (
     <BackGround>
+      {/*TODO: Incluir o Gradient na imagem CityImage*/}
       <CityImage source={currentTheme === "light" ? city_day : city_night} />
       <SearchText>Search ...</SearchText>
       <InLineContainer>
         <InputContainer>
+          {/*TODO: Validar alterações na tela (Existir uma tela de "BUSCA" antes de exibir resultados)*/}
           <DefaultInput
             value={devNameFilter}
             onChangeText={(value: HTMLInputTypeAttribute) => {
@@ -88,7 +90,7 @@ export default function Home({ navigation }) {
           />
         </InputContainer>
         <InputContainer>
-          {/* TODO Usar combobox */}
+          {/*TODO: Validar alterações na tela (Existir uma tela de "BUSCA" antes de exibir resultados)*/}
           <DefaultInput
             value={stackFilter}
             onChangeText={(value: HTMLInputTypeAttribute) => {
@@ -97,6 +99,7 @@ export default function Home({ navigation }) {
           />
         </InputContainer>
       </InLineContainer>
+      {loading && <Spinner />}
       <Animated.FlatList
         data={filteredDev}
         onScroll={Animated.event(
@@ -105,7 +108,7 @@ export default function Home({ navigation }) {
         )}
         keyExtractor={(item, index) => `${item.id}-${index}`}
         contentContainerStyle={{
-          marginTop: 70,
+          marginTop: 40,
           alignItems: "center",
         }}
         renderItem={({ item, index }) => {
@@ -123,7 +126,7 @@ export default function Home({ navigation }) {
               style={{
                 width: "85%",
                 flexDirection: "row",
-                marginBottom: spacing,
+                marginBottom: 27,
                 borderRadius: 15,
                 borderWidth: 1,
                 borderColor: currentTheme == "light" ? "#FFF" : "#FFCA28",
@@ -142,6 +145,7 @@ export default function Home({ navigation }) {
                   {stacks.find((stack) => stack.id === item.stack).label}
                 </DevInfoText>
                 <StarContainer>
+                  {/*TODO: Validar como será o preenchimento das estrelas (Regra)*/}
                   <MaterialIcons name="star" size={24} color={"#FFCA28"} />
                   <MaterialIcons name="star" size={24} color={"#FFCA28"} />
                   <MaterialIcons name="star" size={24} color={"#FFCA28"} />
@@ -150,6 +154,7 @@ export default function Home({ navigation }) {
                 </StarContainer>
               </DevInfoContainer>
               <TechContainer>
+                {/*TODO: Validar será o preenchimento da tecnologia (Regra)*/}
                 <MaterialIcons name={"smartphone"} size={35} />
               </TechContainer>
             </Animated.View>
@@ -157,8 +162,6 @@ export default function Home({ navigation }) {
         }}
       />
       <Footer />
-
-      {loading && <Spinner />}
       <OkModal
         type="error"
         title="Falha ao recuperar dados"
