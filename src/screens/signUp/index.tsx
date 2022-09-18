@@ -1,9 +1,10 @@
 import { useState, HTMLInputTypeAttribute } from "react";
 import {
+  Dimensions,
   ImageBackground,
   Pressable,
-  ScrollView,
   StatusBar,
+  View,
 } from "react-native";
 import { DefaultInput } from "../../components/Input";
 import {
@@ -19,9 +20,12 @@ import { SnackError } from "../../components/SnackError";
 import Button from "../../components/button";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../../types/IThemeState";
-
-const city_day = require("../../assets/images/city_day.png");
-const city_night = require("../../assets/images/city_night.png");
+import {
+  city_day,
+  city_night,
+  logo_day,
+  logo_night,
+} from "../../constants/resources";
 
 export default function SignUp({ navigation }) {
   const { currentTheme } = useSelector(
@@ -34,8 +38,6 @@ export default function SignUp({ navigation }) {
   const [snackErr, setSnackErr] = useState(false);
   const [snackSuc, setSnackSuc] = useState(false);
   const [snackText, setSnackText] = useState("");
-  /* console.log(email);
-  console.log(password); */
 
   function handleSignUp() {
     if (!email || !password || !confirm) {
@@ -50,7 +52,6 @@ export default function SignUp({ navigation }) {
     }
     setSnackText("Cadastro realizado com sucesso!");
     setSnackSuc(true);
-    return;
   }
 
   return (
@@ -69,14 +70,21 @@ export default function SignUp({ navigation }) {
       <ImageBackground
         source={currentTheme === "light" ? city_day : city_night}
         resizeMode="cover"
-        style={{ width: "100%", height: "100%" }}
+        style={{
+          position: "absolute",
+          left: 0,
+          top: 0,
+          width: Dimensions.get("window").width,
+          height: Dimensions.get("window").height,
+        }}
       >
         <Logo
-          source={require("../../assets/images/logo_auth.png")}
+          source={currentTheme === "light" ? logo_day : logo_night}
           alt="Logo"
         />
-        <ScrollView style={{ flex: 1, width: "100%", height: "100%" }}>
-          <BlurCard>
+
+        <BlurCard>
+          <View style={{ padding: 1, marginTop: 30 }}>
             <InputContainer>
               <DefaultInput
                 label="Email:"
@@ -115,8 +123,8 @@ export default function SignUp({ navigation }) {
               <Button primary title="Cadastrar" onPress={handleSignUp} />
               <Button title="Cancelar" onPress={handleSignUp} />
             </BtnContainer>
-          </BlurCard>
-        </ScrollView>
+          </View>
+        </BlurCard>
       </ImageBackground>
     </Container>
   );
