@@ -3,7 +3,7 @@ import { Animated } from "react-native";
 import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import Api from "../../services/api";
-import { ICategory, IStack, IState, IDev } from "../../types";
+import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
 import { IThemeState } from "../../types/IThemeState";
 import BackGround from "../../components/backGround";
 import Spinner from "../../components/spinner";
@@ -25,7 +25,7 @@ export default function ProfileList({ navigation }) {
     (state: IThemeState) => state.themeState
   );
 
-  //Todo: Mover lógica de buscas de dados (API) para tela anterior e enviar dados por props
+  //Todo: Mover lógica de buscas de dados (API) para tela anterior e enviar dados profiles: IProfile[] por props
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
@@ -56,6 +56,19 @@ export default function ProfileList({ navigation }) {
         setLoading(false);
       });
   }, []);
+
+  const getProfile = (dev: IDev): IProfile => {
+    return {
+      id: dev.id,
+      name: dev.name,
+      photo: dev.photo,
+      description: dev.description,
+      category: categories.find((category) => category.id === dev.category),
+      stack: stacks.find((stack) => stack.id === dev.stack),
+      state: states.find((state) => state.id === dev.state),
+      stars: 4, //TODO: Regra para preenchimento das estrelas
+    } as IProfile;
+  };
 
   return loading ? (
     <BackGround>
@@ -88,7 +101,9 @@ export default function ProfileList({ navigation }) {
           return (
             <CardPressable
               onPress={() => {
-                //navigation.navigate("profile");
+                navigation.navigate("profile", {
+                  profile: getProfile(item),
+                });
               }}
             >
               <Animated.View

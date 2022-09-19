@@ -2,6 +2,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 
 import ProfileList from "../screens/profileList";
+import Profile from "../screens/profile";
 
 export default function AppRoutes() {
   const Drawer = createDrawerNavigator();
@@ -13,6 +14,7 @@ export default function AppRoutes() {
         screenOptions={{ headerShown: false }}
       >
         <Drawer.Screen name={"profileList"} component={ProfileList} />
+        <Drawer.Screen name={"profile"} component={Profile} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

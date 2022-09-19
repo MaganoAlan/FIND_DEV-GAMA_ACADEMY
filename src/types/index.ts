@@ -22,3 +22,14 @@ export interface IDev {
   state: number;
   description: string;
 }
+
+export interface IProfile {
+  id: number;
+  photo: string;
+  name: string;
+  description: string;
+  category: ICategory;
+  stack: IStack;
+  state: IState;
+  stars?: number;
+}
