@@ -48,6 +48,7 @@ export const Icons = styled.View`
   flex-direction: row;
   width: 60%;
   margin-top: 4%;
+  margin-bottom: 4%;
   margin-left: auto;
   margin-right: auto;
   align-items: center;
@@ -63,4 +64,13 @@ export const SwitchButton = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const SocialContainer = styled.View`
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: ${({ theme }) => theme.colors.primary[600]};
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 `;

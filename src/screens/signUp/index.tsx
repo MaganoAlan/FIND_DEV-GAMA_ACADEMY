@@ -32,6 +32,8 @@ export default function SignUp({ navigation }) {
     (state: IThemeState) => state.themeState
   );
 
+  const [show, setShow] = useState(true);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -74,8 +76,8 @@ export default function SignUp({ navigation }) {
           position: "absolute",
           left: 0,
           top: 0,
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
+          width: Dimensions.get("screen").width,
+          height: Dimensions.get("screen").height,
         }}
       >
         <Logo
@@ -95,6 +97,9 @@ export default function SignUp({ navigation }) {
             </InputContainer>
             <InputContainer>
               <DefaultInput
+                secure={show}
+                password
+                showPassword={() => setShow(!show)}
                 label="Senha:"
                 placeholder="Mínimo 8 caracteres"
                 value={password}
@@ -103,6 +108,9 @@ export default function SignUp({ navigation }) {
             </InputContainer>
             <InputContainer>
               <DefaultInput
+                secure={show}
+                password
+                showPassword={() => setShow(!show)}
                 label="Repita a Senha:"
                 placeholder="Mínimo 8 caracteres"
                 value={confirm}

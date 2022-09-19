@@ -17,6 +17,7 @@ import {
   InputContainer,
   Logo,
   ScreenTitle,
+  SocialContainer,
   SwitchButton,
   SwitchTheme,
 } from "../signIn/styles";
@@ -46,6 +47,8 @@ export default function SignIn({ navigation }) {
   );
 
   const dispatch = useDispatch();
+
+  const [show, setShow] = useState(true);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -90,8 +93,8 @@ export default function SignIn({ navigation }) {
           position: "absolute",
           left: 0,
           top: 0,
-          width: Dimensions.get("window").width,
-          height: Dimensions.get("window").height,
+          width: Dimensions.get("screen").width,
+          height: Dimensions.get("screen").height,
         }}
       >
         <Logo
@@ -138,6 +141,9 @@ export default function SignIn({ navigation }) {
           </InputContainer>
           <InputContainer>
             <DefaultInput
+              secure={show}
+              password
+              showPassword={() => setShow(!show)}
               label="Senha:"
               placeholder="Mínimo 8 caracteres"
               value={password}
@@ -157,68 +163,43 @@ export default function SignIn({ navigation }) {
           <BtnContainer>
             <Button primary title="Entrar" onPress={handleSignIn} />
           </BtnContainer>
-          <View
+        </BlurCard>
+        <SocialContainer>
+          <Text
             style={{
-              backgroundColor: `${
-                currentTheme === "light"
-                  ? "transparent"
-                  : "rgba(63,97,118, 0.1)"
-              }`,
-              marginTop: "5%",
-              marginLeft: "25%",
-              width: 200,
-
-              justifyContent: "center",
+              color: "#fff",
+              fontSize: 16,
+              fontWeight: "600",
+              padding: 2,
+              textAlign: "center",
             }}
           >
-            <Text
-              style={{
-                color: `${currentTheme === "light" ? "#28393A" : "#fff"}`,
-                fontSize: 16,
-                fontWeight: "600",
-                padding: 15,
-              }}
-            >
-              Ou faça login com:
-            </Text>
-          </View>
-
+            Ou faça login com:
+          </Text>
           <Icons>
             <Pressable
               onPress={() => {
                 Alert.alert("Logar com: LinkedIn?");
               }}
             >
-              <LinkedinLogo
-                color={currentTheme === "light" ? "#28393A" : "#fff"}
-                weight="light"
-                size={36}
-              />
+              <LinkedinLogo color="#fff" weight="light" size={36} />
             </Pressable>
             <Pressable
               onPress={() => {
                 Alert.alert("Logar com: GitHub?");
               }}
             >
-              <GithubLogo
-                color={currentTheme === "light" ? "#28393A" : "#fff"}
-                weight="light"
-                size={36}
-              />
+              <GithubLogo color="#fff" weight="light" size={36} />
             </Pressable>
             <Pressable
               onPress={() => {
                 Alert.alert("Logar com: Google?");
               }}
             >
-              <GoogleLogo
-                color={currentTheme === "light" ? "#28393A" : "#fff"}
-                weight="light"
-                size={36}
-              />
+              <GoogleLogo color="#fff" weight="light" size={36} />
             </Pressable>
           </Icons>
-        </BlurCard>
+        </SocialContainer>
       </ImageBackground>
     </Container>
   );
