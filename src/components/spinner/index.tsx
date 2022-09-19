@@ -2,10 +2,14 @@ import { ActivityIndicator } from "react-native";
 
 import { Container } from "./styles";
 
-export default function Spinner() {
+interface ISpinnerProps {
+  size?: number;
+}
+
+export default function Spinner({ size = 36 }: ISpinnerProps) {
   return (
     <Container>
-      <ActivityIndicator size="large" />
+      <ActivityIndicator size={size} />
     </Container>
   );
 }
