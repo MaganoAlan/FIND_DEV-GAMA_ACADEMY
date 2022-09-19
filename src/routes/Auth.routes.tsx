@@ -13,8 +13,6 @@ export default function AuthRoutes() {
   const { currentTheme, selected } = useSelector(
     (state: IThemeState) => state.themeState
   );
-
-  console.log(selected);
   return (
     <NavigationContainer>
       <ThemeProvider theme={selected}>

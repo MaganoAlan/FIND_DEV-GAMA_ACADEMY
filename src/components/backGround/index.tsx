@@ -9,7 +9,7 @@ export default function BackGround({ children }) {
   );
 
   const colors =
-    currentTheme === "light" ? ["#334637", "#161620"] : ["#161620"];
+    currentTheme === "light" ? ["#334637", "#161620"] : ["#161620", "#161620"];
 
   return (
     <LinearGradient colors={colors} style={styles.container}>

@@ -1,5 +1,5 @@
 import Router from "./src/routes";
-import { StatusBar } from "react-native";
+import { StatusBar, Platform } from "react-native";
 import main from "./src/style/theme/main";
 import { ThemeProvider } from "styled-components";
 import { Provider as PaperProvider } from "react-native-paper";
@@ -14,7 +14,12 @@ export default function App() {
     <ReduxProvider store={Store}>
       <ThemeProvider theme={main}>
         <PaperProvider>
-          <StatusBar />
+          {Platform.OS === "android" ? (
+            <StatusBar backgroundColor="#ffffff00" translucent />
+          ) : (
+            <StatusBar backgroundColor="#ffffff00" hidden />
+          )}
+
           <Router />
         </PaperProvider>
       </ThemeProvider>
