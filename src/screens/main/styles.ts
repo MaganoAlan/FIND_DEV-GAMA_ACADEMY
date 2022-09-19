@@ -5,7 +5,7 @@ export const Container = styled.View``;
 
 export const TopImg = styled.Image<IStatusBar>`
   width: 100%;
-  height: 25%;
+  height: 30%;
   //margin-top: ${({ height }) => height}px;
   z-index: 9999;
 `;
