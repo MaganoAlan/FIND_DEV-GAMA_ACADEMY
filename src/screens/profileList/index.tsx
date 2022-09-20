@@ -77,7 +77,7 @@ export default function ProfileList(props) {
                   <AvatarImage source={{ uri: item.photo }} />
                 </AvatarContainer>
                 <DevInfoContainer>
-                  <DevInfoText>{item.name}</DevInfoText>
+                  <DevInfoText>{item.fullName}</DevInfoText>
                   <DevInfoText>{item.stack.label}</DevInfoText>
                   <StarContainer>
                     {/*TODO: Validar como será o preenchimento das estrelas (Regra)*/}

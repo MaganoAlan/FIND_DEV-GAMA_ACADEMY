@@ -5,7 +5,7 @@ type IAppButton = {
   onPress: Function;
 };
 
-export function AppButton({ title, onPress }: IAppButton) {
+export default function AppButton({ title, onPress }: IAppButton) {
   return (
     <Button onPress={onPress}>
       <Title>{title}</Title>

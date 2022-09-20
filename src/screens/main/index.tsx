@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Pressable, ScrollView, StatusBar } from "react-native";
 import { Checkbox } from "react-native-paper";
+import { UserGear, ChartPie, Question, Sun, Moon } from "phosphor-react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
 import Api from "../../services/api";
 import { IThemeState } from "../../types/IThemeState";
 import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
 import { getRandomNumber } from "../../utils";
-import { AppButton } from "../../components/AppButton";
+import AppButton from "../../components/AppButton";
 import BackGround from "../../components/backGround";
 import Spinner from "../../components/spinner";
 import OkModal from "../../components/okModal";
@@ -15,9 +16,6 @@ import {
   ShortcutCard,
   ShortcutFavoriteCard,
 } from "../../components/shortcutCard";
-
-//*Phosphor Icons - Figma Icons
-import { UserGear, ChartPie, Question, Sun, Moon } from "phosphor-react-native";
 
 import {
   BtnContainer,
@@ -45,14 +43,12 @@ export type IStatusBar = {
 };
 
 export function Main(props) {
-  const { currentTheme, selected } = useSelector(
+  const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
 
   const dispatch = useDispatch();
 
-  //TODO: Alterar esses estados pelas Stacks(LINHA 70) (Dados da API)
-  //*Stacks
   const [RN, setRN] = useState(false);
   const [sql, setSql] = useState(false);
   const [java, setJava] = useState(false);
@@ -110,11 +106,30 @@ export function Main(props) {
   };
 
   const getProfile = (dev: IDev): IProfile => {
+    const splitedName = dev.name.split(" ");
+
+    const name = splitedName[0];
+    const surname = splitedName[splitedName.length - 1];
+
+    const getRandomExperience = (): string => {
+      let experience = getRandomNumber(1, 20);
+      if (experience === 1) return "Experience: 1 yr";
+      return `Experience: ${experience >= 5 ? "5 yrs +" : `${experience} yrs`}`;
+    };
+
     return {
       id: dev.id,
-      name: dev.name,
+      fullName: dev.name,
+      name: name,
+      surname: surname,
+      email: `${name.toLocaleLowerCase()}.${surname.toLocaleLowerCase()}${getRandomNumber(
+        1,
+        200
+      )}@gmail.com`,
+      age: getRandomNumber(18, 50),
       photo: dev.photo,
       description: dev.description,
+      experience: getRandomExperience(),
       category: categories.find((category) => category.id === dev.category),
       stack: stacks.find((stack) => stack.id === dev.stack),
       state: states.find((state) => state.id === dev.state),

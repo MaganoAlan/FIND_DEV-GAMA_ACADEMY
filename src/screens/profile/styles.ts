@@ -5,6 +5,16 @@ export const StyledImage = styled.Image`
   height: 25%;
 `;
 
+export const ThemeSwitch = styled.View`
+  background-color: rgba(255, 202, 40, 0.8);
+  border-radius: 100px;
+  padding: 5px;
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  z-index: 9999;
+`;
+
 export const AvatarImage = styled.Image`
   margin-top: -22%;
   width: 45%;
@@ -54,6 +64,7 @@ export const SocialIconsContainer = styled.View`
 export const ButtonsContainer = styled.View`
   width: 80%;
   flex-direction: column;
+  margin-top: 4%;
 `;
 
 export const ButtonsInLineContainer = styled.View`
@@ -65,4 +76,5 @@ export const ButtonsInLineContainer = styled.View`
 
 export const ButtonContainer = styled.View`
   width: 45%;
+  margin-top: 3%;
 `;

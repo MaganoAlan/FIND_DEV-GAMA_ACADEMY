@@ -1,18 +1,20 @@
 import { useState } from "react";
-import { Linking } from "react-native";
+import { Pressable, Linking } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
+import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
 import { MaterialIcons } from "@expo/vector-icons";
+import { Sun, Moon } from "phosphor-react-native";
 import { IThemeState } from "../../types/IThemeState";
 import { IProfile } from "../../types";
-import { getRandomNumber } from "../../utils";
 import { profile_day, profile_night } from "../../constants/resources";
 import BackGround from "../../components/backGround";
-import Button from "../../components/button";
+import AppButton from "../../components/AppButton";
 import SocialIcons from "../../components/socialIcons";
 import Footer from "../../components/footer";
 import OkModal from "../../components/okModal";
 import {
   StyledImage,
+  ThemeSwitch,
   AvatarImage,
   StarContainer,
   DevNameText,
@@ -39,21 +41,16 @@ export default function Profile(props) {
 
   const dispatch = useDispatch();
 
+  function setDarkTheme() {
+    dispatch(toDarkTheme());
+  }
+
+  function setLightTheme() {
+    dispatch(toLightTheme());
+  }
+
   const { profile }: IProfileProps = props.route.params;
   const sourceImage = currentTheme == "light" ? profile_day : profile_night;
-
-  const splitedName = profile.name.split(" ");
-
-  const getName = (): string => splitedName[0];
-  const getSurname = (): string => splitedName[splitedName.length - 1];
-
-  const getRandomExperience = (): string => {
-    let experience = getRandomNumber(1, 20);
-
-    if (experience === 1) return "Experience: 1 yr";
-
-    return `Experience: ${experience >= 5 ? "5 yrs +" : `${experience} yrs`}`;
-  };
 
   const handlePressLinkedin = () => {
     Linking.openURL("https://www.linkedin.com/");
@@ -64,9 +61,7 @@ export default function Profile(props) {
   };
 
   const handlePressGoogle = () => {
-    Linking.openURL(
-      `mailto:${getName().toLocaleLowerCase()}.${getSurname().toLocaleLowerCase()}@gmail.com`
-    );
+    Linking.openURL(`mailto:${profile.email}`);
   };
 
   const handlePressResume = () => {
@@ -96,6 +91,17 @@ export default function Profile(props) {
   return (
     <BackGround>
       <StyledImage source={sourceImage} />
+      <ThemeSwitch>
+        {currentTheme === "light" ? (
+          <Pressable onPress={setDarkTheme}>
+            <Moon color="#28393A" weight="regular" size={24} />
+          </Pressable>
+        ) : (
+          <Pressable onPress={setLightTheme}>
+            <Sun color="#28393A" weight="regular" size={24} />
+          </Pressable>
+        )}
+      </ThemeSwitch>
       <AvatarImage source={{ uri: profile.photo }} />
       <StarContainer>
         <MaterialIcons
@@ -124,13 +130,13 @@ export default function Profile(props) {
           color={profile?.stars > 4 ? "#FFCA28" : "#fff"}
         />
       </StarContainer>
-      <DevNameText>{profile.name}</DevNameText>
+      <DevNameText>{profile.fullName}</DevNameText>
       <DevInfoContainer>
-        <DevInfo>{`Name: ${getName()}`}</DevInfo>
-        <DevInfo>{`Surname: ${getSurname()}`}</DevInfo>
-        <DevInfo>{`Age: ${getRandomNumber(18, 50)} yrs`}</DevInfo>
+        <DevInfo>{`Name: ${profile.name}`}</DevInfo>
+        <DevInfo>{`Surname: ${profile.surname}`}</DevInfo>
+        <DevInfo>{`Age: ${profile.age} yrs`}</DevInfo>
         <DevInfo>{`Stacks: ${profile.stack.label}`}</DevInfo>
-        <DevInfo>{getRandomExperience()}</DevInfo>
+        <DevInfo>{profile.experience}</DevInfo>
       </DevInfoContainer>
       <SocialIconsContainer>
         <SocialIcons
@@ -141,16 +147,16 @@ export default function Profile(props) {
         />
       </SocialIconsContainer>
       <ButtonsContainer>
-        <Button title="RESUME" onPress={handlePressResume} />
+        <AppButton title="RESUME" onPress={handlePressResume} />
         <ButtonsInLineContainer>
           <ButtonContainer>
-            <Button
+            <AppButton
               title={`${profile.isFavorite ? "UNFAVORITE" : "FAVORITE"}`}
               onPress={handlePressManageFavoriteProfiles}
             />
           </ButtonContainer>
           <ButtonContainer>
-            <Button title="INVITE" onPress={handlePressInvite} />
+            <AppButton title="INVITE" onPress={handlePressInvite} />
           </ButtonContainer>
         </ButtonsInLineContainer>
       </ButtonsContainer>

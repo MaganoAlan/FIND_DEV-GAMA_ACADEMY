@@ -26,7 +26,12 @@ export interface IDev {
 export interface IProfile {
   id: number;
   photo: string;
+  fullName: string;
   name: string;
+  surname: string;
+  email: string;
+  age: number;
+  experience: string;
   description: string;
   category: ICategory;
   stack: IStack;
