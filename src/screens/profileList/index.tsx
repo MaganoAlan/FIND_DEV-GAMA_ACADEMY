@@ -80,7 +80,6 @@ export default function ProfileList(props) {
                   <DevInfoText>{item.fullName}</DevInfoText>
                   <DevInfoText>{item.stack.label}</DevInfoText>
                   <StarContainer>
-                    {/*TODO: Validar como será o preenchimento das estrelas (Regra)*/}
                     <MaterialIcons
                       name="star"
                       size={24}
