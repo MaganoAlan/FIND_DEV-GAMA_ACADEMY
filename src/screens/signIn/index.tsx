@@ -8,7 +8,18 @@ import {
   View,
   Text,
 } from "react-native";
+
+import { useSelector, useDispatch } from "react-redux";
+import { IThemeState } from "../../types/IThemeState";
+import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
+
+
+import { SnackSuccess } from "../../components/SnackSuccess";
+import { SnackError } from "../../components/SnackError";
+
+import Button from "../../components/button";
 import { DefaultInput } from "../../components/Input";
+
 import {
   BlurCard,
   BtnContainer,
@@ -18,12 +29,12 @@ import {
   Logo,
   ScreenTitle,
   SocialContainer,
+  SocialText,
   SwitchButton,
   SwitchTheme,
 } from "../signIn/styles";
-import { SnackSuccess } from "../../components/SnackSuccess";
-import { SnackError } from "../../components/SnackError";
-import Button from "../../components/button";
+
+//*Phosphor Icons - Figma Icons
 import {
   LinkedinLogo,
   GithubLogo,
@@ -31,15 +42,13 @@ import {
   Sun,
   Moon,
 } from "phosphor-react-native";
+
 import {
   city_day,
   city_night,
   logo_day,
   logo_night,
 } from "../../constants/resources";
-import { useSelector, useDispatch } from "react-redux";
-import { IThemeState } from "../../types/IThemeState";
-import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
 
 export default function SignIn({ navigation }) {
   const { currentTheme } = useSelector(
@@ -165,17 +174,9 @@ export default function SignIn({ navigation }) {
           </BtnContainer>
         </BlurCard>
         <SocialContainer>
-          <Text
-            style={{
-              color: "#fff",
-              fontSize: 16,
-              fontWeight: "600",
-              padding: 2,
-              textAlign: "center",
-            }}
-          >
+          <SocialText>
             Ou faça login com:
-          </Text>
+          </SocialText>
           <Icons>
             <Pressable
               onPress={() => {

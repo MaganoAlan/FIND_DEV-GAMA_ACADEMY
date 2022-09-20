@@ -129,7 +129,7 @@ export default function SignUp({ navigation }) {
             </Pressable>
             <BtnContainer>
               <Button primary title="Cadastrar" onPress={handleSignUp} />
-              <Button title="Cancelar" onPress={handleSignUp} />
+              {/*<Button title="Cancelar" onPress={handleSignUp} />*/}
             </BtnContainer>
           </View>
         </BlurCard>

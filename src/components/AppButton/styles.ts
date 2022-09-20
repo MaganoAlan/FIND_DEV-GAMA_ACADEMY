@@ -3,8 +3,8 @@ import styled from "styled-components/native";
 export const Button = styled.Pressable`
   background-color: #ffca28;
   width: 100%;
-  padding: 8px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 20px;
   margin-left: auto;
   margin-right: auto;
 `;
