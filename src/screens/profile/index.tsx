@@ -1,13 +1,16 @@
-import { View, Text, Image } from "react-native";
+import { useState } from "react";
+import { Linking } from "react-native";
 import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { IThemeState } from "../../types/IThemeState";
 import { IProfile } from "../../types";
 import { profile_day, profile_night } from "../../constants/resources";
 import BackGround from "../../components/backGround";
-import Button from "../../components/button";
+import ThemeSwitch from "../../components/themeSwitch";
+import AppButton from "../../components/AppButton";
 import SocialIcons from "../../components/socialIcons";
 import Footer from "../../components/footer";
+import OkModal from "../../components/okModal";
 import {
   StyledImage,
   AvatarImage,
@@ -18,7 +21,7 @@ import {
   SocialIconsContainer,
   ButtonsContainer,
   ButtonsInLineContainer,
-  ButtonsInLineContainer2,
+  ButtonContainer,
 } from "./styles";
 
 interface IProfileProps {
@@ -30,60 +33,53 @@ export default function Profile(props) {
     (state: IThemeState) => state.themeState
   );
 
+  const [showModal, setShowModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+
   const { profile }: IProfileProps = props.route.params;
   const sourceImage = currentTheme == "light" ? profile_day : profile_night;
 
-  const splitedName = profile.name.split(" ");
-
-  const getName = (): string => splitedName[0];
-  const getSurname = (): string => splitedName[splitedName.length - 1];
-
-  const getRandomNumber = (min: number, max: number): number =>
-    Math.floor(
-      Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min)
-    );
-
-  const getRandomExperience = (): string => {
-    let experience = getRandomNumber(1, 20);
-
-    if (experience === 1) return "Experience: 1 yr";
-
-    return `Experience: ${experience >= 5 ? "5 yrs +" : `${experience} yrs`}`;
-  };
-
   const handlePressLinkedin = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou icone linkedin");
+    Linking.openURL(profile.linkedinUrl);
   };
 
   const handlePressGithub = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou icone Github");
+    Linking.openURL(profile.gitHubUrl);
   };
 
   const handlePressGoogle = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou icone Google");
+    Linking.openURL(`mailto:${profile.email}`);
   };
 
   const handlePressResume = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou botão RESUME");
+    setTitle("Resume");
+    setText("Starting download now...");
+    setShowModal(true);
   };
 
-  const handlePressFavorite = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou botão FAVORITE");
+  const handlePressManageFavoriteProfiles = () => {
+    //TODO: FAVORITAR DEV - REQUISITO BÁSICO!!!!
+
+    if (!profile.isFavorite) {
+      //dispatch(favoriteDev(profile));
+      return;
+    }
+
+    //dispatch(unFavoriteDev(profile.id));
+    return;
   };
 
   const handlePressInvite = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou botão INVITE");
+    setTitle("Invite");
+    setText("Invite sent with success");
+    setShowModal(true);
   };
 
   return (
     <BackGround>
       <StyledImage source={sourceImage} />
+      <ThemeSwitch />
       <AvatarImage source={{ uri: profile.photo }} />
       <StarContainer>
         <MaterialIcons
@@ -112,13 +108,13 @@ export default function Profile(props) {
           color={profile?.stars > 4 ? "#FFCA28" : "#fff"}
         />
       </StarContainer>
-      <DevNameText>{profile.name}</DevNameText>
+      <DevNameText>{profile.fullName}</DevNameText>
       <DevInfoContainer>
-        <DevInfo>{`Name: ${getName()}`}</DevInfo>
-        <DevInfo>{`Surname: ${getSurname()}`}</DevInfo>
-        <DevInfo>{`Age: ${getRandomNumber(18, 50)} yrs`}</DevInfo>
+        <DevInfo>{`Name: ${profile.name}`}</DevInfo>
+        <DevInfo>{`Surname: ${profile.surname}`}</DevInfo>
+        <DevInfo>{`Age: ${profile.age} yrs`}</DevInfo>
         <DevInfo>{`Stacks: ${profile.stack.label}`}</DevInfo>
-        <DevInfo>{getRandomExperience()}</DevInfo>
+        <DevInfo>{profile.experience}</DevInfo>
       </DevInfoContainer>
       <SocialIconsContainer>
         <SocialIcons
@@ -129,18 +125,26 @@ export default function Profile(props) {
         />
       </SocialIconsContainer>
       <ButtonsContainer>
-        <Button title="RESUME" onPress={handlePressResume} />
+        <AppButton title="RESUME" onPress={handlePressResume} />
         <ButtonsInLineContainer>
-          <ButtonsInLineContainer2>
-            <Button title="FAVORITE" onPress={handlePressFavorite} />
-          </ButtonsInLineContainer2>
-          <ButtonsInLineContainer2>
-            <Button title="INVITE" onPress={handlePressInvite} />
-          </ButtonsInLineContainer2>
+          <ButtonContainer>
+            <AppButton
+              title={`${profile.isFavorite ? "UNFAVORITE" : "FAVORITE"}`}
+              onPress={handlePressManageFavoriteProfiles}
+            />
+          </ButtonContainer>
+          <ButtonContainer>
+            <AppButton title="INVITE" onPress={handlePressInvite} />
+          </ButtonContainer>
         </ButtonsInLineContainer>
       </ButtonsContainer>
-
       <Footer />
+      <OkModal
+        showModal={showModal}
+        title={title}
+        text={text}
+        setShowModal={setShowModal}
+      />
     </BackGround>
   );
 }

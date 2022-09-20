@@ -26,10 +26,19 @@ export interface IDev {
 export interface IProfile {
   id: number;
   photo: string;
+  fullName: string;
   name: string;
+  surname: string;
+  email: string;
+  age: number;
+  experience: string;
   description: string;
+  linkedinUrl: string;
+  gitHubUrl: string;
   category: ICategory;
   stack: IStack;
   state: IState;
+  tech?: string;
   stars?: number;
+  isFavorite?: boolean;
 }

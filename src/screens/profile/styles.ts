@@ -54,6 +54,7 @@ export const SocialIconsContainer = styled.View`
 export const ButtonsContainer = styled.View`
   width: 80%;
   flex-direction: column;
+  margin-top: 4%;
 `;
 
 export const ButtonsInLineContainer = styled.View`
@@ -63,6 +64,7 @@ export const ButtonsInLineContainer = styled.View`
   justify-content: space-around;
 `;
 
-export const ButtonsInLineContainer2 = styled.View`
+export const ButtonContainer = styled.View`
   width: 45%;
+  margin-top: 3%;
 `;

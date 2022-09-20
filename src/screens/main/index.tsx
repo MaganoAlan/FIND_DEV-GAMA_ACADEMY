@@ -1,19 +1,21 @@
-import { useState } from "react";
-import { Pressable, ScrollView, StatusBar } from "react-native";
+import { useState, useEffect } from "react";
+import { ScrollView, StatusBar } from "react-native";
 import { Checkbox } from "react-native-paper";
-import { AppButton } from "../../components/AppButton";
+import { UserGear, ChartPie, Question } from "phosphor-react-native";
+import { useSelector } from "react-redux";
+import Api from "../../services/api";
+import { IThemeState } from "../../types/IThemeState";
+import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
+import { getRandomNumber } from "../../utils";
+import AppButton from "../../components/AppButton";
+import ThemeSwitch from "../../components/themeSwitch";
 import BackGround from "../../components/backGround";
+import Spinner from "../../components/spinner";
+import OkModal from "../../components/okModal";
 import {
   ShortcutCard,
   ShortcutFavoriteCard,
 } from "../../components/shortcutCard";
-
-import { IThemeState } from "../../types/IThemeState";
-import { useSelector, useDispatch } from "react-redux";
-import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
-
-//*Phosphor Icons - Figma Icons
-import { UserGear, ChartPie, Question, Sun, Moon } from "phosphor-react-native";
 
 import {
   BtnContainer,
@@ -23,7 +25,6 @@ import {
   Shortcuts,
   Stacks,
   SubTitle,
-  ThemeSwitch,
   TopImg,
   UserFav,
 } from "./styles";
@@ -40,46 +41,105 @@ export type IStatusBar = {
   height: number;
 };
 
-export function Main() {
-  const { currentTheme, selected } = useSelector(
+export function Main(props) {
+  const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
 
-  const dispatch = useDispatch();
-
-  //*Stacks
   const [RN, setRN] = useState(false);
   const [sql, setSql] = useState(false);
   const [java, setJava] = useState(false);
   const [JS, setJS] = useState(false);
   const [node, setNode] = useState(false);
 
-  function setDarkTheme() {
-    dispatch(toDarkTheme());
-  }
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState("");
+  const [categories, setCategories] = useState<ICategory[]>();
+  const [stacks, setStacks] = useState<IStack[]>();
+  const [states, setStates] = useState<IState[]>();
+  const [devs, setDevs] = useState<IDev[]>();
 
-  function setLightTheme() {
-    dispatch(toLightTheme());
-  }
+  const getCategories = () => Api.get("category");
+  const getStacks = () => Api.get("stacks");
+  const getStates = () => Api.get("state");
+  const getDevs = () => Api.get("devs");
 
-  return (
+  //TODO: Remover consulta da API endpoint Devs ao inicializar tela
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([getCategories(), getStacks(), getStates(), getDevs()])
+      .then((response) => {
+        setCategories(response[0].data);
+        setStacks(response[1].data);
+        setStates(response[2].data);
+        setDevs(response[3].data);
+      })
+      .catch((error) => {
+        setShowModal(true);
+        setError(`(${error.name}) Detalhes: ${error.message}`);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const handlePressSearchDev = () => {
+    let profiles: IProfile[] = [];
+
+    //TODO: Fazer consulta na API (Endpoint: devs) com filtros preenchidos na tela !
+    for (let i = 0; i < devs.length; i++) {
+      profiles.push(getProfile(devs[i]));
+    }
+    props.navigation.navigate("profileList", { profiles: profiles });
+  };
+
+  const getProfile = (dev: IDev): IProfile => {
+    const splitedName = dev.name.split(" ");
+
+    const name = splitedName[0];
+    const surname = splitedName[splitedName.length - 1];
+
+    const getRandomExperience = (): string => {
+      let experience = getRandomNumber(1, 20);
+      if (experience === 1) return "Experience: 1 yr";
+      return `Experience: ${experience >= 5 ? "5 yrs +" : `${experience} yrs`}`;
+    };
+
+    return {
+      id: dev.id,
+      fullName: dev.name,
+      name: name,
+      surname: surname,
+      email: `${name.toLocaleLowerCase()}.${surname.toLocaleLowerCase()}${getRandomNumber(
+        1,
+        200
+      )}@gmail.com`,
+      age: getRandomNumber(18, 50),
+      photo: dev.photo,
+      description: dev.description,
+      linkedinUrl: "https://www.linkedin.com/",
+      gitHubUrl: "https://github.com/",
+      experience: getRandomExperience(),
+      category: categories.find((category) => category.id === dev.category),
+      stack: stacks.find((stack) => stack.id === dev.stack),
+      state: states.find((state) => state.id === dev.state),
+      stars: getRandomNumber(1, 5),
+    } as IProfile;
+  };
+
+  return loading ? (
+    <BackGround>
+      <Spinner />
+    </BackGround>
+  ) : (
     <BackGround>
       <TopImg
         height={StatusBar.currentHeight}
         source={currentTheme === "light" ? main_day : main_night}
         alt="BackGround image"
       />
-      <ThemeSwitch>
-        {currentTheme === "light" ? (
-          <Pressable onPress={setDarkTheme}>
-            <Moon color="#28393A" weight="regular" size={24} />
-          </Pressable>
-        ) : (
-          <Pressable onPress={setLightTheme}>
-            <Sun color="#28393A" weight="regular" size={24} />
-          </Pressable>
-        )}
-      </ThemeSwitch>
+      <ThemeSwitch />
       <Stacks>
         <CheckLine>
           <Checkbox
@@ -155,7 +215,7 @@ export function Main() {
         </CheckLine>
       </Stacks>
       <BtnContainer>
-        <AppButton title="BUSCAR" onPress={() => {}} />
+        <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
       </BtnContainer>
       <ScrollView>
         <Shortcuts>
@@ -192,6 +252,13 @@ export function Main() {
         </Shortcuts>
         <FooterLogo source={logo_footer} />
       </ScrollView>
+      <OkModal
+        type="error"
+        title="Falha ao recuperar dados"
+        text={error}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </BackGround>
   );
 }
