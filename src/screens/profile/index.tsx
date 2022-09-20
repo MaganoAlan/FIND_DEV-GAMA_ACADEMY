@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { IThemeState } from "../../types/IThemeState";
 import { IProfile } from "../../types";
-import { cityDay, cityNight } from "../../constants/resources";
+import { profile_day, profile_night } from "../../constants/resources";
 import BackGround from "../../components/backGround";
 import Button from "../../components/button";
 import SocialIcons from "../../components/socialIcons";
@@ -31,7 +31,7 @@ export default function Profile(props) {
   );
 
   const { profile }: IProfileProps = props.route.params;
-  const sourceImage = currentTheme == "light" ? cityDay : cityNight;
+  const sourceImage = currentTheme == "light" ? profile_day : profile_night;
 
   const splitedName = profile.name.split(" ");
 
