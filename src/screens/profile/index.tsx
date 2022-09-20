@@ -1,20 +1,18 @@
 import { useState } from "react";
-import { Pressable, Linking } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
+import { Linking } from "react-native";
+import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Sun, Moon } from "phosphor-react-native";
 import { IThemeState } from "../../types/IThemeState";
 import { IProfile } from "../../types";
 import { profile_day, profile_night } from "../../constants/resources";
 import BackGround from "../../components/backGround";
+import ThemeSwitch from "../../components/themeSwitch";
 import AppButton from "../../components/AppButton";
 import SocialIcons from "../../components/socialIcons";
 import Footer from "../../components/footer";
 import OkModal from "../../components/okModal";
 import {
   StyledImage,
-  ThemeSwitch,
   AvatarImage,
   StarContainer,
   DevNameText,
@@ -39,25 +37,15 @@ export default function Profile(props) {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
 
-  const dispatch = useDispatch();
-
-  function setDarkTheme() {
-    dispatch(toDarkTheme());
-  }
-
-  function setLightTheme() {
-    dispatch(toLightTheme());
-  }
-
   const { profile }: IProfileProps = props.route.params;
   const sourceImage = currentTheme == "light" ? profile_day : profile_night;
 
   const handlePressLinkedin = () => {
-    Linking.openURL("https://www.linkedin.com/");
+    Linking.openURL(profile.linkedinUrl);
   };
 
   const handlePressGithub = () => {
-    Linking.openURL("https://github.com/");
+    Linking.openURL(profile.gitHubUrl);
   };
 
   const handlePressGoogle = () => {
@@ -91,17 +79,7 @@ export default function Profile(props) {
   return (
     <BackGround>
       <StyledImage source={sourceImage} />
-      <ThemeSwitch>
-        {currentTheme === "light" ? (
-          <Pressable onPress={setDarkTheme}>
-            <Moon color="#28393A" weight="regular" size={24} />
-          </Pressable>
-        ) : (
-          <Pressable onPress={setLightTheme}>
-            <Sun color="#28393A" weight="regular" size={24} />
-          </Pressable>
-        )}
-      </ThemeSwitch>
+      <ThemeSwitch />
       <AvatarImage source={{ uri: profile.photo }} />
       <StarContainer>
         <MaterialIcons

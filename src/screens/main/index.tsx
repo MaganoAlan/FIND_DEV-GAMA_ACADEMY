@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
-import { Pressable, ScrollView, StatusBar } from "react-native";
+import { ScrollView, StatusBar } from "react-native";
 import { Checkbox } from "react-native-paper";
-import { UserGear, ChartPie, Question, Sun, Moon } from "phosphor-react-native";
-import { useSelector, useDispatch } from "react-redux";
-import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
+import { UserGear, ChartPie, Question } from "phosphor-react-native";
+import { useSelector } from "react-redux";
 import Api from "../../services/api";
 import { IThemeState } from "../../types/IThemeState";
 import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
 import { getRandomNumber } from "../../utils";
 import AppButton from "../../components/AppButton";
+import ThemeSwitch from "../../components/themeSwitch";
 import BackGround from "../../components/backGround";
 import Spinner from "../../components/spinner";
 import OkModal from "../../components/okModal";
@@ -25,7 +25,6 @@ import {
   Shortcuts,
   Stacks,
   SubTitle,
-  ThemeSwitch,
   TopImg,
   UserFav,
 } from "./styles";
@@ -47,21 +46,11 @@ export function Main(props) {
     (state: IThemeState) => state.themeState
   );
 
-  const dispatch = useDispatch();
-
   const [RN, setRN] = useState(false);
   const [sql, setSql] = useState(false);
   const [java, setJava] = useState(false);
   const [JS, setJS] = useState(false);
   const [node, setNode] = useState(false);
-
-  function setDarkTheme() {
-    dispatch(toDarkTheme());
-  }
-
-  function setLightTheme() {
-    dispatch(toLightTheme());
-  }
 
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -129,6 +118,8 @@ export function Main(props) {
       age: getRandomNumber(18, 50),
       photo: dev.photo,
       description: dev.description,
+      linkedinUrl: "https://www.linkedin.com/",
+      gitHubUrl: "https://github.com/",
       experience: getRandomExperience(),
       category: categories.find((category) => category.id === dev.category),
       stack: stacks.find((stack) => stack.id === dev.stack),
@@ -148,17 +139,7 @@ export function Main(props) {
         source={currentTheme === "light" ? main_day : main_night}
         alt="BackGround image"
       />
-      <ThemeSwitch>
-        {currentTheme === "light" ? (
-          <Pressable onPress={setDarkTheme}>
-            <Moon color="#28393A" weight="regular" size={24} />
-          </Pressable>
-        ) : (
-          <Pressable onPress={setLightTheme}>
-            <Sun color="#28393A" weight="regular" size={24} />
-          </Pressable>
-        )}
-      </ThemeSwitch>
+      <ThemeSwitch />
       <Stacks>
         <CheckLine>
           <Checkbox

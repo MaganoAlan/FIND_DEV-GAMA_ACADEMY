@@ -33,6 +33,8 @@ export interface IProfile {
   age: number;
   experience: string;
   description: string;
+  linkedinUrl: string;
+  gitHubUrl: string;
   category: ICategory;
   stack: IStack;
   state: IState;
