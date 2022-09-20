@@ -73,6 +73,7 @@ export default function SignIn({ navigation }) {
       setSnackText(error.name);
       setSnackErr(true);
     }
+    
     return;
   }
 
