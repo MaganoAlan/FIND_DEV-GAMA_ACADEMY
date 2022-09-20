@@ -50,6 +50,8 @@ import {
   logo_night,
 } from "../../constants/resources";
 
+import { Auth } from 'aws-amplify';
+
 export default function SignIn({ navigation }) {
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
@@ -72,14 +74,17 @@ export default function SignIn({ navigation }) {
     dispatch(toLightTheme());
   }
 
-  function handleSignIn() {
-    if (!email || !password) {
-      setSnackText("Por favor preencha todos os dados!");
+  async function handleSignIn() {
+    try {
+      const user = await Auth.signIn(email, password);
+      setSnackText("Login realizado!");
+      setSnackSuc(true);
+    } catch (error) {
+      setSnackText(error.name);
       setSnackErr(true);
-      return;
     }
-    setSnackText("Login realizado!");
-    setSnackSuc(true);
+    
+    return;
   }
 
   return (

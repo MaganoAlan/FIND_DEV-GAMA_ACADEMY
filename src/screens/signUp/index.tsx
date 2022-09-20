@@ -26,6 +26,7 @@ import {
   logo_day,
   logo_night,
 } from "../../constants/resources";
+import { Auth } from 'aws-amplify';
 
 export default function SignUp({ navigation }) {
   const { currentTheme } = useSelector(
@@ -41,7 +42,7 @@ export default function SignUp({ navigation }) {
   const [snackSuc, setSnackSuc] = useState(false);
   const [snackText, setSnackText] = useState("");
 
-  function handleSignUp() {
+  async function handleSignUp() {
     if (!email || !password || !confirm) {
       setSnackText("Por favor preencha todos os dados!");
       setSnackErr(true);
@@ -52,8 +53,22 @@ export default function SignUp({ navigation }) {
       setSnackErr(true);
       return;
     }
-    setSnackText("Cadastro realizado com sucesso!");
-    setSnackSuc(true);
+    try {
+      await Auth.signUp({
+        username: email,
+        password: password,
+        autoSignIn: {
+          enabled: true,
+        }
+      });
+      setSnackText("Cadastro realizado com sucesso!");
+      setSnackSuc(true);
+      navigation.navigate("verifyAccount", { email: email })
+    } catch (error) {
+      setSnackText(error.name);
+      setSnackErr(true);
+    }
+    return;
   }
 
   return (
@@ -129,7 +144,7 @@ export default function SignUp({ navigation }) {
             </Pressable>
             <BtnContainer>
               <Button primary title="Cadastrar" onPress={handleSignUp} />
-              {/*<Button title="Cancelar" onPress={handleSignUp} />*/}
+              <Button title="Cancelar" onPress={() => { navigation.navigate("signIn") }}  />
             </BtnContainer>
           </View>
         </BlurCard>
