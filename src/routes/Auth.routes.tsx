@@ -7,6 +7,7 @@ import SignIn from "../screens/signIn";
 import SignUp from "../screens/signUp";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../types/IThemeState";
+import verifyAccount from "../screens/verifyAccount";
 
 export default function AuthRoutes() {
   const Drawer = createDrawerNavigator();
@@ -22,6 +23,7 @@ export default function AuthRoutes() {
         >
           <Drawer.Screen name={"signIn"} component={SignIn} />
           <Drawer.Screen name={"signUp"} component={SignUp} />
+          <Drawer.Screen name={"verifyAccount"} component={verifyAccount} />
         </Drawer.Navigator>
       </ThemeProvider>
     </NavigationContainer>
