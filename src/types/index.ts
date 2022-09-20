@@ -31,5 +31,7 @@ export interface IProfile {
   category: ICategory;
   stack: IStack;
   state: IState;
+  tech?: string;
   stars?: number;
+  isFavorite?: boolean;
 }

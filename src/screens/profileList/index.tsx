@@ -1,13 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { Animated } from "react-native";
 import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
-import Api from "../../services/api";
-import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
+import { IProfile } from "../../types";
 import { IThemeState } from "../../types/IThemeState";
 import BackGround from "../../components/backGround";
-import Spinner from "../../components/spinner";
-import OkModal from "../../components/okModal";
 import Footer from "../../components/footer";
 import {
   CardPressable,
@@ -18,66 +15,22 @@ import {
   AvatarContainer,
   AvatarImage,
 } from "./styles";
+interface IProfileProps {
+  profiles: IProfile[];
+}
 
-export default function ProfileList({ navigation }) {
+export default function ProfileList(props) {
   const scrollY = useRef(new Animated.Value(0)).current;
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
 
-  //Todo: Mover lógica de buscas de dados (API) para tela anterior e enviar dados profiles: IProfile[] por props
-  const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState("");
-  const [categories, setCategories] = useState<ICategory[]>();
-  const [stacks, setStacks] = useState<IStack[]>();
-  const [states, setStates] = useState<IState[]>();
-  const [devs, setDevs] = useState<IDev[]>();
+  const { profiles }: IProfileProps = props.route.params;
 
-  const getCategories = () => Api.get("category");
-  const getStacks = () => Api.get("stacks");
-  const getStates = () => Api.get("state");
-  const getDevs = () => Api.get("devs");
-
-  useEffect(() => {
-    setLoading(true);
-    Promise.all([getCategories(), getStacks(), getStates(), getDevs()])
-      .then((response) => {
-        setCategories(response[0].data);
-        setStacks(response[1].data);
-        setStates(response[2].data);
-        setDevs(response[3].data);
-      })
-      .catch((error) => {
-        setShowModal(true);
-        setError(`(${error.name}) Detalhes: ${error.message}`);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  const getProfile = (dev: IDev): IProfile => {
-    return {
-      id: dev.id,
-      name: dev.name,
-      photo: dev.photo,
-      description: dev.description,
-      category: categories.find((category) => category.id === dev.category),
-      stack: stacks.find((stack) => stack.id === dev.stack),
-      state: states.find((state) => state.id === dev.state),
-      stars: 4, //TODO: Regra para preenchimento das estrelas
-    } as IProfile;
-  };
-
-  return loading ? (
-    <BackGround>
-      <Spinner />
-    </BackGround>
-  ) : (
+  return (
     <BackGround>
       <Animated.FlatList
-        data={devs}
+        data={profiles}
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
           { useNativeDriver: true }
@@ -101,8 +54,8 @@ export default function ProfileList({ navigation }) {
           return (
             <CardPressable
               onPress={() => {
-                navigation.navigate("profile", {
-                  profile: getProfile(item),
+                props.navigation.navigate("profile", {
+                  profile: item,
                 });
               }}
             >
@@ -125,16 +78,34 @@ export default function ProfileList({ navigation }) {
                 </AvatarContainer>
                 <DevInfoContainer>
                   <DevInfoText>{item.name}</DevInfoText>
-                  <DevInfoText>
-                    {stacks.find((stack) => stack.id === item.stack).label}
-                  </DevInfoText>
+                  <DevInfoText>{item.stack.label}</DevInfoText>
                   <StarContainer>
                     {/*TODO: Validar como será o preenchimento das estrelas (Regra)*/}
-                    <MaterialIcons name="star" size={24} color={"#FFCA28"} />
-                    <MaterialIcons name="star" size={24} color={"#FFCA28"} />
-                    <MaterialIcons name="star" size={24} color={"#FFCA28"} />
-                    <MaterialIcons name="star" size={24} color={"#FFCA28"} />
-                    <MaterialIcons name="star" size={24} color={"#FFF"} />
+                    <MaterialIcons
+                      name="star"
+                      size={24}
+                      color={item?.stars > 0 ? "#FFCA28" : "#fff"}
+                    />
+                    <MaterialIcons
+                      name="star"
+                      size={24}
+                      color={item?.stars > 1 ? "#FFCA28" : "#fff"}
+                    />
+                    <MaterialIcons
+                      name="star"
+                      size={24}
+                      color={item?.stars > 2 ? "#FFCA28" : "#fff"}
+                    />
+                    <MaterialIcons
+                      name="star"
+                      size={24}
+                      color={item?.stars > 3 ? "#FFCA28" : "#fff"}
+                    />
+                    <MaterialIcons
+                      name="star"
+                      size={24}
+                      color={item?.stars > 4 ? "#FFCA28" : "#fff"}
+                    />
                   </StarContainer>
                 </DevInfoContainer>
                 <TechContainer>
@@ -146,15 +117,7 @@ export default function ProfileList({ navigation }) {
           );
         }}
       />
-      {/*TODO: Ajustar fontes do componente footer*/}
       <Footer />
-      <OkModal
-        type="error"
-        title="Falha ao recuperar dados"
-        text={error}
-        showModal={showModal}
-        setShowModal={setShowModal}
-      />
     </BackGround>
   );
 }

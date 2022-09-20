@@ -1,13 +1,16 @@
-import { View, Text, Image } from "react-native";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { Linking } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
 import { IThemeState } from "../../types/IThemeState";
 import { IProfile } from "../../types";
+import { getRandomNumber } from "../../utils";
 import { cityDay, cityNight } from "../../constants/resources";
 import BackGround from "../../components/backGround";
 import Button from "../../components/button";
 import SocialIcons from "../../components/socialIcons";
 import Footer from "../../components/footer";
+import OkModal from "../../components/okModal";
 import {
   StyledImage,
   AvatarImage,
@@ -18,7 +21,7 @@ import {
   SocialIconsContainer,
   ButtonsContainer,
   ButtonsInLineContainer,
-  ButtonsInLineContainer2,
+  ButtonContainer,
 } from "./styles";
 
 interface IProfileProps {
@@ -30,6 +33,12 @@ export default function Profile(props) {
     (state: IThemeState) => state.themeState
   );
 
+  const [showModal, setShowModal] = useState(false);
+  const [title, setTitle] = useState("");
+  const [text, setText] = useState("");
+
+  const dispatch = useDispatch();
+
   const { profile }: IProfileProps = props.route.params;
   const sourceImage = currentTheme == "light" ? cityDay : cityNight;
 
@@ -37,11 +46,6 @@ export default function Profile(props) {
 
   const getName = (): string => splitedName[0];
   const getSurname = (): string => splitedName[splitedName.length - 1];
-
-  const getRandomNumber = (min: number, max: number): number =>
-    Math.floor(
-      Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min)
-    );
 
   const getRandomExperience = (): string => {
     let experience = getRandomNumber(1, 20);
@@ -52,33 +56,41 @@ export default function Profile(props) {
   };
 
   const handlePressLinkedin = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou icone linkedin");
+    Linking.openURL("https://www.linkedin.com/");
   };
 
   const handlePressGithub = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou icone Github");
+    Linking.openURL("https://github.com/");
   };
 
   const handlePressGoogle = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou icone Google");
+    Linking.openURL(
+      `mailto:${getName().toLocaleLowerCase()}.${getSurname().toLocaleLowerCase()}@gmail.com`
+    );
   };
 
   const handlePressResume = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou botão RESUME");
+    setTitle("Resume");
+    setText("Starting download now...");
+    setShowModal(true);
   };
 
-  const handlePressFavorite = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou botão FAVORITE");
+  const handlePressManageFavoriteProfiles = () => {
+    //TODO: FAVORITAR DEV - REQUISITO BÁSICO!!!!
+
+    if (!profile.isFavorite) {
+      //dispatch(favoriteDev(profile));
+      return;
+    }
+
+    //dispatch(unFavoriteDev(profile.id));
+    return;
   };
 
   const handlePressInvite = () => {
-    //TODO: Fazer alguma coisa
-    console.log("Clicou botão INVITE");
+    setTitle("Invite");
+    setText("Invite sent with success");
+    setShowModal(true);
   };
 
   return (
@@ -131,16 +143,24 @@ export default function Profile(props) {
       <ButtonsContainer>
         <Button title="RESUME" onPress={handlePressResume} />
         <ButtonsInLineContainer>
-          <ButtonsInLineContainer2>
-            <Button title="FAVORITE" onPress={handlePressFavorite} />
-          </ButtonsInLineContainer2>
-          <ButtonsInLineContainer2>
+          <ButtonContainer>
+            <Button
+              title={`${profile.isFavorite ? "UNFAVORITE" : "FAVORITE"}`}
+              onPress={handlePressManageFavoriteProfiles}
+            />
+          </ButtonContainer>
+          <ButtonContainer>
             <Button title="INVITE" onPress={handlePressInvite} />
-          </ButtonsInLineContainer2>
+          </ButtonContainer>
         </ButtonsInLineContainer>
       </ButtonsContainer>
-
       <Footer />
+      <OkModal
+        showModal={showModal}
+        title={title}
+        text={text}
+        setShowModal={setShowModal}
+      />
     </BackGround>
   );
 }

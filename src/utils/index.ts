@@ -1,10 +1,4 @@
-import { Dimensions } from "react-native";
-const { height, width } = Dimensions.get("window");
-
-export function getProportionalHeightByPixel(heightPixel: number) {
-  return (height * (heightPixel / 9.26)) / 100;
-}
-
-export function getProportionalWidthByPixel(widthPixel: number) {
-    return (width * (widthPixel / 4.28)) / 100;
-  }
+export const getRandomNumber = (min: number, max: number): number =>
+    Math.floor(
+      Math.random() * (Math.floor(max) - Math.ceil(min)) + Math.ceil(min)
+    );

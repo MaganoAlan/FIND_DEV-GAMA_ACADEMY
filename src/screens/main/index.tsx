@@ -1,14 +1,23 @@
-import { useState } from "react";
-import { Pressable, ScrollView, StatusBar, Text } from "react-native";
+import { useState, useEffect } from "react";
+import { Pressable, ScrollView, StatusBar } from "react-native";
 import { Checkbox } from "react-native-paper";
+import { useSelector, useDispatch } from "react-redux";
+import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
+import Api from "../../services/api";
 import { AppButton } from "../../components/AppButton";
 import BackGround from "../../components/backGround";
-import Button from "../../components/button";
+import Spinner from "../../components/spinner";
+import OkModal from "../../components/okModal";
+import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
+import { IThemeState } from "../../types/IThemeState";
+import { getRandomNumber } from "../../utils";
 import { ShortcutCard } from "../../components/shortcutCard";
-import { FontAwesome5 } from "@expo/vector-icons";
-import { Foundation } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
+import {
+  Feather,
+  MaterialCommunityIcons,
+  Foundation,
+  FontAwesome5,
+} from "@expo/vector-icons";
 import {
   BtnContainer,
   CheckLine,
@@ -21,30 +30,25 @@ import {
   TopImg,
   UserFav,
 } from "./styles";
-import { IThemeState } from "../../types/IThemeState";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
 
 const light_image = require("../../assets/images/light_main_bg.png");
 const dark_image = require("../../assets/images/dark_main_bg.png");
-
 const user_placeholder = require("../../assets/images/user_placeholder.png");
 const user_example = require("../../assets/images/user_example.png");
-
 const footer_logo = require("../../assets/images/footer_logo.png");
 
 export type IStatusBar = {
   height: number;
 };
 
-export function Main() {
+export function Main(props) {
   const { currentTheme, selected } = useSelector(
     (state: IThemeState) => state.themeState
   );
 
   const dispatch = useDispatch();
 
+  //TODO: Alterar esses estados pelas Stacks(LINHA 70) (Dados da API)
   const [RN, setRN] = useState(false);
   const [sql, setSql] = useState(false);
   const [java, setJava] = useState(false);
@@ -59,7 +63,66 @@ export function Main() {
     dispatch(toLightTheme());
   }
 
-  return (
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState("");
+  const [categories, setCategories] = useState<ICategory[]>();
+  const [stacks, setStacks] = useState<IStack[]>();
+  const [states, setStates] = useState<IState[]>();
+  const [devs, setDevs] = useState<IDev[]>();
+
+  const getCategories = () => Api.get("category");
+  const getStacks = () => Api.get("stacks");
+  const getStates = () => Api.get("state");
+  const getDevs = () => Api.get("devs");
+
+  //TODO: Remover consulta da API endpoint Devs ao inicializar tela
+  useEffect(() => {
+    setLoading(true);
+    Promise.all([getCategories(), getStacks(), getStates(), getDevs()])
+      .then((response) => {
+        setCategories(response[0].data);
+        setStacks(response[1].data);
+        setStates(response[2].data);
+        setDevs(response[3].data);
+      })
+      .catch((error) => {
+        setShowModal(true);
+        setError(`(${error.name}) Detalhes: ${error.message}`);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const handlePressSearchDev = () => {
+    let profiles: IProfile[] = [];
+
+    //TODO: Fazer consulta na API (Endpoint: devs) com filtros preenchidos na tela !
+    for (let i = 0; i < devs.length; i++) {
+      profiles.push(getProfile(devs[i]));
+    }
+    props.navigation.navigate("profileList", { profiles: profiles });
+  };
+
+  const getProfile = (dev: IDev): IProfile => {
+    return {
+      id: dev.id,
+      name: dev.name,
+      photo: dev.photo,
+      description: dev.description,
+      category: categories.find((category) => category.id === dev.category),
+      stack: stacks.find((stack) => stack.id === dev.stack),
+      state: states.find((state) => state.id === dev.state),
+      stars: getRandomNumber(1, 5),
+    } as IProfile;
+  };
+
+  return loading ? (
+    <BackGround>
+      <Spinner />
+    </BackGround>
+  ) : (
     <BackGround>
       <TopImg
         height={StatusBar.currentHeight}
@@ -152,7 +215,7 @@ export function Main() {
         </CheckLine>
       </Stacks>
       <BtnContainer>
-        <AppButton title="BUSCAR" onPress={() => {}} />
+        <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
       </BtnContainer>
       <ScrollView>
         <Shortcuts>
@@ -197,6 +260,13 @@ export function Main() {
         </Shortcuts>
         <FooterLogo source={footer_logo} />
       </ScrollView>
+      <OkModal
+        type="error"
+        title="Falha ao recuperar dados"
+        text={error}
+        showModal={showModal}
+        setShowModal={setShowModal}
+      />
     </BackGround>
   );
 }

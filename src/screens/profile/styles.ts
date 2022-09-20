@@ -63,6 +63,6 @@ export const ButtonsInLineContainer = styled.View`
   justify-content: space-around;
 `;
 
-export const ButtonsInLineContainer2 = styled.View`
+export const ButtonContainer = styled.View`
   width: 45%;
 `;
