@@ -4,20 +4,21 @@ import { Checkbox } from "react-native-paper";
 import { useSelector, useDispatch } from "react-redux";
 import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
 import Api from "../../services/api";
+import { IThemeState } from "../../types/IThemeState";
+import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
+import { getRandomNumber } from "../../utils";
 import { AppButton } from "../../components/AppButton";
 import BackGround from "../../components/backGround";
 import Spinner from "../../components/spinner";
 import OkModal from "../../components/okModal";
-import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
-import { IThemeState } from "../../types/IThemeState";
-import { getRandomNumber } from "../../utils";
-import { ShortcutCard } from "../../components/shortcutCard";
 import {
-  Feather,
-  MaterialCommunityIcons,
-  Foundation,
-  FontAwesome5,
-} from "@expo/vector-icons";
+  ShortcutCard,
+  ShortcutFavoriteCard,
+} from "../../components/shortcutCard";
+
+//*Phosphor Icons - Figma Icons
+import { UserGear, ChartPie, Question, Sun, Moon } from "phosphor-react-native";
+
 import {
   BtnContainer,
   CheckLine,
@@ -31,11 +32,13 @@ import {
   UserFav,
 } from "./styles";
 
-const light_image = require("../../assets/images/light_main_bg.png");
-const dark_image = require("../../assets/images/dark_main_bg.png");
-const user_placeholder = require("../../assets/images/user_placeholder.png");
-const user_example = require("../../assets/images/user_example.png");
-const footer_logo = require("../../assets/images/footer_logo.png");
+import {
+  main_day,
+  main_night,
+  user_example,
+  user_placeholder,
+  logo_footer,
+} from "../../constants/resources";
 
 export type IStatusBar = {
   height: number;
@@ -49,6 +52,7 @@ export function Main(props) {
   const dispatch = useDispatch();
 
   //TODO: Alterar esses estados pelas Stacks(LINHA 70) (Dados da API)
+  //*Stacks
   const [RN, setRN] = useState(false);
   const [sql, setSql] = useState(false);
   const [java, setJava] = useState(false);
@@ -126,17 +130,17 @@ export function Main(props) {
     <BackGround>
       <TopImg
         height={StatusBar.currentHeight}
-        source={currentTheme === "light" ? light_image : dark_image}
+        source={currentTheme === "light" ? main_day : main_night}
         alt="BackGround image"
       />
       <ThemeSwitch>
         {currentTheme === "light" ? (
           <Pressable onPress={setDarkTheme}>
-            <FontAwesome5 name="moon" size={24} color="black" />
+            <Moon color="#28393A" weight="regular" size={24} />
           </Pressable>
         ) : (
           <Pressable onPress={setLightTheme}>
-            <Feather name="sun" size={24} color="black" />
+            <Sun color="#28393A" weight="regular" size={24} />
           </Pressable>
         )}
       </ThemeSwitch>
@@ -222,43 +226,35 @@ export function Main(props) {
           <ShortcutCard
             title="Perfil"
             onPress={() => {}}
-            icon={
-              <FontAwesome5 name="user-astronaut" size={48} color="black" />
-            }
+            icon={<UserGear color="#000" weight="light" size={60} />}
           />
           <ShortcutCard
             title="Avaliações"
             onPress={() => {}}
-            icon={<Foundation name="graph-pie" size={48} color="black" />}
+            icon={<ChartPie color="#000" weight="light" size={60} />}
           />
           <ShortcutCard
             title="FAQ"
             onPress={() => {}}
-            icon={
-              <MaterialCommunityIcons
-                name="comment-question"
-                size={48}
-                color="black"
-              />
-            }
+            icon={<Question color="#000" weight="light" size={60} />}
           />
         </Shortcuts>
         <SubTitle>Seus Favoritos</SubTitle>
         <Shortcuts>
-          <ShortcutCard
+          <ShortcutFavoriteCard
             onPress={() => {}}
-            icon={<UserFav source={user_example} />}
+            iconDev={<UserFav source={user_example} />}
           />
-          <ShortcutCard
+          <ShortcutFavoriteCard
             onPress={() => {}}
-            icon={<UserFav source={user_placeholder} />}
+            iconDev={<UserFav source={user_placeholder} />}
           />
-          <ShortcutCard
+          <ShortcutFavoriteCard
             onPress={() => {}}
-            icon={<UserFav source={user_placeholder} />}
+            iconDev={<UserFav source={user_placeholder} />}
           />
         </Shortcuts>
-        <FooterLogo source={footer_logo} />
+        <FooterLogo source={logo_footer} />
       </ScrollView>
       <OkModal
         type="error"

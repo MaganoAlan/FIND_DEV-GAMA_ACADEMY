@@ -1,3 +1,4 @@
+import { FigmaMarginTop } from "./../../constants/resolution";
 import styled from "styled-components/native";
 
 export const Container = styled.View`
@@ -36,10 +37,12 @@ export const BlurCard = styled.View`
   margin-left: auto;
   margin-right: auto;
   margin-top: 15%;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
 `;
 
 export const Logo = styled.Image`
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
+  margin-top: ${FigmaMarginTop};
 `;

@@ -1,8 +1,6 @@
 import styled from "styled-components/native";
 import { IStatusBar } from "./index";
 
-export const Container = styled.View``;
-
 export const TopImg = styled.Image<IStatusBar>`
   width: 100%;
   height: 30%;
@@ -11,8 +9,9 @@ export const TopImg = styled.Image<IStatusBar>`
 `;
 
 export const Stacks = styled.ScrollView`
+  margin-top: 20px;
   max-height: 22%;
-  width: 60%;
+  width: 70%;
 `;
 
 export const CheckLine = styled.View`
@@ -35,16 +34,17 @@ export const Shortcuts = styled.View`
   margin-top: 2%;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `;
 
 export const UserFav = styled.Image`
-  width: 90%;
-  height: 90%;
+  width: 80%;
+  height: 80%;
+  border-radius: 20px;
 `;
 
 export const ThemeSwitch = styled.View`
-  background-color: #ffca28;
+  background-color: rgba(255, 202, 40, 0.8);
   border-radius: 100px;
   padding: 5px;
   position: absolute;
@@ -62,7 +62,6 @@ export const SubTitle = styled.Text`
   color: #fdfdfd;
   font-size: 16px;
   font-weight: 600;
-  margin-top: 2%;
-  margin-bottom: -5%;
+  margin-bottom: -10%;
   padding-left: 3%;
 `;

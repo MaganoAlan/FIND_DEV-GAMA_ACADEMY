@@ -1,7 +1,7 @@
 import React from "react";
 // import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
 import { Container, InputContainer, InputTitle, NativeInput } from "./styles";
-import { Feather } from "@expo/vector-icons";
+import {Eye,EyeSlash} from 'phosphor-react-native'
 import { Pressable } from "react-native";
 
 type InputProps = {
@@ -37,11 +37,11 @@ export function DefaultInput({
         {password ? (
           secure ? (
             <Pressable onPress={showPassword}>
-              <Feather name="eye" size={24} color="black" />
+              <Eye color="#28393A" weight="regular" size={24} />
             </Pressable>
           ) : (
             <Pressable onPress={showPassword}>
-              <Feather name="eye-off" size={24} color="black" />
+             <EyeSlash color="#28393A" weight="regular" size={24} />
             </Pressable>
           )
         ) : undefined}
