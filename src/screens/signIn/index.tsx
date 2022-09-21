@@ -52,6 +52,7 @@ import {
 
 import { Auth } from "aws-amplify";
 import Spinner from "../../components/spinner";
+import { beLogged } from "../../store/modules/Auth.store";
 
 export default function SignIn({ navigation }) {
   const { currentTheme } = useSelector(
@@ -69,7 +70,7 @@ export default function SignIn({ navigation }) {
   const [snackText, setSnackText] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [logged, setLogged] = useState(false);
+  /*  const [logged, setLogged] = useState(false);
 
   useEffect(() => {
     Auth.currentAuthenticatedUser().then((response) => {
@@ -84,6 +85,8 @@ export default function SignIn({ navigation }) {
     navigation.navigate("verifyAccount");
   }, [logged]);
 
+  console.log("logged sigin", logged); */
+
   function setDarkTheme() {
     dispatch(toDarkTheme());
   }
@@ -97,6 +100,7 @@ export default function SignIn({ navigation }) {
       await Auth.signIn(email, password);
       setSnackText("Login realizado!");
       setSnackSuc(true);
+      dispatch(beLogged(email)); //lógica do redux
       setLoading(false);
     } catch (error) {
       setSnackText(error.name);
@@ -123,23 +127,23 @@ export default function SignIn({ navigation }) {
 
   return (
     <Container>
+      <StatusBar />
+      <SnackSuccess
+        text={snackText}
+        visible={snackSuc}
+        setVisible={setSnackSuc}
+      />
+      <SnackError
+        text={snackText}
+        visible={snackErr}
+        setVisible={setSnackErr}
+      />
       <ScrollView>
-        <StatusBar />
-        <SnackSuccess
-          text={snackText}
-          visible={snackSuc}
-          setVisible={setSnackSuc}
-        />
-        <SnackError
-          text={snackText}
-          visible={snackErr}
-          setVisible={setSnackErr}
-        />
         <ImageBackground
           source={currentTheme === "light" ? city_day : city_night}
           resizeMode="cover"
           style={{
-            position: "absolute",
+            position: "relative",
             left: 0,
             top: 0,
             width: Dimensions.get("screen").width,
@@ -151,7 +155,6 @@ export default function SignIn({ navigation }) {
             alt="Logo"
           />
 
-          {/* <ScreenTitle>Informe os dados para realizar seu cadastro</ScreenTitle> */}
           <BlurCard>
             <SwitchTheme>
               {currentTheme === "light" ? (

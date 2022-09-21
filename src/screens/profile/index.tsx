@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Linking } from "react-native";
 import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -23,6 +23,13 @@ import {
   ButtonsInLineContainer,
   ButtonContainer,
 } from "./styles";
+import { useDispatch } from "react-redux";
+import {
+  addFavorite,
+  existsInFavorites,
+  removeFavorite,
+} from "../../store/modules/Favorites.store";
+import { IFavoritesState } from "../../types/IFavoritesState";
 
 interface IProfileProps {
   profile: IProfile;
@@ -32,6 +39,11 @@ export default function Profile(props) {
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
+  const { favorites, isFavorite } = useSelector(
+    (state: IFavoritesState) => state.favoritesState
+  );
+
+  console.log("isFavorite", isFavorite);
 
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
@@ -39,6 +51,7 @@ export default function Profile(props) {
 
   const { profile }: IProfileProps = props.route.params;
   const sourceImage = currentTheme == "light" ? profile_day : profile_night;
+  const dispatch = useDispatch();
 
   const handlePressLinkedin = () => {
     Linking.openURL(profile.linkedinUrl);
@@ -61,12 +74,16 @@ export default function Profile(props) {
   const handlePressManageFavoriteProfiles = () => {
     //TODO: FAVORITAR DEV - REQUISITO BÁSICO!!!!
 
-    if (!profile.isFavorite) {
-      //dispatch(favoriteDev(profile));
+    if (isFavorite) {
+      dispatch(removeFavorite(profile));
+      console.log(`Dev ${profile.name} removido de favoritos!`);
+      props.navigation.goBack();
+
       return;
     }
 
-    //dispatch(unFavoriteDev(profile.id));
+    dispatch(addFavorite(profile));
+    props.navigation.goBack();
     return;
   };
 
@@ -75,6 +92,12 @@ export default function Profile(props) {
     setText("Invite sent with success");
     setShowModal(true);
   };
+
+  //? aplicar um useEffect para ver se o dev é favorito ou não
+
+  useEffect(() => {
+    dispatch(existsInFavorites(profile));
+  }, [profile]);
 
   return (
     <BackGround>
@@ -129,7 +152,7 @@ export default function Profile(props) {
         <ButtonsInLineContainer>
           <ButtonContainer>
             <AppButton
-              title={`${profile.isFavorite ? "UNFAVORITE" : "FAVORITE"}`}
+              title={`${isFavorite ? "UNFAVORITE" : "FAVORITE"}`}
               onPress={handlePressManageFavoriteProfiles}
             />
           </ButtonContainer>

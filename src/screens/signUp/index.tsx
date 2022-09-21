@@ -94,24 +94,23 @@ export default function SignUp({ navigation }) {
 
   return (
     <Container>
+      <StatusBar />
+      <SnackSuccess
+        text={snackText}
+        visible={snackSuc}
+        setVisible={setSnackSuc}
+      />
+      <SnackError
+        text={snackText}
+        visible={snackErr}
+        setVisible={setSnackErr}
+      />
       <ScrollView>
-        <StatusBar />
-        <SnackSuccess
-          text={snackText}
-          visible={snackSuc}
-          setVisible={setSnackSuc}
-        />
-        <SnackError
-          text={snackText}
-          visible={snackErr}
-          setVisible={setSnackErr}
-        />
-
         <ImageBackground
           source={currentTheme === "light" ? city_day : city_night}
           resizeMode="cover"
           style={{
-            position: "absolute",
+            position: "relative",
             left: 0,
             top: 0,
             width: Dimensions.get("screen").width,

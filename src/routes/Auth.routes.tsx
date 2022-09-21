@@ -14,7 +14,10 @@ export default function AuthRoutes() {
   return (
     <NavigationContainer>
       <ThemeProvider theme={selected}>
-        <Navigator screenOptions={{ headerShown: false }}>
+        <Navigator
+          initialRouteName={"signIn"}
+          screenOptions={{ headerShown: false }}
+        >
           <Screen name={"signIn"} component={SignIn} />
           <Screen name={"signUp"} component={SignUp} />
           <Screen name={"verifyAccount"} component={VerifyAccount} />

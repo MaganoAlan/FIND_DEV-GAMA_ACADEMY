@@ -43,6 +43,9 @@ import {
 } from "../../constants/resources";
 import { Auth } from "aws-amplify";
 import Button from "../../components/button";
+import { beUnlogged } from "../../store/modules/Auth.store";
+import { useDispatch } from "react-redux";
+import { IFavoritesState } from "../../types/IFavoritesState";
 
 export type IStatusBar = {
   height: number;
@@ -52,6 +55,13 @@ export function Main(props) {
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
+  const { favorites } = useSelector(
+    (state: IFavoritesState) => state.favoritesState
+  );
+
+  console.log(favorites);
+
+  const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -134,8 +144,8 @@ export function Main(props) {
   //TODO arrumar melhor
   async function signOut() {
     try {
-      console.log("entrou2");
       await Auth.signOut().then(() => {
+        dispatch(beUnlogged()); // lógica do redux
         console.log("saiu");
       });
     } catch (error) {
@@ -222,18 +232,30 @@ export function Main(props) {
         </Shortcuts>
         <SubTitle>Seus Favoritos</SubTitle>
         <Shortcuts>
-          <ShortcutFavoriteCard
-            onPress={() => {}}
-            iconDev={<UserFav source={user_example} />}
-          />
-          <ShortcutFavoriteCard
-            onPress={() => {}}
-            iconDev={<UserFav source={user_placeholder} />}
-          />
-          <ShortcutFavoriteCard
-            onPress={() => {}}
-            iconDev={<UserFav source={user_placeholder} />}
-          />
+          {favorites.length > 0 ? (
+            favorites.map((fav: any, index) => (
+              <ShortcutFavoriteCard
+                key={index}
+                onPress={() => {}}
+                iconDev={<UserFav source={{ uri: fav.payload.photo }} />}
+              />
+            ))
+          ) : (
+            <>
+              <ShortcutFavoriteCard
+                onPress={() => {}}
+                iconDev={<UserFav source={user_placeholder} />}
+              />
+              <ShortcutFavoriteCard
+                onPress={() => {}}
+                iconDev={<UserFav source={user_placeholder} />}
+              />
+              <ShortcutFavoriteCard
+                onPress={() => {}}
+                iconDev={<UserFav source={user_placeholder} />}
+              />
+            </>
+          )}
         </Shortcuts>
         <FooterLogo source={logo_footer} />
       </ScrollView>
