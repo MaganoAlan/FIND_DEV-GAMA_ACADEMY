@@ -2,6 +2,7 @@ import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 import { useDispatch } from "react-redux";
 import themeStateReducer from "./modules/Theme.store";
+import authStateReducer from "./modules/Auth.store";
 //import favoriteStateData from "./modules/Favorite.store";
 
 // a linha 17 middleware: está desabilitando um warn chato que dizia que o state
@@ -10,6 +11,7 @@ import themeStateReducer from "./modules/Theme.store";
 const rootReducers = combineReducers({
   //favoriteStateData: favoriteStateData,
   themeState: themeStateReducer,
+  authState: authStateReducer,
 });
 
 const store = configureStore({

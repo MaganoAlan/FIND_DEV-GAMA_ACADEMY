@@ -38,6 +38,8 @@ import {
 } from "../../constants/resources";
 import { Auth } from "aws-amplify";
 import Button from "../../components/button";
+import { beUnlogged } from "../../store/modules/Auth.store";
+import { useDispatch } from "react-redux";
 
 export type IStatusBar = {
   height: number;
@@ -47,6 +49,8 @@ export function Main(props) {
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
+
+  const dispatch = useDispatch();
 
   const [RN, setRN] = useState(false);
   const [sql, setSql] = useState(false);
@@ -132,8 +136,8 @@ export function Main(props) {
   //TODO arrumar melhor
   async function signOut() {
     try {
-      console.log("entrou2");
       await Auth.signOut().then(() => {
+        dispatch(beUnlogged()); // lógica do redux
         console.log("saiu");
       });
     } catch (error) {
