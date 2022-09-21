@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
 import { ScrollView, StatusBar } from "react-native";
-import { Checkbox } from "react-native-paper";
 import { UserGear, ChartPie, Question } from "phosphor-react-native";
 import { useSelector } from "react-redux";
 import Api from "../../services/api";
 import { IThemeState } from "../../types/IThemeState";
-import { ICategory, IStack, IState, IDev, IProfile } from "../../types";
+import {
+  ICategory,
+  IStack,
+  IState,
+  IDev,
+  IProfile,
+  IOption,
+} from "../../types";
 import { getRandomNumber } from "../../utils";
 import AppButton from "../../components/AppButton";
 import ThemeSwitch from "../../components/themeSwitch";
 import BackGround from "../../components/backGround";
 import Spinner from "../../components/spinner";
 import OkModal from "../../components/okModal";
+import Checkbox from "../../components/checkbox";
 import {
   ShortcutCard,
   ShortcutFavoriteCard,
@@ -19,8 +26,6 @@ import {
 
 import {
   BtnContainer,
-  CheckLine,
-  CheckText,
   FooterLogo,
   Shortcuts,
   Stacks,
@@ -48,18 +53,15 @@ export function Main(props) {
     (state: IThemeState) => state.themeState
   );
 
-  const [RN, setRN] = useState(false);
-  const [sql, setSql] = useState(false);
-  const [java, setJava] = useState(false);
-  const [JS, setJS] = useState(false);
-  const [node, setNode] = useState(false);
-
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [error, setError] = useState("");
   const [categories, setCategories] = useState<ICategory[]>();
+  const [selectedCategories, setSelectedCategories] = useState<IOption[]>();
   const [stacks, setStacks] = useState<IStack[]>();
+  const [selectedStacks, setSelectedStacks] = useState<IOption[]>();
   const [states, setStates] = useState<IState[]>();
+  const [selectedStates, setSelectedStates] = useState<IOption[]>();
   const [devs, setDevs] = useState<IDev[]>();
 
   const getCategories = () => Api.get("category");
@@ -141,6 +143,42 @@ export function Main(props) {
     }
   }
 
+  const getCategoryOptions = (): IOption[] => {
+    let options: IOption[] = [];
+
+    categories?.forEach((category) =>
+      options.push({
+        id: category.id,
+        value: category.name,
+      })
+    );
+    return options;
+  };
+
+  const getStackOptions = (): IOption[] => {
+    let options: IOption[] = [];
+
+    stacks?.forEach((stack) =>
+      options.push({
+        id: stack.id,
+        value: stack.label,
+      })
+    );
+    return options;
+  };
+
+  const getStateOptions = (): IOption[] => {
+    let options: IOption[] = [];
+
+    states?.forEach((state) =>
+      options.push({
+        id: state.id,
+        value: state.value,
+      })
+    );
+    return options;
+  };
+
   return loading ? (
     <BackGround>
       <Spinner />
@@ -155,78 +193,11 @@ export function Main(props) {
       <ThemeSwitch />
       <Button title="Logout" onPress={signOut} />
       <Stacks>
-        <CheckLine>
-          <Checkbox
-            color="#FFCA28"
-            uncheckedColor="#fdfdfd"
-            status={RN ? "checked" : "unchecked"}
-            onPress={() => setRN(!RN)}
-          />
-          <CheckText>REACT NATIVE</CheckText>
-        </CheckLine>
-        <CheckLine>
-          <Checkbox
-            color="#FFCA28"
-            uncheckedColor="#fdfdfd"
-            status={sql ? "checked" : "unchecked"}
-            onPress={() => setSql(!sql)}
-          />
-          <CheckText>SQL SERVER</CheckText>
-        </CheckLine>
-        <CheckLine>
-          <Checkbox
-            color="#FFCA28"
-            uncheckedColor="#fdfdfd"
-            status={java ? "checked" : "unchecked"}
-            onPress={() => setJava(!java)}
-          />
-          <CheckText>JAVA</CheckText>
-        </CheckLine>
-        <CheckLine>
-          <Checkbox
-            color="#FFCA28"
-            uncheckedColor="#fdfdfd"
-            status={JS ? "checked" : "unchecked"}
-            onPress={() => setJS(!JS)}
-          />
-          <CheckText>JAVASCRIPT</CheckText>
-        </CheckLine>
-        <CheckLine>
-          <Checkbox
-            color="#FFCA28"
-            uncheckedColor="#fdfdfd"
-            status={node ? "checked" : "unchecked"}
-            onPress={() => setNode(!node)}
-          />
-          <CheckText>NODE</CheckText>
-        </CheckLine>
-        <CheckLine>
-          <Checkbox
-            color="#FFCA28"
-            uncheckedColor="#fdfdfd"
-            status={node ? "checked" : "unchecked"}
-            onPress={() => setNode(!node)}
-          />
-          <CheckText>NODE</CheckText>
-        </CheckLine>
-        <CheckLine>
-          <Checkbox
-            color="#FFCA28"
-            uncheckedColor="#fdfdfd"
-            status={node ? "checked" : "unchecked"}
-            onPress={() => setNode(!node)}
-          />
-          <CheckText>NODE</CheckText>
-        </CheckLine>
-        <CheckLine>
-          <Checkbox
-            color="#FFCA28"
-            uncheckedColor="#fdfdfd"
-            status={node ? "checked" : "unchecked"}
-            onPress={() => setNode(!node)}
-          />
-          <CheckText>NODE</CheckText>
-        </CheckLine>
+        <Checkbox
+          options={getStateOptions()}
+          multiplePicker={false}
+          onChange={(selected) => setSelectedCategories(selected)}
+        />
       </Stacks>
       <BtnContainer>
         <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
