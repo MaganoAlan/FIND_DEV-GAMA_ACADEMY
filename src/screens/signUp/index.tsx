@@ -3,6 +3,7 @@ import {
   Dimensions,
   ImageBackground,
   Pressable,
+  ScrollView,
   StatusBar,
   View,
 } from "react-native";
@@ -26,7 +27,8 @@ import {
   logo_day,
   logo_night,
 } from "../../constants/resources";
-import { Auth } from 'aws-amplify';
+import { Auth } from "aws-amplify";
+import Spinner from "../../components/spinner";
 
 export default function SignUp({ navigation }) {
   const { currentTheme } = useSelector(
@@ -41,8 +43,10 @@ export default function SignUp({ navigation }) {
   const [snackErr, setSnackErr] = useState(false);
   const [snackSuc, setSnackSuc] = useState(false);
   const [snackText, setSnackText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSignUp() {
+    setLoading(true);
     if (!email || !password || !confirm) {
       setSnackText("Por favor preencha todos os dados!");
       setSnackErr(true);
@@ -59,96 +63,112 @@ export default function SignUp({ navigation }) {
         password: password,
         autoSignIn: {
           enabled: true,
-        }
+        },
       });
       setSnackText("Cadastro realizado com sucesso!");
       setSnackSuc(true);
-      navigation.navigate("verifyAccount", { email: email })
+      setLoading(false);
+      navigation.navigate("verifyAccount", { email: email });
     } catch (error) {
       setSnackText(error.name);
       setSnackErr(true);
+      setLoading(false);
     }
     return;
   }
 
+  function renderButton() {
+    if (loading) {
+      return (
+        <BtnContainer>
+          <Spinner />
+        </BtnContainer>
+      );
+    }
+    return (
+      <BtnContainer>
+        <Button primary title="Cadastrar" onPress={handleSignUp} />
+      </BtnContainer>
+    );
+  }
+
   return (
     <Container>
-      <StatusBar />
-      <SnackSuccess
-        text={snackText}
-        visible={snackSuc}
-        setVisible={setSnackSuc}
-      />
-      <SnackError
-        text={snackText}
-        visible={snackErr}
-        setVisible={setSnackErr}
-      />
-      <ImageBackground
-        source={currentTheme === "light" ? city_day : city_night}
-        resizeMode="cover"
-        style={{
-          position: "absolute",
-          left: 0,
-          top: 0,
-          width: Dimensions.get("screen").width,
-          height: Dimensions.get("screen").height,
-        }}
-      >
-        <Logo
-          source={currentTheme === "light" ? logo_day : logo_night}
-          alt="Logo"
+      <ScrollView>
+        <StatusBar />
+        <SnackSuccess
+          text={snackText}
+          visible={snackSuc}
+          setVisible={setSnackSuc}
+        />
+        <SnackError
+          text={snackText}
+          visible={snackErr}
+          setVisible={setSnackErr}
         />
 
-        <BlurCard>
-          <View style={{ padding: 1, marginTop: 30 }}>
-            <InputContainer>
-              <DefaultInput
-                label="Email:"
-                placeholder="Informe seu email"
-                value={email}
-                onChangeText={(e: HTMLInputTypeAttribute) => setEmail(e)}
-              />
-            </InputContainer>
-            <InputContainer>
-              <DefaultInput
-                secure={show}
-                password
-                showPassword={() => setShow(!show)}
-                label="Senha:"
-                placeholder="Mínimo 8 caracteres"
-                value={password}
-                onChangeText={(e: HTMLInputTypeAttribute) => setPassword(e)}
-              />
-            </InputContainer>
-            <InputContainer>
-              <DefaultInput
-                secure={show}
-                password
-                showPassword={() => setShow(!show)}
-                label="Repita a Senha:"
-                placeholder="Mínimo 8 caracteres"
-                value={confirm}
-                onChangeText={(e: HTMLInputTypeAttribute) => setConfirm(e)}
-              />
-            </InputContainer>
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  opacity: pressed ? 0.6 : 1,
-                },
-              ]}
-              onPress={() => navigation.navigate("signIn")}
-            >
-              <ScreenTitle>Já tem uma conta? Entrar ➝</ScreenTitle>
-            </Pressable>
-            <BtnContainer>
-              <Button primary title="Cadastrar" onPress={handleSignUp} />
-              <Button title="Cancelar" onPress={() => { navigation.navigate("signIn") }}  />
-            </BtnContainer>
-          </View>
-        </BlurCard>
-      </ImageBackground>
+        <ImageBackground
+          source={currentTheme === "light" ? city_day : city_night}
+          resizeMode="cover"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: 0,
+            width: Dimensions.get("screen").width,
+            height: Dimensions.get("screen").height,
+          }}
+        >
+          <Logo
+            source={currentTheme === "light" ? logo_day : logo_night}
+            alt="Logo"
+          />
+          <BlurCard>
+            <View style={{ padding: 1, marginTop: 30 }}>
+              <InputContainer>
+                <DefaultInput
+                  label="Email:"
+                  placeholder="Informe seu email"
+                  value={email}
+                  onChangeText={(e: HTMLInputTypeAttribute) => setEmail(e)}
+                />
+              </InputContainer>
+              <InputContainer>
+                <DefaultInput
+                  secure={show}
+                  password
+                  showPassword={() => setShow(!show)}
+                  label="Senha:"
+                  placeholder="Mínimo 8 caracteres"
+                  value={password}
+                  onChangeText={(e: HTMLInputTypeAttribute) => setPassword(e)}
+                />
+              </InputContainer>
+              <InputContainer>
+                <DefaultInput
+                  secure={show}
+                  password
+                  showPassword={() => setShow(!show)}
+                  label="Repita a Senha:"
+                  placeholder="Mínimo 8 caracteres"
+                  value={confirm}
+                  onChangeText={(e: HTMLInputTypeAttribute) => setConfirm(e)}
+                />
+              </InputContainer>
+              <Pressable
+                style={({ pressed }) => [
+                  {
+                    opacity: pressed ? 0.6 : 1,
+                  },
+                ]}
+                onPress={() => navigation.navigate("signIn")}
+              >
+                <ScreenTitle>Já tem uma conta? Entrar ➝</ScreenTitle>
+              </Pressable>
+              <BtnContainer>{renderButton()}</BtnContainer>
+            </View>
+          </BlurCard>
+        </ImageBackground>
+      </ScrollView>
     </Container>
   );
 }

@@ -1,8 +1,15 @@
 import AppRoutes from "./App.routes";
 import AuthRoutes from "./Auth.routes";
+import { Auth } from "aws-amplify";
+import { useEffect, useState } from "react";
 
 export default function Router() {
-  // TODO - após implementar lógica de login renderizar rotas de autenticação ou do app
-  const logged = true;
+  const [logged, setLogged] = useState(false);
+  useEffect(() => {
+    Auth.currentAuthenticatedUser().then((response) => {
+      setLogged(response.attributes.email_verified);
+      console.log(response.attributes.email_verified);
+    });
+  }, []);
   return <>{logged ? <AppRoutes /> : <AuthRoutes />}</>;
 }

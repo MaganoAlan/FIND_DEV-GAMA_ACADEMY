@@ -6,6 +6,7 @@ import SignUp from "../screens/signUp";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../types/IThemeState";
 import verifyAccount from "../screens/verifyAccount";
+import VerifyAccount from "../screens/verifyAccount";
 
 export default function AuthRoutes() {
   const { Navigator, Screen } = createStackNavigator();
@@ -16,6 +17,7 @@ export default function AuthRoutes() {
         <Navigator screenOptions={{ headerShown: false }}>
           <Screen name={"signIn"} component={SignIn} />
           <Screen name={"signUp"} component={SignUp} />
+          <Screen name={"verifyAccount"} component={VerifyAccount} />
         </Navigator>
       </ThemeProvider>
     </NavigationContainer>

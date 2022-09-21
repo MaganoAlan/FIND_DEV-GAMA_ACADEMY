@@ -5,6 +5,7 @@ export declare global {
       signIn: undefined;
       signUp: undefined;
       main: undefined;
+      verifyAccount: { email: string };
     }
   }
 }

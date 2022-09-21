@@ -36,6 +36,8 @@ import {
   user_placeholder,
   logo_footer,
 } from "../../constants/resources";
+import { Auth } from "aws-amplify";
+import Button from "../../components/button";
 
 export type IStatusBar = {
   height: number;
@@ -127,6 +129,17 @@ export function Main(props) {
       stars: getRandomNumber(1, 5),
     } as IProfile;
   };
+  //TODO arrumar melhor
+  async function signOut() {
+    try {
+      console.log("entrou2");
+      await Auth.signOut().then(() => {
+        console.log("saiu");
+      });
+    } catch (error) {
+      console.log("error signing out: ", error);
+    }
+  }
 
   return loading ? (
     <BackGround>
@@ -140,6 +153,7 @@ export function Main(props) {
         alt="BackGround image"
       />
       <ThemeSwitch />
+      <Button title="Logout" onPress={signOut} />
       <Stacks>
         <CheckLine>
           <Checkbox

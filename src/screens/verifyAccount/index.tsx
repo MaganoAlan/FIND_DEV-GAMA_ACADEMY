@@ -1,9 +1,5 @@
 import { useState, HTMLInputTypeAttribute } from "react";
-import {
-  ImageBackground,
-  ScrollView,
-  StatusBar,
-} from "react-native";
+import { ImageBackground, ScrollView, StatusBar } from "react-native";
 import { DefaultInput } from "../../components/Input";
 import {
   BlurCard,
@@ -17,7 +13,7 @@ import { SnackError } from "../../components/SnackError";
 import Button from "../../components/button";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../../types/IThemeState";
-import { Auth } from 'aws-amplify';
+import { Auth } from "aws-amplify";
 
 const city_day = require("../../assets/images/city_day.png");
 const city_night = require("../../assets/images/city_night.png");
@@ -39,7 +35,7 @@ export default function VerifyAccount({ navigation, route }) {
       return;
     }
     try {
-      await Auth.confirmSignUp(route.params.email, code);
+      await Auth.confirmSignUp(route?.params?.email, code);
       setSnackText("Conta verificada com sucesso!");
       setSnackSuc(true);
     } catch (error) {
@@ -51,7 +47,7 @@ export default function VerifyAccount({ navigation, route }) {
 
   async function handleResendCode() {
     try {
-      await Auth.resendSignUp(route.params.email);
+      await Auth.resendSignUp(route?.params?.email);
       setSnackText("Código reenviado!");
       setSnackSuc(true);
     } catch (error) {
