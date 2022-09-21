@@ -19,3 +19,6 @@ export const profile_night = require("../assets/images/profile_night.png");
 export const user_placeholder = require("../assets/images/user_placeholder.png");
 export const user_example = require("../assets/images/user_example.png");
 
+//*Rating Card
+export const rating_day = require("../assets/images/rating_day.png");
+export const rating_night = require("../assets/images/rating_night.png");
