@@ -37,10 +37,10 @@ import {
 import {
   main_day,
   main_night,
-  user_example,
   user_placeholder,
   logo_footer,
 } from "../../constants/resources";
+
 import { Auth } from "aws-amplify";
 import Button from "../../components/button";
 import { beUnlogged } from "../../store/modules/Auth.store";
@@ -58,55 +58,100 @@ export function Main(props) {
   const { favorites } = useSelector(
     (state: IFavoritesState) => state.favoritesState
   );
-
-  console.log(favorites);
-
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState("");
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalText, setModalText] = useState("");
+  const [modalType, setModalType] = useState("");
   const [categories, setCategories] = useState<ICategory[]>();
   const [selectedCategories, setSelectedCategories] = useState<IOption[]>();
   const [stacks, setStacks] = useState<IStack[]>();
   const [selectedStacks, setSelectedStacks] = useState<IOption[]>();
   const [states, setStates] = useState<IState[]>();
   const [selectedStates, setSelectedStates] = useState<IOption[]>();
-  const [devs, setDevs] = useState<IDev[]>();
 
   const getCategories = () => Api.get("category");
   const getStacks = () => Api.get("stacks");
   const getStates = () => Api.get("state");
-  const getDevs = () => Api.get("devs");
 
-  //TODO: Remover consulta da API endpoint Devs ao inicializar tela
   useEffect(() => {
     setLoading(true);
-    Promise.all([getCategories(), getStacks(), getStates(), getDevs()])
+    Promise.all([getCategories(), getStacks(), getStates()])
       .then((response) => {
         setCategories(response[0].data);
         setStacks(response[1].data);
         setStates(response[2].data);
-        setDevs(response[3].data);
       })
       .catch((error) => {
         setShowModal(true);
-        setError(`(${error.name}) Detalhes: ${error.message}`);
+        setModalType("error");
+        setModalTitle("Falha ao recuperar dados");
+        setModalText(`(${error.name}) Detalhes: ${error.message}`);
       })
       .finally(() => {
         setLoading(false);
       });
   }, []);
 
-  const handlePressSearchDev = () => {
-    let profiles: IProfile[] = [];
-
-    //TODO: Fazer consulta na API (Endpoint: devs) com filtros preenchidos na tela !
-    for (let i = 0; i < devs.length; i++) {
-      profiles.push(getProfile(devs[i]));
-    }
-    props.navigation.navigate("profileList", { profiles: profiles });
+  const getStateFilter = (): string => {
+    if (!selectedStates) return "";
+    const stateIds = selectedStates?.map((state) => state.id);
+    let filter: string = "?";
+    stateIds?.forEach((id) => (filter += `state=${id}&`));
+    return filter.slice(0, -1);
   };
+
+  const getStackFilter = (): string => {
+    if (!selectedStacks) return "";
+    const stackIds = selectedStacks.map((stack) => stack.id);
+    let filter: string = "?";
+    stackIds?.forEach((id) => (filter += `stack=${id}&`));
+    return filter.slice(0, -1);
+  };
+
+  const getCategoryFilter = (): string => {
+    if (!selectedCategories) return "";
+    const stackIds = selectedCategories.map((category) => category.id);
+    let filter: string = "?";
+    stackIds?.forEach((id) => (filter += `category=${id}&`));
+    return filter.slice(0, -1);
+  };
+
+  async function getDev() {
+    const endpoint = `devs${getStateFilter()}${getStackFilter()}${getCategoryFilter()}`;
+    console.log(endpoint);
+    try {
+      const response = await Api.get(endpoint);
+
+      return response.data;
+    } catch (error) {
+      setShowModal(true);
+      setModalType("error");
+      setModalTitle("Falha ao recuperar dados");
+      setModalText(`(${error.name}) Detalhes: ${error.message}`);
+    }
+  }
+
+  async function handlePressSearchDev() {
+    let profiles: IProfile[] = [];
+    const result = await getDev();
+
+    if (result.length === 0) {
+      setShowModal(true);
+      setModalType("warning");
+      setModalTitle("Aviso");
+      setModalText("Não existem devs para esse filtro.");
+      return;
+    }
+
+    for (let i = 0; i < result?.length; i++) {
+      profiles.push(getProfile(result[i]));
+    }
+
+    props.navigation.navigate("profileList", { profiles: profiles });
+  }
 
   const getProfile = (dev: IDev): IProfile => {
     const splitedName = dev.name.split(" ");
@@ -141,11 +186,11 @@ export function Main(props) {
       stars: getRandomNumber(1, 5),
     } as IProfile;
   };
-  //TODO arrumar melhor
+
   async function signOut() {
     try {
       await Auth.signOut().then(() => {
-        dispatch(beUnlogged()); // lógica do redux
+        dispatch(beUnlogged());
         console.log("saiu");
       });
     } catch (error) {
@@ -205,10 +250,27 @@ export function Main(props) {
       <Stacks>
         <Checkbox
           options={getStateOptions()}
-          multiplePicker={false}
-          onChange={(selected) => setSelectedCategories(selected)}
+          onChange={(selected) => {
+            setSelectedStates(selected);
+          }}
         />
       </Stacks>
+      {/* <Stacks>
+        <Checkbox
+          options={getStackOptions()}
+          onChange={(selected) => {
+            setSelectedStacks(selected);
+          }}
+        />
+      </Stacks> */}
+      {/* <Stacks>
+          <Checkbox
+            options={getCategoryOptions()}
+            onChange={(selected) => {
+              setSelectedCategories(selected);
+            }}
+          />
+        </Stacks> */}
       <BtnContainer>
         <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
       </BtnContainer>
@@ -236,7 +298,9 @@ export function Main(props) {
             favorites.map((fav: any, index) => (
               <ShortcutFavoriteCard
                 key={index}
-                onPress={() => {}}
+                onPress={() =>
+                  props.navigation.navigate("profile", { profile: fav })
+                }
                 iconDev={<UserFav source={{ uri: fav.payload.photo }} />}
               />
             ))
@@ -260,9 +324,9 @@ export function Main(props) {
         <FooterLogo source={logo_footer} />
       </ScrollView>
       <OkModal
-        type="error"
-        title="Falha ao recuperar dados"
-        text={error}
+        type={modalType}
+        title={modalTitle}
+        text={modalText}
         showModal={showModal}
         setShowModal={setShowModal}
       />

@@ -3,12 +3,12 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { IOption } from "../../types";
 import { OptionContainer, Touchable, Label } from "./styles";
 
-interface ICheckboxProps {
+interface IRadioButtonProps {
   options: IOption[];
   onChange: (values: IOption[]) => void;
 }
 
-export default function Checkbox({ options, onChange }: ICheckboxProps) {
+export default function RadioButton({ options, onChange }: IRadioButtonProps) {
   const [selected, setSelected] = useState<IOption[]>([]);
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export default function Checkbox({ options, onChange }: ICheckboxProps) {
     let tempSelected = [...selected];
 
     if (index !== -1) tempSelected.splice(index, 1);
-    else tempSelected.push(option);
+    else tempSelected = [option];
 
     setSelected(tempSelected);
   }
@@ -32,9 +32,9 @@ export default function Checkbox({ options, onChange }: ICheckboxProps) {
           <Touchable key={index} onPress={() => toggle(option)}>
             {selected.findIndex((iterator) => iterator.id === option.id) !==
             -1 ? (
-              <MaterialIcons name="check" color={"#FFF"} size={21} />
+              <MaterialIcons name="radio-button-on" color={"#FFF"} size={30} />
             ) : (
-              <></>
+              <MaterialIcons name="radio-button-off" color={"#FFF"} size={30} />
             )}
           </Touchable>
           <Label>{option.value.toLocaleUpperCase()}</Label>
