@@ -42,3 +42,8 @@ export interface IProfile {
   stars?: number;
   isFavorite?: boolean;
 }
+
+export interface IOption {
+  id: number;
+  value: string;
+}
