@@ -18,7 +18,7 @@ import ThemeSwitch from "../../components/themeSwitch";
 import BackGround from "../../components/backGround";
 import Spinner from "../../components/spinner";
 import OkModal from "../../components/okModal";
-import Checkbox from "../../components/checkbox";
+import PickerModal from "../../components/pickerModal";
 import {
   ShortcutCard,
   ShortcutFavoriteCard,
@@ -28,10 +28,11 @@ import {
   BtnContainer,
   FooterLogo,
   Shortcuts,
-  Stacks,
   SubTitle,
   TopImg,
   UserFav,
+  TouchableFilter,
+  FilterText,
 } from "./styles";
 
 import {
@@ -42,7 +43,6 @@ import {
 } from "../../constants/resources";
 
 import { Auth } from "aws-amplify";
-import Button from "../../components/button";
 import { beUnlogged } from "../../store/modules/Auth.store";
 import { useDispatch } from "react-redux";
 import { IFavoritesState } from "../../types/IFavoritesState";
@@ -72,6 +72,12 @@ export function Main(props) {
   const [selectedStacks, setSelectedStacks] = useState<IOption[]>();
   const [states, setStates] = useState<IState[]>();
   const [selectedStates, setSelectedStates] = useState<IOption[]>();
+
+  const [showPickerModal, setShowPickerModal] = useState(false);
+  const [typeModalPicker, setTypeModalPicker] = useState("");
+  const [selectedOptions, setSelectedOptions] = useState<IOption[]>();
+  const [options, setOptions] = useState<IOption[]>();
+  const [pickerModalTitle, setPickerModalTitle] = useState("");
 
   const getCategories = () => Api.get("category");
   const getStacks = () => Api.get("stacks");
@@ -233,6 +239,41 @@ export function Main(props) {
     return options;
   };
 
+  function handleOpenCategoryModal() {
+    setTypeModalPicker("category");
+    setOptions(getCategoryOptions());
+    setPickerModalTitle("Selecione as categorias...");
+    setShowPickerModal(true);
+  }
+
+  function handleOpenStackModal() {
+    setTypeModalPicker("stack");
+    setOptions(getStackOptions());
+    setPickerModalTitle("Selecione as stacks...");
+    setShowPickerModal(true);
+  }
+
+  function handleOpenStateModal() {
+    setTypeModalPicker("state");
+    setOptions(getStateOptions());
+    setPickerModalTitle("Selecione os estados...");
+    setShowPickerModal(true);
+  }
+
+  useEffect(() => {
+    switch (typeModalPicker) {
+      case "stack":
+        setSelectedStacks(selectedOptions);
+        break;
+      case "category":
+        setSelectedCategories(selectedOptions);
+        break;
+      case "state":
+        setSelectedStates(selectedOptions);
+        break;
+    }
+  }, [selectedOptions]);
+
   return loading ? (
     <BackGround>
       <Spinner />
@@ -247,30 +288,30 @@ export function Main(props) {
       <LogOutBtn onPress={() => signOut()} />
       <ThemeSwitch />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Stacks>
-          <Checkbox
-            options={getStateOptions()}
-            onChange={(selected) => {
-              setSelectedStates(selected);
-            }}
-          />
-        </Stacks>
-        {/* <Stacks>
-        <Checkbox
-          options={getStackOptions()}
-          onChange={(selected) => {
-            setSelectedStacks(selected);
-          }}
-        />
-      </Stacks> */}
-        {/* <Stacks>
-          <Checkbox
-            options={getCategoryOptions()}
-            onChange={(selected) => {
-              setSelectedCategories(selected);
-            }}
-          />
-        </Stacks> */}
+        <TouchableFilter onPress={handleOpenCategoryModal}>
+          <FilterText>
+            {selectedCategories === undefined ||
+            selectedCategories?.length === 0
+              ? "Selecione as categorias..."
+              : `${selectedCategories
+                  ?.map((category) => category.value)
+                  .join(", ")}`}
+          </FilterText>
+        </TouchableFilter>
+        <TouchableFilter onPress={handleOpenStackModal}>
+          <FilterText>
+            {selectedStacks === undefined || selectedStacks?.length === 0
+              ? "Selecione as stacks..."
+              : `${selectedStacks.map((stack) => stack.value).join(", ")}`}
+          </FilterText>
+        </TouchableFilter>
+        <TouchableFilter onPress={handleOpenStateModal}>
+          <FilterText>
+            {selectedStates === undefined || selectedStates?.length === 0
+              ? "Selecione os estados..."
+              : `${selectedStates.map((state) => state.value).join(", ")}`}
+          </FilterText>
+        </TouchableFilter>
         <BtnContainer>
           <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
         </BtnContainer>
@@ -324,7 +365,13 @@ export function Main(props) {
         </Shortcuts>
         <FooterLogo source={logo_footer} />
       </ScrollView>
-
+      <PickerModal
+        title={pickerModalTitle}
+        options={options}
+        showModal={showPickerModal}
+        setShowModal={setShowPickerModal}
+        setOptions={setSelectedOptions}
+      />
       <OkModal
         type={modalType}
         title={modalTitle}

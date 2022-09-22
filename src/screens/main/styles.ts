@@ -8,10 +8,21 @@ export const TopImg = styled.Image<IStatusBar>`
   z-index: 9999;
 `;
 
-export const Stacks = styled.ScrollView`
-  margin-top: 20px;
-  max-height: 22%;
-  width: 70%;
+export const TouchableFilter = styled.TouchableOpacity`
+  width: 100%;
+  height: 10%;
+  background-color: #fdfdfd;
+  margin: auto;
+  justify-content: center;
+  margin-top: 3%;
+  margin-bottom: 1%;
+`;
+
+export const FilterText = styled.Text`
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  margin-left: 10px;
 `;
 
 export const CheckLine = styled.View`

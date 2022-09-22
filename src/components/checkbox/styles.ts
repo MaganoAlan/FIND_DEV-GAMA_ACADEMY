@@ -1,25 +1,23 @@
 import styled from "styled-components/native";
 
 export const Touchable = styled.TouchableOpacity`
-  height: 30px;
-  width: 30px;
+  height: 22px;
+  width: 22px;
   justify-content: center;
   align-items: center;
-  border-color: #fff;
+  border-color: #FFF;
   border-width: 1px;
 `;
 
 export const OptionContainer = styled.View`
   flex-direction: row;
   align-items: center;
-  margin-top: 10px;
+  justify-content: center;
+  margin: 1% 5%;
 `;
 
 export const Label = styled.Text`
-  margin-left: 15px;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 22px;
-  color: #fff;
+  margin-left: 3%;
+  font-size: 16px;
+  color: #FFF;
 `;
