@@ -2,7 +2,6 @@ import { useState, HTMLInputTypeAttribute } from "react";
 import {
   Dimensions,
   ImageBackground,
-  Pressable,
   ScrollView,
   StatusBar,
   View,
@@ -13,8 +12,7 @@ import {
   BtnContainer,
   Container,
   InputContainer,
-  Logo,
-  ScreenTitle,
+  Logo
 } from "./styles";
 import { SnackSuccess } from "../../components/SnackSuccess";
 import { SnackError } from "../../components/SnackError";
