@@ -1,5 +1,4 @@
 import { MaterialIcons } from "@expo/vector-icons";
-
 import { StarContainer } from "./styles";
 
 interface IDevStarProps {
