@@ -282,7 +282,9 @@ export function Main(props) {
           />
           <ShortcutCard
             title="Avaliações"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("rating");
+            }}
             icon={<ChartPie color="#000" weight="light" size={60} />}
           />
           <ShortcutCard
