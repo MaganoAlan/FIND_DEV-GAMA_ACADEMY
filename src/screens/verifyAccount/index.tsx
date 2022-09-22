@@ -88,7 +88,7 @@ export default function VerifyAccount({ navigation, route }) {
           <BlurCard>
             <InputContainer>
               <DefaultInput
-                label="Code:"
+                label="Código:"
                 placeholder="Informe o código"
                 value={code}
                 onChangeText={(e: HTMLInputTypeAttribute) => setCode(e)}

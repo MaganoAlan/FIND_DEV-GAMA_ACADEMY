@@ -5,8 +5,8 @@ import SignIn from "../screens/signIn";
 import SignUp from "../screens/signUp";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../types/IThemeState";
-import verifyAccount from "../screens/verifyAccount";
 import VerifyAccount from "../screens/verifyAccount";
+import ForgotPassword from "../screens/forgotPassword";
 
 export default function AuthRoutes() {
   const { Navigator, Screen } = createStackNavigator();
@@ -21,6 +21,7 @@ export default function AuthRoutes() {
           <Screen name={"signIn"} component={SignIn} />
           <Screen name={"signUp"} component={SignUp} />
           <Screen name={"verifyAccount"} component={VerifyAccount} />
+          <Screen name={"forgotPassword"} component={ForgotPassword} />
         </Navigator>
       </ThemeProvider>
     </NavigationContainer>
