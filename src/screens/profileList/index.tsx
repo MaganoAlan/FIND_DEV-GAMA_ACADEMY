@@ -15,6 +15,8 @@ import {
   AvatarContainer,
   AvatarImage,
 } from "./styles";
+import { SecondaryHeader } from "../../components/SecondaryHeader";
+
 interface IProfileProps {
   profiles: IProfile[];
 }

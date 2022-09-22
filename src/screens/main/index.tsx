@@ -46,6 +46,7 @@ import Button from "../../components/button";
 import { beUnlogged } from "../../store/modules/Auth.store";
 import { useDispatch } from "react-redux";
 import { IFavoritesState } from "../../types/IFavoritesState";
+import { LogOutBtn } from "../../components/LogOutBtn";
 
 export type IStatusBar = {
   height: number;
@@ -170,10 +171,7 @@ export function Main(props) {
       fullName: dev.name,
       name: name,
       surname: surname,
-      email: `${name.toLocaleLowerCase()}.${surname.toLocaleLowerCase()}${getRandomNumber(
-        1,
-        200
-      )}@gmail.com`,
+      email: `${name.toLocaleLowerCase()}.${surname.toLocaleLowerCase()}@gmail.com`,
       age: getRandomNumber(18, 50),
       photo: dev.photo,
       description: dev.description,
@@ -245,17 +243,18 @@ export function Main(props) {
         source={currentTheme === "light" ? main_day : main_night}
         alt="BackGround image"
       />
+      <LogOutBtn onPress={signOut} />
       <ThemeSwitch />
-      <Button title="Logout" onPress={signOut} />
-      <Stacks>
-        <Checkbox
-          options={getStateOptions()}
-          onChange={(selected) => {
-            setSelectedStates(selected);
-          }}
-        />
-      </Stacks>
-      {/* <Stacks>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Stacks>
+          <Checkbox
+            options={getStateOptions()}
+            onChange={(selected) => {
+              setSelectedStates(selected);
+            }}
+          />
+        </Stacks>
+        {/* <Stacks>
         <Checkbox
           options={getStackOptions()}
           onChange={(selected) => {
@@ -263,7 +262,7 @@ export function Main(props) {
           }}
         />
       </Stacks> */}
-      {/* <Stacks>
+        {/* <Stacks>
           <Checkbox
             options={getCategoryOptions()}
             onChange={(selected) => {
@@ -271,10 +270,9 @@ export function Main(props) {
             }}
           />
         </Stacks> */}
-      <BtnContainer>
-        <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
-      </BtnContainer>
-      <ScrollView>
+        <BtnContainer>
+          <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
+        </BtnContainer>
         <Shortcuts>
           <ShortcutCard
             title="Perfil"
@@ -323,6 +321,7 @@ export function Main(props) {
         </Shortcuts>
         <FooterLogo source={logo_footer} />
       </ScrollView>
+
       <OkModal
         type={modalType}
         title={modalTitle}

@@ -93,8 +93,6 @@ export default function Profile(props) {
     setShowModal(true);
   };
 
-  //? aplicar um useEffect para ver se o dev é favorito ou não
-
   useEffect(() => {
     dispatch(existsInFavorites(profile));
   }, [profile]);
