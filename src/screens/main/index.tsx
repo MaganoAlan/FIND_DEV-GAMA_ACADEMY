@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ScrollView, StatusBar } from "react-native";
-import { UserGear, ChartPie, Question } from "phosphor-react-native";
+import { Star, ChartPie, Question } from "phosphor-react-native";
 import { useSelector } from "react-redux";
 import Api from "../../services/api";
 import { IThemeState } from "../../types/IThemeState";
@@ -19,28 +19,18 @@ import BackGround from "../../components/backGround";
 import Spinner from "../../components/spinner";
 import OkModal from "../../components/okModal";
 import PickerModal from "../../components/pickerModal";
-import {
-  ShortcutCard,
-  ShortcutFavoriteCard,
-} from "../../components/shortcutCard";
+import { ShortcutCard } from "../../components/shortcutCard";
 
 import {
   BtnContainer,
   FooterLogo,
   Shortcuts,
-  SubTitle,
   TopImg,
-  UserFav,
   TouchableFilter,
   FilterText,
 } from "./styles";
 
-import {
-  main_day,
-  main_night,
-  user_placeholder,
-  logo_footer,
-} from "../../constants/resources";
+import { main_day, main_night, logo_footer } from "../../constants/resources";
 
 import { Auth } from "aws-amplify";
 import { beUnlogged } from "../../store/modules/Auth.store";
@@ -158,6 +148,20 @@ export function Main(props) {
     }
 
     props.navigation.navigate("profileList", { profiles: profiles });
+  }
+
+  function goToFavorites() {
+    if (favorites.length > 0) {
+      props.navigation.navigate("profileList", {
+        profiles: favorites.map((fav: any) => fav.payload),
+      });
+      return;
+    }
+    setShowModal(true);
+    setModalType("warning");
+    setModalTitle("Aviso");
+    setModalText("Ainda não existem Dev's favoritados!");
+    return;
   }
 
   const getProfile = (dev: IDev): IProfile => {
@@ -324,11 +328,9 @@ export function Main(props) {
       >
         <Shortcuts>
           <ShortcutCard
-            title="Perfil"
-            onPress={() => {
-              props.navigation.navigate("profile");
-            }}
-            icon={<UserGear color="#000" weight="light" size={60} />}
+            title="Favoritos"
+            onPress={goToFavorites}
+            icon={<Star color="#000" weight="light" size={60} />}
           />
           <ShortcutCard
             title="Avaliações"
@@ -348,35 +350,7 @@ export function Main(props) {
             icon={<Question color="#000" weight="light" size={60} />}
           />
         </Shortcuts>
-        <SubTitle>Seus Favoritos</SubTitle>
-        <Shortcuts>
-          {favorites.length > 0 ? (
-            favorites.map((fav: any, index) => (
-              <ShortcutFavoriteCard
-                key={index}
-                onPress={() =>
-                  props.navigation.navigate("profile", { profile: fav })
-                }
-                iconDev={<UserFav source={{ uri: fav.payload.photo }} />}
-              />
-            ))
-          ) : (
-            <>
-              <ShortcutFavoriteCard
-                onPress={() => {}}
-                iconDev={<UserFav source={user_placeholder} />}
-              />
-              <ShortcutFavoriteCard
-                onPress={() => {}}
-                iconDev={<UserFav source={user_placeholder} />}
-              />
-              <ShortcutFavoriteCard
-                onPress={() => {}}
-                iconDev={<UserFav source={user_placeholder} />}
-              />
-            </>
-          )}
-        </Shortcuts>
+
         <PickerModal
           title={pickerModalTitle}
           options={options}

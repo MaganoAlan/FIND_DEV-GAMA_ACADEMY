@@ -3,7 +3,7 @@ import { IStatusBar } from "./index";
 
 export const TopImg = styled.Image<IStatusBar>`
   width: 100%;
-  height: 25%;
+  height: 30%;
   z-index: 9999;
 `;
 
@@ -39,7 +39,7 @@ export const BtnContainer = styled.View`
   width: 100%;
   padding-left: 15%;
   padding-right: 15%;
-  margin-top: 2%;
+  margin-top: 4%;
   margin-bottom: 2%;
 `;
 

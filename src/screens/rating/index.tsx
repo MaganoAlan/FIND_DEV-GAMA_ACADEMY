@@ -23,6 +23,8 @@ import {
   Label,
   ButtonsContainer,
 } from "./styles";
+import OkModal from "../../components/okModal";
+import { useState } from "react";
 
 interface IRatingProps {
   randomNumber: number[];
@@ -32,6 +34,8 @@ interface IRatingProps {
 export default function Rating(props) {
   const { randomNumber, perksValue }: IRatingProps = props.route.params;
   const screenWidth = Dimensions.get("window").width;
+
+  const [show, setShow] = useState(false);
 
   const data = [
     {
@@ -123,13 +127,17 @@ export default function Rating(props) {
           <ButtonsContainer>
             <AppButton
               title="TRANSFERIR AGORA"
-              onPress={() => {
-                alert("Transferido com sucesso");
-              }}
+              onPress={() => setShow(!show)}
             />
           </ButtonsContainer>
         </Perks>
       </ScrollView>
+      <OkModal
+        showModal={show}
+        setShowModal={() => setShow(!show)}
+        text="valor transferido com sucesso!"
+        title="Sucesso!"
+      />
       <FooterLogo source={logo_footer} />
     </BackGround>
   );
