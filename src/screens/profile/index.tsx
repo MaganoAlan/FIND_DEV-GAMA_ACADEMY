@@ -91,8 +91,8 @@ export default function Profile(props) {
   };
 
   const handlePressInvite = () => {
-    setTitle("Invite");
-    setText("Invite sent with success");
+    setTitle("Convite");
+    setText("Seu convite foi enviado com sucesso.");
     setShowModal(true);
   };
 
