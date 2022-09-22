@@ -6,7 +6,6 @@ export const Container = styled.View`
   height: 10%;
   background-color: #222e2f;
   width: 100%;
-  elevation: 8;
 `;
 
 export const HIcon = styled.Pressable`

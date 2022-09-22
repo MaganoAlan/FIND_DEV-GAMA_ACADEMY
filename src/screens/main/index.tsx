@@ -46,7 +46,7 @@ import { Auth } from "aws-amplify";
 import { beUnlogged } from "../../store/modules/Auth.store";
 import { useDispatch } from "react-redux";
 import { IFavoritesState } from "../../types/IFavoritesState";
-import { LogOutBtn } from "../../components/LogOutBtn";
+import LogOutBtn from "../../components/LogOutBtn";
 
 export type IStatusBar = {
   height: number;
@@ -127,10 +127,10 @@ export function Main(props) {
   };
 
   async function getDev() {
-    const endpoint = `devs${getStateFilter()}${getStackFilter()}${getCategoryFilter()}`;
-    console.log(endpoint);
     try {
-      const response = await Api.get(endpoint);
+      const response = await Api.get(
+        `devs${getStateFilter()}${getStackFilter()}${getCategoryFilter()}`
+      );
 
       return response.data;
     } catch (error) {
@@ -192,14 +192,15 @@ export function Main(props) {
   };
 
   async function signOut() {
-    console.log("entrou");
     try {
       await Auth.signOut().then(() => {
         dispatch(beUnlogged());
-        console.log("saiu");
       });
     } catch (error) {
-      console.log("error signing out: ", error);
+      setShowModal(true);
+      setModalType("error");
+      setModalTitle("Falha ao realizar Sign out");
+      setModalText(`(${error.name}) Detalhes: ${error.message}`);
     }
   }
 

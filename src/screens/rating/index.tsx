@@ -1,17 +1,17 @@
 import { Text, Dimensions, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
+import { ChartLineUp } from "phosphor-react-native";
+import { PieChart } from "react-native-chart-kit";
 import { IThemeState } from "../../types/IThemeState";
+import BackGround from "../../components/backGround";
+import AppButton from "../../components/AppButton";
+import BackButton from "../../components/BackButton";
 
 import {
   rating_day,
   rating_night,
   logo_footer,
 } from "../../constants/resources";
-
-import { PieChart } from "react-native-chart-kit";
-
-import BackGround from "../../components/backGround";
-import AppButton from "../../components/AppButton";
 
 import {
   FooterLogo,
@@ -22,8 +22,6 @@ import {
   Label,
   ButtonsContainer,
 } from "./styles";
-import { ChartLineUp } from "phosphor-react-native";
-import { BackButton } from "../../components/BackButton";
 
 export default function Rating(props) {
   const screenWidth = Dimensions.get("window").width;
@@ -74,9 +72,9 @@ export default function Rating(props) {
     backgroundGradientTo: "#08130D",
     backgroundGradientToOpacity: 0.5,
     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
+    strokeWidth: 2,
     barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
+    useShadowColorFromDataset: false,
   };
 
   const { currentTheme } = useSelector(

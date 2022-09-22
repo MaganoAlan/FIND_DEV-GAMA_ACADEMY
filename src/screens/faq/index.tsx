@@ -1,6 +1,10 @@
-import { ScrollView, Text } from "react-native";
+import { ScrollView } from "react-native";
+import { useSelector } from "react-redux";
+import { IThemeState } from "../../types/IThemeState";
 import BackGround from "../../components/backGround";
-import { FooterLogo, TopImg } from "../main/styles";
+import AppButton from "../../components/AppButton";
+import BackButton from "../../components/BackButton";
+
 import {
   faq_light,
   faq_dark,
@@ -10,11 +14,9 @@ import {
   leonardo,
   lucas,
 } from "../../constants/resources";
-import { useSelector } from "react-redux";
-import { IThemeState } from "../../types/IThemeState";
+
+import { TopImg } from "../main/styles";
 import { BtnContainer, Dev, DEVS, FooterFaq, Mid, Subs, Title } from "./styles";
-import AppButton from "../../components/AppButton";
-import { BackButton } from "../../components/BackButton";
 
 export function FAQ(props) {
   const { currentTheme } = useSelector(

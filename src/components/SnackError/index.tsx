@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, Snackbar } from "react-native-paper";
+import { Snackbar } from "react-native-paper";
 import { MaterialIcons } from "@expo/vector-icons";
 
 type SnackProps = {
@@ -9,7 +8,7 @@ type SnackProps = {
   text: string;
 };
 
-export function SnackError({ visible, setVisible, text }: SnackProps) {
+export default function SnackError({ visible, setVisible, text }: SnackProps) {
   const onToggleSnackBar = () => setVisible(!visible);
 
   const onDismissSnackBar = () => setVisible(false);
@@ -24,7 +23,6 @@ export function SnackError({ visible, setVisible, text }: SnackProps) {
         label: "Ok",
         color: "#fdfdfd",
         onPress: () => {
-          // Do something
         },
       }}
     >

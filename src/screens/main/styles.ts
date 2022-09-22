@@ -4,7 +4,6 @@ import { IStatusBar } from "./index";
 export const TopImg = styled.Image<IStatusBar>`
   width: 100%;
   height: 25%;
-  //margin-top: ${({ height }) => height}px;
   z-index: 9999;
 `;
 
@@ -71,8 +70,6 @@ export const ThemeSwitch = styled.View`
 export const FooterLogo = styled.Image`
   bottom: 0;
   margin-bottom: 5%;
-
-  //position: relative;
 `;
 
 export const SubTitle = styled.Text`
