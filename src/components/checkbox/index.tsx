@@ -32,7 +32,7 @@ export default function Checkbox({ options, onChange }: ICheckboxProps) {
           <Touchable key={index} onPress={() => toggle(option)}>
             {selected.findIndex((iterator) => iterator.id === option.id) !==
             -1 ? (
-              <MaterialIcons name="check" color={"#FFF"} size={21} />
+              <MaterialIcons name="check" color={"#FFF"} size={20} />
             ) : (
               <></>
             )}
