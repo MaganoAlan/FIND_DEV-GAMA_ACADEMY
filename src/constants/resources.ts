@@ -22,3 +22,13 @@ export const user_example = require("../assets/images/user_example.png");
 //*Rating Card
 export const rating_day = require("../assets/images/rating_day.png");
 export const rating_night = require("../assets/images/rating_night.png");
+
+//*FAQ
+export const faq_light = require("../assets/images/faq_light.png");
+export const faq_dark = require("../assets/images/faq_dark.png");
+
+//*DEVS
+export const alan = require("../assets/images/alan.png");
+export const gabriel = require("../assets/images/gabriel.png");
+export const leonardo = require("../assets/images/leonardo.png");
+export const lucas = require("../assets/images/lucas.png");

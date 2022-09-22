@@ -144,10 +144,8 @@ export default function SignIn({ navigation }) {
           resizeMode="cover"
           style={{
             position: "relative",
-            left: 0,
-            top: 0,
             width: Dimensions.get("screen").width,
-            height: Dimensions.get("screen").height,
+            height: Dimensions.get("screen").height + 50,
           }}
         >
           <Logo

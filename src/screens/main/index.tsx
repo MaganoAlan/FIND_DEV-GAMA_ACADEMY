@@ -287,38 +287,42 @@ export function Main(props) {
       />
       <LogOutBtn onPress={() => signOut()} />
       <ThemeSwitch />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <TouchableFilter onPress={handleOpenCategoryModal}>
-          <FilterText>
-            {selectedCategories === undefined ||
-            selectedCategories?.length === 0
-              ? "Selecione as categorias..."
-              : `${selectedCategories
-                  ?.map((category) => category.value)
-                  .join(", ")}`}
-          </FilterText>
-        </TouchableFilter>
-        <TouchableFilter onPress={handleOpenStackModal}>
-          <FilterText>
-            {selectedStacks === undefined || selectedStacks?.length === 0
-              ? "Selecione as stacks..."
-              : `${selectedStacks.map((stack) => stack.value).join(", ")}`}
-          </FilterText>
-        </TouchableFilter>
-        <TouchableFilter onPress={handleOpenStateModal}>
-          <FilterText>
-            {selectedStates === undefined || selectedStates?.length === 0
-              ? "Selecione os estados..."
-              : `${selectedStates.map((state) => state.value).join(", ")}`}
-          </FilterText>
-        </TouchableFilter>
-        <BtnContainer>
-          <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
-        </BtnContainer>
+      <TouchableFilter onPress={handleOpenCategoryModal}>
+        <FilterText>
+          {selectedCategories === undefined || selectedCategories?.length === 0
+            ? "Selecione as categorias..."
+            : `${selectedCategories
+                ?.map((category) => category.value)
+                .join(", ")}`}
+        </FilterText>
+      </TouchableFilter>
+      <TouchableFilter onPress={handleOpenStackModal}>
+        <FilterText>
+          {selectedStacks === undefined || selectedStacks?.length === 0
+            ? "Selecione as stacks..."
+            : `${selectedStacks.map((stack) => stack.value).join(", ")}`}
+        </FilterText>
+      </TouchableFilter>
+      <TouchableFilter onPress={handleOpenStateModal}>
+        <FilterText>
+          {selectedStates === undefined || selectedStates?.length === 0
+            ? "Selecione os estados..."
+            : `${selectedStates.map((state) => state.value).join(", ")}`}
+        </FilterText>
+      </TouchableFilter>
+      <BtnContainer>
+        <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
+      </BtnContainer>
+      <ScrollView
+        style={{ maxHeight: "80%" }}
+        showsVerticalScrollIndicator={false}
+      >
         <Shortcuts>
           <ShortcutCard
             title="Perfil"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("profile");
+            }}
             icon={<UserGear color="#000" weight="light" size={60} />}
           />
           <ShortcutCard
@@ -330,7 +334,9 @@ export function Main(props) {
           />
           <ShortcutCard
             title="FAQ"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("faq");
+            }}
             icon={<Question color="#000" weight="light" size={60} />}
           />
         </Shortcuts>
@@ -363,22 +369,22 @@ export function Main(props) {
             </>
           )}
         </Shortcuts>
-        <FooterLogo source={logo_footer} />
+        <PickerModal
+          title={pickerModalTitle}
+          options={options}
+          showModal={showPickerModal}
+          setShowModal={setShowPickerModal}
+          setOptions={setSelectedOptions}
+        />
+        <OkModal
+          type={modalType}
+          title={modalTitle}
+          text={modalText}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
       </ScrollView>
-      <PickerModal
-        title={pickerModalTitle}
-        options={options}
-        showModal={showPickerModal}
-        setShowModal={setShowPickerModal}
-        setOptions={setSelectedOptions}
-      />
-      <OkModal
-        type={modalType}
-        title={modalTitle}
-        text={modalText}
-        showModal={showModal}
-        setShowModal={setShowModal}
-      />
+      <FooterLogo source={logo_footer} />
     </BackGround>
   );
 }

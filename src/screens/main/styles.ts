@@ -9,13 +9,15 @@ export const TopImg = styled.Image<IStatusBar>`
 `;
 
 export const TouchableFilter = styled.TouchableOpacity`
-  width: 100%;
-  height: 10%;
+  width: 80%;
+  height: 40px;
   background-color: #fdfdfd;
+  border: 1px solid #000;
   margin: auto;
   justify-content: center;
   margin-top: 3%;
   margin-bottom: 1%;
+  border-radius: 15px;
 `;
 
 export const FilterText = styled.Text`
@@ -39,6 +41,7 @@ export const BtnContainer = styled.View`
   padding-left: 15%;
   padding-right: 15%;
   margin-top: 2%;
+  margin-bottom: 2%;
 `;
 
 export const Shortcuts = styled.View`
@@ -46,6 +49,7 @@ export const Shortcuts = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  padding-bottom: 5%;
 `;
 
 export const UserFav = styled.Image`
@@ -66,8 +70,9 @@ export const ThemeSwitch = styled.View`
 
 export const FooterLogo = styled.Image`
   bottom: 0;
-  margin-top: 5%;
   margin-bottom: 5%;
+
+  //position: relative;
 `;
 
 export const SubTitle = styled.Text`
