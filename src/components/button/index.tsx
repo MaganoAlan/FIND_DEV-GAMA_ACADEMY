@@ -1,23 +1,31 @@
 import { DefaultButton, Title } from "./styles";
 
-type IButtonProps = ButtonProps & {
+export type IButtonProps = {
   title: string;
+  primary?: boolean;
   onPress: () => void;
-  //TODO - Analisar as props necessárias
-  //* qualquer coisa *
 };
 
-export type ButtonProps = {
-  background: string;
-  color: string;
-};
-
-//TODO - Implementar variações de tipos de botões, estilos, etc
-
-export default function Button({ title, onPress }: IButtonProps) {
+export default function Button({
+  title,
+  onPress,
+  primary = false,
+}: IButtonProps) {
   return (
-    <DefaultButton onPress={onPress}>
-      <Title>{title}</Title>
+    <DefaultButton
+      style={({ pressed }) => [
+        {
+          backgroundColor: pressed
+            ? "#858585"
+            : primary
+            ? "#28393A"
+            : "#fdfdfd",
+        },
+      ]}
+      primary={primary}
+      onPress={onPress}
+    >
+      <Title primary={primary}>{title}</Title>
     </DefaultButton>
   );
 }

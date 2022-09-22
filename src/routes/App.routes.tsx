@@ -1,15 +1,27 @@
-import { createDrawerNavigator } from "@react-navigation/drawer";
-
-import Home from "../screens/home";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import ProfileList from "../screens/profileList";
+import Profile from "../screens/profile";
+import { Main } from "../screens/main";
+import { useSelector } from "react-redux";
+import { IThemeState } from "../types/IThemeState";
+import { ThemeProvider } from "styled-components";
 
 export default function AppRoutes() {
-  const Drawer = createDrawerNavigator();
+  const { Navigator, Screen } = createStackNavigator();
+  const { selected } = useSelector((state: IThemeState) => state.themeState);
   return (
-    <Drawer.Navigator
-      initialRouteName={"home"}
-      screenOptions={{ headerShown: false }}
-    >
-      <Drawer.Screen name={"home"} component={Home} />
-    </Drawer.Navigator>
+    <NavigationContainer>
+      <ThemeProvider theme={selected}>
+        <Navigator
+          initialRouteName={"main"}
+          screenOptions={{ headerShown: false }}
+        >
+          <Screen name={"main"} component={Main} />
+          <Screen name={"profileList"} component={ProfileList} />
+          <Screen name={"profile"} component={Profile} />
+        </Navigator>
+      </ThemeProvider>
+    </NavigationContainer>
   );
 }

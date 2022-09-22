@@ -1,15 +1,25 @@
 import Router from "./src/routes";
+import { StatusBar, Platform } from "react-native";
 import main from "./src/style/theme/main";
-import { Amplify } from "aws-amplify";
-
-import awsconfig from "./src/aws-exports";
 import { ThemeProvider } from "styled-components";
-Amplify.configure(awsconfig);
+import { Provider as PaperProvider } from "react-native-paper";
+import { Provider as ReduxProvider } from "react-redux";
+import Store from "./src/store/";
 
 export default function App() {
   return (
-    <ThemeProvider theme={main}>
-      <Router />;
-    </ThemeProvider>
+    <ReduxProvider store={Store}>
+      <ThemeProvider theme={main}>
+        <PaperProvider>
+          {Platform.OS === "android" ? (
+            <StatusBar backgroundColor="#ffffff00" translucent />
+          ) : (
+            <StatusBar backgroundColor="#ffffff00" hidden />
+          )}
+
+          <Router />
+        </PaperProvider>
+      </ThemeProvider>
+    </ReduxProvider>
   );
 }
