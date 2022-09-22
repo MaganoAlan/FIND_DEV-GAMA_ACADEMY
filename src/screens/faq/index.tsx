@@ -4,6 +4,7 @@ import { IThemeState } from "../../types/IThemeState";
 import BackGround from "../../components/backGround";
 import AppButton from "../../components/AppButton";
 import BackButton from "../../components/BackButton";
+import ThemeSwitch from "../../components/themeSwitch";
 
 import {
   faq_light,
@@ -25,6 +26,7 @@ export function FAQ(props) {
   return (
     <BackGround>
       <TopImg source={currentTheme === "light" ? faq_light : faq_dark} />
+      <ThemeSwitch/>
       <BackButton navigation={() => props.navigation.goBack()} />
       <ScrollView>
         <Title>Developers</Title>
