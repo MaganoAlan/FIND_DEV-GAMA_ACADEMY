@@ -6,7 +6,7 @@ type Props = {
   onPress: () => void;
 };
 
-export function LogOutBtn({ onPress }: Props) {
+export default function LogOutBtn({ onPress }: Props) {
   return (
     <Container>
       <Pressable onPress={onPress}>

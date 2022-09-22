@@ -1,12 +1,12 @@
 import { Container, HIcon, HText } from "./styles";
 import { ArrowUUpLeft } from "phosphor-react-native";
 
-type Props = {
+type IHeaderProps = {
   title: string;
   onPress: () => void;
 };
 
-export function SecondaryHeader({ title, onPress }: Props) {
+export default function SecondaryHeader({ title, onPress }: IHeaderProps) {
   return (
     <Container>
       <HIcon onPress={onPress}>

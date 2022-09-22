@@ -1,8 +1,7 @@
 import React from "react";
-// import { NativeSyntheticEvent, TextInputChangeEventData } from "react-native";
-import { Container, InputContainer, InputTitle, NativeInput } from "./styles";
-import {Eye,EyeSlash} from 'phosphor-react-native'
 import { Pressable } from "react-native";
+import { Eye, EyeSlash } from "phosphor-react-native";
+import { Container, InputContainer, InputTitle, NativeInput } from "./styles";
 
 type InputProps = {
   value: string;
@@ -14,7 +13,7 @@ type InputProps = {
   password?: boolean;
 };
 
-export function DefaultInput({
+export default function DefaultInput({
   value,
   onChangeText,
   label,
@@ -41,7 +40,7 @@ export function DefaultInput({
             </Pressable>
           ) : (
             <Pressable onPress={showPassword}>
-             <EyeSlash color="#28393A" weight="regular" size={24} />
+              <EyeSlash color="#28393A" weight="regular" size={24} />
             </Pressable>
           )
         ) : undefined}

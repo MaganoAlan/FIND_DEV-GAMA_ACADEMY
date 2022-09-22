@@ -7,7 +7,24 @@ import {
   StatusBar,
   View,
 } from "react-native";
-import { DefaultInput } from "../../components/Input";
+
+import { useSelector } from "react-redux";
+import { IThemeState } from "../../types/IThemeState";
+import { Auth } from "aws-amplify";
+
+import DefaultInput from "../../components/Input";
+import SnackSuccess from "../../components/SnackSuccess";
+import SnackError from "../../components/SnackError";
+import Button from "../../components/button";
+import Spinner from "../../components/spinner";
+
+import {
+  city_day,
+  city_night,
+  logo_day,
+  logo_night,
+} from "../../constants/resources";
+
 import {
   BlurCard,
   BtnContainer,
@@ -16,19 +33,6 @@ import {
   Logo,
   ScreenTitle,
 } from "./styles";
-import { SnackSuccess } from "../../components/SnackSuccess";
-import { SnackError } from "../../components/SnackError";
-import Button from "../../components/button";
-import { useSelector } from "react-redux";
-import { IThemeState } from "../../types/IThemeState";
-import {
-  city_day,
-  city_night,
-  logo_day,
-  logo_night,
-} from "../../constants/resources";
-import { Auth } from "aws-amplify";
-import Spinner from "../../components/spinner";
 
 export default function SignUp({ navigation }) {
   const { currentTheme } = useSelector(

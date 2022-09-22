@@ -1,20 +1,35 @@
 import { useState, useEffect } from "react";
 import { Linking } from "react-native";
-import { useSelector } from "react-redux";
-import { MaterialIcons } from "@expo/vector-icons";
+
+import { useSelector, useDispatch } from "react-redux";
+
+import {
+  addFavorite,
+  existsInFavorites,
+  removeFavorite,
+} from "../../store/modules/Favorites.store";
+
+import { IFavoritesState } from "../../types/IFavoritesState";
 import { IThemeState } from "../../types/IThemeState";
 import { IProfile } from "../../types";
-import { profile_day, profile_night } from "../../constants/resources";
+
 import BackGround from "../../components/backGround";
 import ThemeSwitch from "../../components/themeSwitch";
 import AppButton from "../../components/AppButton";
+import DevStars from "../../components/devStars";
 import SocialIcons from "../../components/socialIcons";
-import Footer from "../../components/footer";
 import OkModal from "../../components/okModal";
+import BackButton from "../../components/BackButton";
+
+import {
+  profile_day,
+  profile_night,
+  logo_footer,
+} from "../../constants/resources";
+
 import {
   StyledImage,
   AvatarImage,
-  StarContainer,
   DevNameText,
   DevInfoContainer,
   DevInfo,
@@ -22,17 +37,8 @@ import {
   ButtonsContainer,
   ButtonsInLineContainer,
   ButtonContainer,
+  FooterLogo,
 } from "./styles";
-import { useDispatch } from "react-redux";
-import {
-  addFavorite,
-  existsInFavorites,
-  removeFavorite,
-} from "../../store/modules/Favorites.store";
-import { IFavoritesState } from "../../types/IFavoritesState";
-import { BackButton } from "../../components/BackButton";
-import { logo_footer } from "../../constants/resources";
-import { FooterLogo } from "../main/styles";
 
 interface IProfileProps {
   profile: IProfile;
@@ -42,11 +48,9 @@ export default function Profile(props) {
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
-  const { favorites, isFavorite } = useSelector(
+  const { isFavorite } = useSelector(
     (state: IFavoritesState) => state.favoritesState
   );
-
-  console.log("isFavorite", isFavorite);
 
   const [showModal, setShowModal] = useState(false);
   const [title, setTitle] = useState("");
@@ -69,19 +73,15 @@ export default function Profile(props) {
   };
 
   const handlePressResume = () => {
-    setTitle("Resume");
-    setText("Starting download now...");
+    setTitle("Currículo");
+    setText("Iniciando download agora...");
     setShowModal(true);
   };
 
   const handlePressManageFavoriteProfiles = () => {
-    //TODO: FAVORITAR DEV - REQUISITO BÁSICO!!!!
-
     if (isFavorite) {
       dispatch(removeFavorite(profile));
-      console.log(`Dev ${profile.name} removido de favoritos!`);
       props.navigation.goBack();
-
       return;
     }
 
@@ -91,8 +91,8 @@ export default function Profile(props) {
   };
 
   const handlePressInvite = () => {
-    setTitle("Invite");
-    setText("Invite sent with success");
+    setTitle("Convite");
+    setText("Seu convite foi enviado com sucesso.");
     setShowModal(true);
   };
 
@@ -106,38 +106,12 @@ export default function Profile(props) {
       <StyledImage source={sourceImage} />
       <ThemeSwitch />
       <AvatarImage source={{ uri: profile.photo }} />
-      <StarContainer>
-        <MaterialIcons
-          name="star"
-          size={24}
-          color={profile?.stars > 0 ? "#FFCA28" : "#fff"}
-        />
-        <MaterialIcons
-          name="star"
-          size={24}
-          color={profile?.stars > 1 ? "#FFCA28" : "#fff"}
-        />
-        <MaterialIcons
-          name="star"
-          size={24}
-          color={profile?.stars > 2 ? "#FFCA28" : "#fff"}
-        />
-        <MaterialIcons
-          name="star"
-          size={24}
-          color={profile?.stars > 3 ? "#FFCA28" : "#fff"}
-        />
-        <MaterialIcons
-          name="star"
-          size={24}
-          color={profile?.stars > 4 ? "#FFCA28" : "#fff"}
-        />
-      </StarContainer>
+      <DevStars stars={profile?.stars ?? 0} />
       <DevNameText>{profile.fullName}</DevNameText>
       <DevInfoContainer>
-        <DevInfo>{`Name: ${profile.name}`}</DevInfo>
-        <DevInfo>{`Surname: ${profile.surname}`}</DevInfo>
-        <DevInfo>{`Age: ${profile.age} yrs`}</DevInfo>
+        <DevInfo>{`Nome: ${profile.name}`}</DevInfo>
+        <DevInfo>{`Sobrenome: ${profile.surname}`}</DevInfo>
+        <DevInfo>{`Idade: ${profile.age} anos`}</DevInfo>
         <DevInfo>{`Stacks: ${profile.stack.label}`}</DevInfo>
         <DevInfo>{profile.experience}</DevInfo>
       </DevInfoContainer>
@@ -150,16 +124,16 @@ export default function Profile(props) {
         />
       </SocialIconsContainer>
       <ButtonsContainer>
-        <AppButton title="RESUME" onPress={handlePressResume} />
+        <AppButton title="CURRÍCULO" onPress={handlePressResume} />
         <ButtonsInLineContainer>
           <ButtonContainer>
             <AppButton
-              title={`${isFavorite ? "UNFAVORITE" : "FAVORITE"}`}
+              title={`${isFavorite ? "DESFAVORITAR" : "FAVORITAR"}`}
               onPress={handlePressManageFavoriteProfiles}
             />
           </ButtonContainer>
           <ButtonContainer>
-            <AppButton title="INVITE" onPress={handlePressInvite} />
+            <AppButton title="CONVIDAR" onPress={handlePressInvite} />
           </ButtonContainer>
         </ButtonsInLineContainer>
       </ButtonsContainer>
