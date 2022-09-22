@@ -30,6 +30,9 @@ import {
   removeFavorite,
 } from "../../store/modules/Favorites.store";
 import { IFavoritesState } from "../../types/IFavoritesState";
+import { BackButton } from "../../components/BackButton";
+import { logo_footer } from "../../constants/resources";
+import { FooterLogo } from "../main/styles";
 
 interface IProfileProps {
   profile: IProfile;
@@ -99,6 +102,7 @@ export default function Profile(props) {
 
   return (
     <BackGround>
+      <BackButton navigation={() => props.navigation.goBack()} />
       <StyledImage source={sourceImage} />
       <ThemeSwitch />
       <AvatarImage source={{ uri: profile.photo }} />
@@ -159,7 +163,7 @@ export default function Profile(props) {
           </ButtonContainer>
         </ButtonsInLineContainer>
       </ButtonsContainer>
-      <Footer />
+      <FooterLogo source={logo_footer} alt="logo" />
       <OkModal
         showModal={showModal}
         title={title}

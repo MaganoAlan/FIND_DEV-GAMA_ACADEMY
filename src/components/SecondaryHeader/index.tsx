@@ -1,10 +1,18 @@
-import { Container } from "./styles";
-import { ArrowUUpLeft } from "phosphor-react";
+import { Container, HIcon, HText } from "./styles";
+import { ArrowUUpLeft } from "phosphor-react-native";
 
-export function SecondaryHeader() {
+type Props = {
+  title: string;
+  onPress: () => void;
+};
+
+export function SecondaryHeader({ title, onPress }: Props) {
   return (
     <Container>
-      <ArrowUUpLeft size={32} color="#000" />
+      <HIcon onPress={onPress}>
+        <ArrowUUpLeft size={32} color="#fdfdfd" />
+      </HIcon>
+      <HText>{title}</HText>
     </Container>
   );
 }

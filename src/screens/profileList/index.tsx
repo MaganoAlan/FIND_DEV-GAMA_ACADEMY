@@ -5,7 +5,6 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { IProfile } from "../../types";
 import { IThemeState } from "../../types/IThemeState";
 import BackGround from "../../components/backGround";
-import Footer from "../../components/footer";
 import {
   CardPressable,
   DevInfoContainer,
@@ -16,6 +15,8 @@ import {
   AvatarImage,
 } from "./styles";
 import { SecondaryHeader } from "../../components/SecondaryHeader";
+import { FooterLogo } from "../main/styles";
+import { logo_footer } from "../../constants/resources";
 
 interface IProfileProps {
   profiles: IProfile[];
@@ -31,6 +32,10 @@ export default function ProfileList(props) {
 
   return (
     <BackGround>
+      <SecondaryHeader
+        onPress={() => props.navigation.goBack()}
+        title="Resultados"
+      />
       <Animated.FlatList
         data={profiles}
         onScroll={Animated.event(
@@ -118,7 +123,7 @@ export default function ProfileList(props) {
           );
         }}
       />
-      <Footer />
+      <FooterLogo source={logo_footer} alt="logo" />
     </BackGround>
   );
 }
