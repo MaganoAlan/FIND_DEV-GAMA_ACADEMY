@@ -204,6 +204,10 @@ export function Main(props) {
     }
   }
 
+  const randomNumber = Array.from({ length: 5 }, () =>
+    Math.floor(Math.random() * 20)
+  );
+
   const getCategoryOptions = (): IOption[] => {
     let options: IOption[] = [];
 
@@ -329,7 +333,10 @@ export function Main(props) {
           <ShortcutCard
             title="Avaliações"
             onPress={() => {
-              props.navigation.navigate("rating");
+              props.navigation.navigate("rating", {
+                randomNumber: randomNumber,
+                perksValue: Math.floor(Math.random() * 80) + 1,
+              });
             }}
             icon={<ChartPie color="#000" weight="light" size={60} />}
           />

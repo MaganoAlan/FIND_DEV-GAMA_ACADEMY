@@ -6,6 +6,7 @@ import { IThemeState } from "../../types/IThemeState";
 import BackGround from "../../components/backGround";
 import AppButton from "../../components/AppButton";
 import BackButton from "../../components/BackButton";
+import ThemeSwitch from "../../components/themeSwitch";
 
 import {
   rating_day,
@@ -23,12 +24,15 @@ import {
   ButtonsContainer,
 } from "./styles";
 
+interface IRatingProps {
+  randomNumber: number[];
+  perksValue: number;
+}
+
 export default function Rating(props) {
+  const { randomNumber, perksValue }: IRatingProps = props.route.params;
   const screenWidth = Dimensions.get("window").width;
-  const randomNumber = Array.from({ length: 5 }, () =>
-    Math.floor(Math.random() * 20)
-  );
-  const PerksValue = Math.floor(Math.random() * 80) + 1;
+
   const data = [
     {
       name: "⭐⭐⭐⭐⭐",
@@ -87,6 +91,7 @@ export default function Rating(props) {
     <BackGround>
       <BackButton navigation={() => props.navigation.goBack()} />
       <StyledImage source={sourceImage} />
+      <ThemeSwitch />
       <ScrollView>
         <Title>
           <Text style={{ color: "white", fontSize: 18 }}>Avaliações</Text>
@@ -113,7 +118,7 @@ export default function Rating(props) {
           <Text style={{ color: "white", fontSize: 18 }}>Recompensa:</Text>
           <Label>
             Douglas - Sua nova recompensa acaba de ser desbloqueada. Receba
-            agora mesmo o valor de: R$ {PerksValue}
+            agora mesmo o valor de: R$ {perksValue}
           </Label>
           <ButtonsContainer>
             <AppButton
