@@ -1,14 +1,13 @@
-import { NavigationContainer } from "@react-navigation/native";
-
 import AppRoutes from "./App.routes";
 import AuthRoutes from "./Auth.routes";
+import { useSelector } from "react-redux";
+import { IAuthSate } from "../types/IAuthSate";
 
 export default function Router() {
-  // TODO - após implementar lógica de login renderizar rotas de atuenticação ou do app
-  const logged = false;
-  return (
-    <NavigationContainer>
-      {logged ? <AppRoutes /> : <AuthRoutes />}
-    </NavigationContainer>
+  const { logged, userEmail } = useSelector(
+    (state: IAuthSate) => state.authState
   );
+  console.log(logged, userEmail);
+
+  return <>{logged ? <AppRoutes /> : <AuthRoutes />}</>;
 }
