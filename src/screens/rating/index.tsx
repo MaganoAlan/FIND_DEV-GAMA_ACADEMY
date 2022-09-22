@@ -1,4 +1,4 @@
-import { Text,Dimensions} from "react-native";
+import { Text, Dimensions, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../../types/IThemeState";
 
@@ -13,13 +13,24 @@ import { PieChart } from "react-native-chart-kit";
 import BackGround from "../../components/backGround";
 import AppButton from "../../components/AppButton";
 
-import { FooterLogo, StyledImage,Title, Promo,Perks, Label, ButtonsContainer } from "./styles";
+import {
+  FooterLogo,
+  StyledImage,
+  Title,
+  Promo,
+  Perks,
+  Label,
+  ButtonsContainer,
+} from "./styles";
 import { ChartLineUp } from "phosphor-react-native";
+import { BackButton } from "../../components/BackButton";
 
 export default function Rating(props) {
   const screenWidth = Dimensions.get("window").width;
-  const randomNumber = Array.from({length: 5}, () => Math.floor(Math.random() *20));
-  const PerksValue = Math.floor(Math.random() * 80) + 1
+  const randomNumber = Array.from({ length: 5 }, () =>
+    Math.floor(Math.random() * 20)
+  );
+  const PerksValue = Math.floor(Math.random() * 80) + 1;
   const data = [
     {
       name: "⭐⭐⭐⭐⭐",
@@ -67,7 +78,7 @@ export default function Rating(props) {
     barPercentage: 0.5,
     useShadowColorFromDataset: false, // optional
   };
-  
+
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
@@ -76,44 +87,47 @@ export default function Rating(props) {
 
   return (
     <BackGround>
+      <BackButton navigation={() => props.navigation.goBack()} />
       <StyledImage source={sourceImage} />
-      <Title>
-      <Text style={{color:'white',fontSize:18}}>
-        Avaliações
-      </Text>
-      <ChartLineUp  color="#fff" weight="light" size={24} />
-      </Title>
-      <Promo>
-      <Text style={{color:'white',fontSize:16}}>
-      Aqui suas avaliações são convertidas em cash. 
-      Compartilhe essa ideia - Find Dev!
-      </Text>
-      </Promo>
-      <PieChart
-        data={data}
-        width={screenWidth}
-        height={180}
-        chartConfig={chartConfig}
-        accessor={"total"}
-        backgroundColor={"transparent"}
-        paddingLeft={"-1"}
-        center={[10, 10]}
-        absolute
-      />
-      <Perks>
-      <Text style={{color:'white',fontSize:18}}>
-        Recompensa:
-      </Text>
-      <Label >
-      Douglas - Sua nova recompensa acaba de ser desbloqueada. Receba agora mesmo o valor de: R$ {PerksValue}
-      </Label>
-      <ButtonsContainer>
-        <AppButton title="TRANSFERIR AGORA" onPress={()=>{alert("Transferido com sucesso")}}/>
-        
-      </ButtonsContainer>
-      </Perks>
-      <FooterLogo source={logo_footer} /> 
+      <ScrollView>
+        <Title>
+          <Text style={{ color: "white", fontSize: 18 }}>Avaliações</Text>
+          <ChartLineUp color="#fff" weight="light" size={24} />
+        </Title>
+        <Promo>
+          <Text style={{ color: "white", fontSize: 16, textAlign: "justify" }}>
+            Aqui suas avaliações são convertidas em cash. Compartilhe essa ideia
+            - Find Dev!
+          </Text>
+        </Promo>
+        <PieChart
+          data={data}
+          width={screenWidth}
+          height={180}
+          chartConfig={chartConfig}
+          accessor={"total"}
+          backgroundColor={"transparent"}
+          paddingLeft={"-1"}
+          center={[10, 10]}
+          absolute
+        />
+        <Perks>
+          <Text style={{ color: "white", fontSize: 18 }}>Recompensa:</Text>
+          <Label>
+            Douglas - Sua nova recompensa acaba de ser desbloqueada. Receba
+            agora mesmo o valor de: R$ {PerksValue}
+          </Label>
+          <ButtonsContainer>
+            <AppButton
+              title="TRANSFERIR AGORA"
+              onPress={() => {
+                alert("Transferido com sucesso");
+              }}
+            />
+          </ButtonsContainer>
+        </Perks>
+      </ScrollView>
+      <FooterLogo source={logo_footer} />
     </BackGround>
   );
 }
-

@@ -65,6 +65,7 @@ export const ButtonsInLineContainer = styled.View`
 `;
 
 export const ButtonContainer = styled.View`
-  width: 45%;
+  width: 49%;
   margin-top: 3%;
+  justify-content: space-evenly;
 `;

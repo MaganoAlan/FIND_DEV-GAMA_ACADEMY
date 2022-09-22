@@ -192,6 +192,7 @@ export function Main(props) {
   };
 
   async function signOut() {
+    console.log("entrou");
     try {
       await Auth.signOut().then(() => {
         dispatch(beUnlogged());
@@ -284,7 +285,7 @@ export function Main(props) {
         source={currentTheme === "light" ? main_day : main_night}
         alt="BackGround image"
       />
-      <LogOutBtn onPress={signOut} />
+      <LogOutBtn onPress={() => signOut()} />
       <ThemeSwitch />
       <ScrollView showsVerticalScrollIndicator={false}>
         <TouchableFilter onPress={handleOpenCategoryModal}>
@@ -322,7 +323,9 @@ export function Main(props) {
           />
           <ShortcutCard
             title="Avaliações"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("rating");
+            }}
             icon={<ChartPie color="#000" weight="light" size={60} />}
           />
           <ShortcutCard

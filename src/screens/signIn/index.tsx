@@ -208,6 +208,16 @@ export default function SignIn({ navigation }) {
                   opacity: pressed ? 0.6 : 1,
                 },
               ]}
+              onPress={() => navigation.navigate("forgotPassword")}
+            >
+              <ScreenTitle>Recuperar senha</ScreenTitle>
+            </Pressable>
+            <Pressable
+              style={({ pressed }) => [
+                {
+                  opacity: pressed ? 0.6 : 1,
+                },
+              ]}
               onPress={() => navigation.navigate("signUp")}
             >
               <ScreenTitle>Não possui uma conta? Cadastre-se ➝</ScreenTitle>

@@ -6,6 +6,7 @@ import { Main } from "../screens/main";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../types/IThemeState";
 import { ThemeProvider } from "styled-components";
+import Rating from "../screens/rating";
 
 export default function AppRoutes() {
   const { Navigator, Screen } = createStackNavigator();
@@ -20,6 +21,7 @@ export default function AppRoutes() {
           <Screen name={"main"} component={Main} />
           <Screen name={"profileList"} component={ProfileList} />
           <Screen name={"profile"} component={Profile} />
+          <Screen name={"rating"} component={Rating} />
         </Navigator>
       </ThemeProvider>
     </NavigationContainer>

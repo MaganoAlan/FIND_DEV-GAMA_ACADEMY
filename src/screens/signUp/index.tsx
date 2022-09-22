@@ -50,11 +50,13 @@ export default function SignUp({ navigation }) {
     if (!email || !password || !confirm) {
       setSnackText("Por favor preencha todos os dados!");
       setSnackErr(true);
+      setLoading(false);
       return;
     }
     if (password !== confirm) {
       setSnackText("As senhas não são iguais.");
       setSnackErr(true);
+      setLoading(false);
       return;
     }
     try {
@@ -163,7 +165,7 @@ export default function SignUp({ navigation }) {
               >
                 <ScreenTitle>Já tem uma conta? Entrar ➝</ScreenTitle>
               </Pressable>
-              <BtnContainer>{renderButton()}</BtnContainer>
+              {renderButton()}
             </View>
           </BlurCard>
         </ImageBackground>
