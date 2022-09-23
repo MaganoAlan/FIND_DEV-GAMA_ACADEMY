@@ -2,8 +2,7 @@ import styled from "styled-components/native";
 
 export const BackModal = styled.Pressable`
   flex: 1;
-  background: #000;
-  opacity: 0.7;
+  background: rgba(0, 0, 0, 0.5);
 `;
 export const Container = styled.View`
   width: 70%;
@@ -11,7 +10,7 @@ export const Container = styled.View`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 1);
 `;
 
 export const TitleContainer = styled.View`
