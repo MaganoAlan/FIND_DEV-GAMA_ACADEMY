@@ -1,17 +1,20 @@
 import styled from "styled-components/native";
 
+import { ModalTheme } from "./index";
+
 export const BackModal = styled.Pressable`
   flex: 1;
   background: rgba(0, 0, 0, 0.7);
 `;
-export const Container = styled.View`
+export const Container = styled.View<ModalTheme>`
   width: 70%;
   height: 35%;
   margin: auto;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  background-color: #2a3a3bff;
+  background-color: ${({ currentTheme }) =>
+    currentTheme === "light" ? "#2a3a3bff" : "#000000ff"};
   border-radius: 15px;
 `;
 
