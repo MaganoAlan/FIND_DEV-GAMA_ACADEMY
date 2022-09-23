@@ -1,6 +1,14 @@
 import { useState, HTMLInputTypeAttribute } from "react";
 import { ImageBackground, ScrollView, StatusBar } from "react-native";
-import { DefaultInput } from "../../components/Input";
+import { Auth } from "aws-amplify";
+import { useSelector, useDispatch } from "react-redux";
+import { beLogged } from "../../store/modules/Auth.store";
+import { IThemeState } from "../../types/IThemeState";
+import SnackSuccess from "../../components/SnackSuccess";
+import SnackError from "../../components/SnackError";
+import DefaultInput from "../../components/Input";
+import Button from "../../components/button";
+
 import {
   BlurCard,
   BtnContainer,
@@ -8,19 +16,11 @@ import {
   InputContainer,
   Logo,
 } from "./styles";
-import { SnackSuccess } from "../../components/SnackSuccess";
-import { SnackError } from "../../components/SnackError";
-import Button from "../../components/button";
-import { useSelector } from "react-redux";
-import { IThemeState } from "../../types/IThemeState";
-import { Auth } from "aws-amplify";
-import { beLogged } from "../../store/modules/Auth.store";
-import { useDispatch } from "react-redux";
 
 const city_day = require("../../assets/images/city_day.png");
 const city_night = require("../../assets/images/city_night.png");
 
-export default function VerifyAccount({ navigation, route }) {
+export default function VerifyAccount({ route }) {
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );
@@ -42,7 +42,7 @@ export default function VerifyAccount({ navigation, route }) {
       await Auth.confirmSignUp(route?.params?.email, code);
       setSnackText("Conta verificada com sucesso!");
       setSnackSuc(true);
-      dispatch(beLogged(route?.params?.email)); //lógica redux
+      dispatch(beLogged(route?.params?.email));
     } catch (error) {
       setSnackText(error.message);
       setSnackErr(true);

@@ -1,23 +1,23 @@
 import { useRef } from "react";
 import { Animated } from "react-native";
-import { useSelector } from "react-redux";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useSelector } from "react-redux";
 import { IProfile } from "../../types";
 import { IThemeState } from "../../types/IThemeState";
 import BackGround from "../../components/backGround";
+import DevStars from "../../components/devStars";
+import SecondaryHeader from "../../components/SecondaryHeader";
+import { logo_footer } from "../../constants/resources";
+
 import {
   CardPressable,
   DevInfoContainer,
   DevInfoText,
-  StarContainer,
   TechContainer,
   AvatarContainer,
   AvatarImage,
+  FooterLogo,
 } from "./styles";
-import { SecondaryHeader } from "../../components/SecondaryHeader";
-import { FooterLogo } from "../main/styles";
-import { logo_footer } from "../../constants/resources";
-
 interface IProfileProps {
   profiles: IProfile[];
 }
@@ -86,33 +86,7 @@ export default function ProfileList(props) {
                 <DevInfoContainer>
                   <DevInfoText>{item.fullName}</DevInfoText>
                   <DevInfoText>{item.stack.label}</DevInfoText>
-                  <StarContainer>
-                    <MaterialIcons
-                      name="star"
-                      size={24}
-                      color={item?.stars > 0 ? "#FFCA28" : "#fff"}
-                    />
-                    <MaterialIcons
-                      name="star"
-                      size={24}
-                      color={item?.stars > 1 ? "#FFCA28" : "#fff"}
-                    />
-                    <MaterialIcons
-                      name="star"
-                      size={24}
-                      color={item?.stars > 2 ? "#FFCA28" : "#fff"}
-                    />
-                    <MaterialIcons
-                      name="star"
-                      size={24}
-                      color={item?.stars > 3 ? "#FFCA28" : "#fff"}
-                    />
-                    <MaterialIcons
-                      name="star"
-                      size={24}
-                      color={item?.stars > 4 ? "#FFCA28" : "#fff"}
-                    />
-                  </StarContainer>
+                  <DevStars stars={item?.stars ?? 0} />
                 </DevInfoContainer>
                 <TechContainer>
                   {/*TODO: Validar será o preenchimento da tecnologia (Regra)*/}

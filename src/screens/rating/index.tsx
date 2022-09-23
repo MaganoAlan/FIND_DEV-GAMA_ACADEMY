@@ -1,17 +1,18 @@
 import { Text, Dimensions, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
+import { ChartLineUp } from "phosphor-react-native";
+import { PieChart } from "react-native-chart-kit";
 import { IThemeState } from "../../types/IThemeState";
+import BackGround from "../../components/backGround";
+import AppButton from "../../components/AppButton";
+import BackButton from "../../components/BackButton";
+import ThemeSwitch from "../../components/themeSwitch";
 
 import {
   rating_day,
   rating_night,
   logo_footer,
 } from "../../constants/resources";
-
-import { PieChart } from "react-native-chart-kit";
-
-import BackGround from "../../components/backGround";
-import AppButton from "../../components/AppButton";
 
 import {
   FooterLogo,
@@ -22,15 +23,20 @@ import {
   Label,
   ButtonsContainer,
 } from "./styles";
-import { ChartLineUp } from "phosphor-react-native";
-import { BackButton } from "../../components/BackButton";
+import OkModal from "../../components/okModal";
+import { useState } from "react";
+
+interface IRatingProps {
+  randomNumber: number[];
+  perksValue: number;
+}
 
 export default function Rating(props) {
+  const { randomNumber, perksValue }: IRatingProps = props.route.params;
   const screenWidth = Dimensions.get("window").width;
-  const randomNumber = Array.from({ length: 5 }, () =>
-    Math.floor(Math.random() * 20)
-  );
-  const PerksValue = Math.floor(Math.random() * 80) + 1;
+
+  const [show, setShow] = useState(false);
+
   const data = [
     {
       name: "⭐⭐⭐⭐⭐",
@@ -74,9 +80,9 @@ export default function Rating(props) {
     backgroundGradientTo: "#08130D",
     backgroundGradientToOpacity: 0.5,
     color: (opacity = 1) => `rgba(26, 255, 146, ${opacity})`,
-    strokeWidth: 2, // optional, default 3
+    strokeWidth: 2,
     barPercentage: 0.5,
-    useShadowColorFromDataset: false, // optional
+    useShadowColorFromDataset: false,
   };
 
   const { currentTheme } = useSelector(
@@ -89,6 +95,7 @@ export default function Rating(props) {
     <BackGround>
       <BackButton navigation={() => props.navigation.goBack()} />
       <StyledImage source={sourceImage} />
+      <ThemeSwitch />
       <ScrollView>
         <Title>
           <Text style={{ color: "white", fontSize: 18 }}>Avaliações</Text>
@@ -115,18 +122,22 @@ export default function Rating(props) {
           <Text style={{ color: "white", fontSize: 18 }}>Recompensa:</Text>
           <Label>
             Douglas - Sua nova recompensa acaba de ser desbloqueada. Receba
-            agora mesmo o valor de: R$ {PerksValue}
+            agora mesmo o valor de: R$ {perksValue}
           </Label>
           <ButtonsContainer>
             <AppButton
               title="TRANSFERIR AGORA"
-              onPress={() => {
-                alert("Transferido com sucesso");
-              }}
+              onPress={() => setShow(!show)}
             />
           </ButtonsContainer>
         </Perks>
       </ScrollView>
+      <OkModal
+        showModal={show}
+        setShowModal={() => setShow(!show)}
+        text="valor transferido com sucesso!"
+        title="Sucesso!"
+      />
       <FooterLogo source={logo_footer} />
     </BackGround>
   );

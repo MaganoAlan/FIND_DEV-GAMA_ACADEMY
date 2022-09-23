@@ -4,14 +4,15 @@ export const Container = styled.View`
   flex-direction: row;
   align-items: flex-end;
   height: 10%;
-  background-color: #222e2f;
-  width: 100%;
-  elevation: 8;
+  width: 90%;
+  border-color:#fdfdfd;
+  border-bottom-width: 1px;
 `;
 
 export const HIcon = styled.Pressable`
   margin-left: 4%;
   margin-right: 25%;
+  margin-bottom: 1%;
 `;
 
 export const HText = styled.Text`
@@ -21,4 +22,5 @@ export const HText = styled.Text`
   font-size: 20px;
   font-weight: 600;
   color: #fdfdfd;
+  margin-bottom: 1%;
 `;

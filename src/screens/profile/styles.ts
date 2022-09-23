@@ -11,13 +11,7 @@ export const AvatarImage = styled.Image`
   height: 22.5%;
   border-radius: 120px;
   z-index: 100;
-`;
-
-export const StarContainer = styled.View`
-  margin-top: 2%;
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
+  margin-bottom: 2%;
 `;
 
 export const DevNameText = styled.Text`
@@ -68,4 +62,9 @@ export const ButtonContainer = styled.View`
   width: 49%;
   margin-top: 3%;
   justify-content: space-evenly;
+`;
+
+export const FooterLogo = styled.Image`
+  bottom: 0;
+  margin: 5% 0;
 `;

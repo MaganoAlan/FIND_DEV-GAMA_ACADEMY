@@ -1,4 +1,4 @@
-import { useState, HTMLInputTypeAttribute, useEffect } from "react";
+import { useState, HTMLInputTypeAttribute } from "react";
 import {
   Alert,
   Dimensions,
@@ -10,15 +10,33 @@ import {
   ScrollView,
 } from "react-native";
 
+import { Auth } from "aws-amplify";
+import { beLogged } from "../../store/modules/Auth.store";
+
 import { useSelector, useDispatch } from "react-redux";
 import { IThemeState } from "../../types/IThemeState";
 import { toDarkTheme, toLightTheme } from "../../store/modules/Theme.store";
 
-import { SnackSuccess } from "../../components/SnackSuccess";
-import { SnackError } from "../../components/SnackError";
+import {
+  LinkedinLogo,
+  GithubLogo,
+  GoogleLogo,
+  Sun,
+  Moon,
+} from "phosphor-react-native";
 
+import SnackSuccess from "../../components/SnackSuccess";
+import SnackError from "../../components/SnackError";
+import DefaultInput from "../../components/Input";
 import Button from "../../components/button";
-import { DefaultInput } from "../../components/Input";
+import Spinner from "../../components/spinner";
+
+import {
+  city_day,
+  city_night,
+  logo_day,
+  logo_night,
+} from "../../constants/resources";
 
 import {
   BlurCard,
@@ -33,26 +51,6 @@ import {
   SwitchButton,
   SwitchTheme,
 } from "../signIn/styles";
-
-//*Phosphor Icons - Figma Icons
-import {
-  LinkedinLogo,
-  GithubLogo,
-  GoogleLogo,
-  Sun,
-  Moon,
-} from "phosphor-react-native";
-
-import {
-  city_day,
-  city_night,
-  logo_day,
-  logo_night,
-} from "../../constants/resources";
-
-import { Auth } from "aws-amplify";
-import Spinner from "../../components/spinner";
-import { beLogged } from "../../store/modules/Auth.store";
 
 export default function SignIn({ navigation }) {
   const { currentTheme } = useSelector(
@@ -84,8 +82,7 @@ export default function SignIn({ navigation }) {
     }
     navigation.navigate("verifyAccount");
   }, [logged]);
-
-  console.log("logged sigin", logged); */
+*/
 
   function setDarkTheme() {
     dispatch(toDarkTheme());
@@ -100,7 +97,7 @@ export default function SignIn({ navigation }) {
       await Auth.signIn(email, password);
       setSnackText("Login realizado!");
       setSnackSuc(true);
-      dispatch(beLogged(email)); //lógica do redux
+      dispatch(beLogged(email));
       setLoading(false);
     } catch (error) {
       setSnackText(error.name);
@@ -144,10 +141,8 @@ export default function SignIn({ navigation }) {
           resizeMode="cover"
           style={{
             position: "relative",
-            left: 0,
-            top: 0,
             width: Dimensions.get("screen").width,
-            height: Dimensions.get("screen").height,
+            height: Dimensions.get("screen").height + 50,
           }}
         >
           <Logo

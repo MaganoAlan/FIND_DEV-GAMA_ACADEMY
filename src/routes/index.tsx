@@ -4,10 +4,7 @@ import { useSelector } from "react-redux";
 import { IAuthSate } from "../types/IAuthSate";
 
 export default function Router() {
-  const { logged, userEmail } = useSelector(
-    (state: IAuthSate) => state.authState
-  );
-  console.log(logged, userEmail);
+  const { logged } = useSelector((state: IAuthSate) => state.authState);
 
   return <>{logged ? <AppRoutes /> : <AuthRoutes />}</>;
 }

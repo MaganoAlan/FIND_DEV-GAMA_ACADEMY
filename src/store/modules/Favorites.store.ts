@@ -28,15 +28,12 @@ const favoritesState = createSlice({
       const exists = state.favorites.find((e) => e.payload.email === email);
 
       const index = state.favorites.indexOf(exists);
-      console.log("index", index);
       state.favorites.splice(index, 1);
-      return console.log("Remover", "favorito removido");
+      return;
     },
     existsInFavorites(state, profile) {
       const email = profile.payload.email;
       const exists = state.favorites.find((e) => e.payload.email === email);
-
-      console.log("exists", exists);
 
       if (exists === undefined) {
         state.isFavorite = false;

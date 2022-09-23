@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { ScrollView, StatusBar } from "react-native";
-import { UserGear, ChartPie, Question } from "phosphor-react-native";
+import { Star, ChartPie, Question } from "phosphor-react-native";
 import { useSelector } from "react-redux";
 import Api from "../../services/api";
 import { IThemeState } from "../../types/IThemeState";
@@ -19,34 +19,24 @@ import BackGround from "../../components/backGround";
 import Spinner from "../../components/spinner";
 import OkModal from "../../components/okModal";
 import PickerModal from "../../components/pickerModal";
-import {
-  ShortcutCard,
-  ShortcutFavoriteCard,
-} from "../../components/shortcutCard";
+import { ShortcutCard } from "../../components/shortcutCard";
 
 import {
   BtnContainer,
   FooterLogo,
   Shortcuts,
-  SubTitle,
   TopImg,
-  UserFav,
   TouchableFilter,
   FilterText,
 } from "./styles";
 
-import {
-  main_day,
-  main_night,
-  user_placeholder,
-  logo_footer,
-} from "../../constants/resources";
+import { main_day, main_night, logo_footer } from "../../constants/resources";
 
 import { Auth } from "aws-amplify";
 import { beUnlogged } from "../../store/modules/Auth.store";
 import { useDispatch } from "react-redux";
 import { IFavoritesState } from "../../types/IFavoritesState";
-import { LogOutBtn } from "../../components/LogOutBtn";
+import LogOutBtn from "../../components/LogOutBtn";
 
 export type IStatusBar = {
   height: number;
@@ -127,10 +117,10 @@ export function Main(props) {
   };
 
   async function getDev() {
-    const endpoint = `devs${getStateFilter()}${getStackFilter()}${getCategoryFilter()}`;
-    console.log(endpoint);
     try {
-      const response = await Api.get(endpoint);
+      const response = await Api.get(
+        `devs${getStateFilter()}${getStackFilter()}${getCategoryFilter()}`
+      );
 
       return response.data;
     } catch (error) {
@@ -158,6 +148,20 @@ export function Main(props) {
     }
 
     props.navigation.navigate("profileList", { profiles: profiles });
+  }
+
+  function goToFavorites() {
+    if (favorites.length > 0) {
+      props.navigation.navigate("profileList", {
+        profiles: favorites.map((fav: any) => fav.payload),
+      });
+      return;
+    }
+    setShowModal(true);
+    setModalType("warning");
+    setModalTitle("Aviso");
+    setModalText("Ainda não existem Dev's favoritados!");
+    return;
   }
 
   const getProfile = (dev: IDev): IProfile => {
@@ -192,16 +196,21 @@ export function Main(props) {
   };
 
   async function signOut() {
-    console.log("entrou");
     try {
       await Auth.signOut().then(() => {
         dispatch(beUnlogged());
-        console.log("saiu");
       });
     } catch (error) {
-      console.log("error signing out: ", error);
+      setShowModal(true);
+      setModalType("error");
+      setModalTitle("Falha ao realizar Sign out");
+      setModalText(`(${error.name}) Detalhes: ${error.message}`);
     }
   }
+
+  const randomNumber = Array.from({ length: 5 }, () =>
+    Math.floor(Math.random() * 20)
+  );
 
   const getCategoryOptions = (): IOption[] => {
     let options: IOption[] = [];
@@ -287,98 +296,77 @@ export function Main(props) {
       />
       <LogOutBtn onPress={() => signOut()} />
       <ThemeSwitch />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <TouchableFilter onPress={handleOpenCategoryModal}>
-          <FilterText>
-            {selectedCategories === undefined ||
-            selectedCategories?.length === 0
-              ? "Selecione as categorias..."
-              : `${selectedCategories
-                  ?.map((category) => category.value)
-                  .join(", ")}`}
-          </FilterText>
-        </TouchableFilter>
-        <TouchableFilter onPress={handleOpenStackModal}>
-          <FilterText>
-            {selectedStacks === undefined || selectedStacks?.length === 0
-              ? "Selecione as stacks..."
-              : `${selectedStacks.map((stack) => stack.value).join(", ")}`}
-          </FilterText>
-        </TouchableFilter>
-        <TouchableFilter onPress={handleOpenStateModal}>
-          <FilterText>
-            {selectedStates === undefined || selectedStates?.length === 0
-              ? "Selecione os estados..."
-              : `${selectedStates.map((state) => state.value).join(", ")}`}
-          </FilterText>
-        </TouchableFilter>
-        <BtnContainer>
-          <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
-        </BtnContainer>
+      <TouchableFilter onPress={handleOpenCategoryModal}>
+        <FilterText>
+          {selectedCategories === undefined || selectedCategories?.length === 0
+            ? "Selecione as categorias..."
+            : `${selectedCategories
+                ?.map((category) => category.value)
+                .join(", ")}`}
+        </FilterText>
+      </TouchableFilter>
+      <TouchableFilter onPress={handleOpenStackModal}>
+        <FilterText>
+          {selectedStacks === undefined || selectedStacks?.length === 0
+            ? "Selecione as stacks..."
+            : `${selectedStacks.map((stack) => stack.value).join(", ")}`}
+        </FilterText>
+      </TouchableFilter>
+      <TouchableFilter onPress={handleOpenStateModal}>
+        <FilterText>
+          {selectedStates === undefined || selectedStates?.length === 0
+            ? "Selecione os estados..."
+            : `${selectedStates.map((state) => state.value).join(", ")}`}
+        </FilterText>
+      </TouchableFilter>
+      <BtnContainer>
+        <AppButton title="BUSCAR" onPress={handlePressSearchDev} />
+      </BtnContainer>
+      <ScrollView
+        style={{ maxHeight: "80%" }}
+        showsVerticalScrollIndicator={false}
+      >
         <Shortcuts>
           <ShortcutCard
-            title="Perfil"
-            onPress={() => {}}
-            icon={<UserGear color="#000" weight="light" size={60} />}
+            title="Favoritos"
+            onPress={goToFavorites}
+            icon={<Star color="#000" weight="light" size={60} />}
           />
           <ShortcutCard
             title="Avaliações"
             onPress={() => {
-              props.navigation.navigate("rating");
+              props.navigation.navigate("rating", {
+                randomNumber: randomNumber,
+                perksValue: Math.floor(Math.random() * 80) + 1,
+              });
             }}
             icon={<ChartPie color="#000" weight="light" size={60} />}
           />
           <ShortcutCard
             title="FAQ"
-            onPress={() => {}}
+            onPress={() => {
+              props.navigation.navigate("faq");
+            }}
             icon={<Question color="#000" weight="light" size={60} />}
           />
         </Shortcuts>
-        <SubTitle>Seus Favoritos</SubTitle>
-        <Shortcuts>
-          {favorites.length > 0 ? (
-            favorites.map((fav: any, index) => (
-              <ShortcutFavoriteCard
-                key={index}
-                onPress={() =>
-                  props.navigation.navigate("profile", { profile: fav })
-                }
-                iconDev={<UserFav source={{ uri: fav.payload.photo }} />}
-              />
-            ))
-          ) : (
-            <>
-              <ShortcutFavoriteCard
-                onPress={() => {}}
-                iconDev={<UserFav source={user_placeholder} />}
-              />
-              <ShortcutFavoriteCard
-                onPress={() => {}}
-                iconDev={<UserFav source={user_placeholder} />}
-              />
-              <ShortcutFavoriteCard
-                onPress={() => {}}
-                iconDev={<UserFav source={user_placeholder} />}
-              />
-            </>
-          )}
-        </Shortcuts>
-        <FooterLogo source={logo_footer} />
+
+        <PickerModal
+          title={pickerModalTitle}
+          options={options}
+          showModal={showPickerModal}
+          setShowModal={setShowPickerModal}
+          setOptions={setSelectedOptions}
+        />
+        <OkModal
+          type={modalType}
+          title={modalTitle}
+          text={modalText}
+          showModal={showModal}
+          setShowModal={setShowModal}
+        />
       </ScrollView>
-      <PickerModal
-        title={pickerModalTitle}
-        options={options}
-        showModal={showPickerModal}
-        setShowModal={setShowPickerModal}
-        setOptions={setSelectedOptions}
-      />
-      <OkModal
-        type={modalType}
-        title={modalTitle}
-        text={modalText}
-        showModal={showModal}
-        setShowModal={setShowModal}
-      />
+      <FooterLogo source={logo_footer} />
     </BackGround>
   );
 }

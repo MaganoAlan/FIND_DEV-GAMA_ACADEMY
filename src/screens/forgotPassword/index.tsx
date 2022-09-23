@@ -1,4 +1,5 @@
 import { useState, HTMLInputTypeAttribute } from "react";
+
 import {
   Dimensions,
   ImageBackground,
@@ -6,26 +7,29 @@ import {
   StatusBar,
   View,
 } from "react-native";
-import { DefaultInput } from "../../components/Input";
-import {
-  BlurCard,
-  BtnContainer,
-  Container,
-  InputContainer,
-  Logo
-} from "./styles";
-import { SnackSuccess } from "../../components/SnackSuccess";
-import { SnackError } from "../../components/SnackError";
-import Button from "../../components/button";
+
+import { Auth } from "aws-amplify";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../../types/IThemeState";
+import DefaultInput from "../../components/Input";
+import SnackSuccess from "../../components/SnackSuccess";
+import SnackError from "../../components/SnackError";
+import Button from "../../components/button";
+
 import {
   city_day,
   city_night,
   logo_day,
   logo_night,
 } from "../../constants/resources";
-import { Auth } from "aws-amplify";
+
+import {
+  BlurCard,
+  BtnContainer,
+  Container,
+  InputContainer,
+  Logo,
+} from "./styles";
 
 export default function ForgotPassword({ navigation }) {
   const { currentTheme } = useSelector(
@@ -36,7 +40,7 @@ export default function ForgotPassword({ navigation }) {
 
   const [email, setEmail] = useState("");
   const [code, setCode] = useState("");
-  const [verifyCode, setVerifyCode] = useState(false)
+  const [verifyCode, setVerifyCode] = useState(false);
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const [sendCode, setSendCode] = useState(false);
@@ -51,12 +55,12 @@ export default function ForgotPassword({ navigation }) {
       return;
     }
     Auth.forgotPassword(email)
-      .then(data => {
+      .then((data) => {
         setSnackText("Código enviado para o email!");
         setSnackSuc(true);
         setSendCode(true);
       })
-      .catch(err => {
+      .catch((err) => {
         setSnackText("Email não encontrado!");
         setSnackErr(true);
       });
@@ -70,12 +74,12 @@ export default function ForgotPassword({ navigation }) {
       return;
     }
     Auth.forgotPasswordSubmit(email, code, password)
-      .then(data => {
+      .then((data) => {
         setSnackText("Senha alterada com sucesso!");
         setSnackSuc(true);
-        navigation.navigate("signIn")
+        navigation.navigate("signIn");
       })
-      .catch(err => {
+      .catch((err) => {
         setSnackText("Erro!");
         setSnackErr(true);
       });
@@ -95,7 +99,12 @@ export default function ForgotPassword({ navigation }) {
         </InputContainer>
         <BtnContainer>
           <Button primary title="Enviar código" onPress={handleSendCode} />
-          <Button title="Cancelar" onPress={() => { navigation.navigate("signIn") }} />
+          <Button
+            title="Cancelar"
+            onPress={() => {
+              navigation.navigate("signIn");
+            }}
+          />
         </BtnContainer>
       </View>
     );
@@ -113,10 +122,16 @@ export default function ForgotPassword({ navigation }) {
           />
         </InputContainer>
         <BtnContainer>
-          <Button primary title="Avançar" onPress={() => { setVerifyCode(true) }} />
+          <Button
+            primary
+            title="Avançar"
+            onPress={() => {
+              setVerifyCode(true);
+            }}
+          />
         </BtnContainer>
       </View>
-    )
+    );
   }
 
   function renderStep3() {
@@ -148,7 +163,7 @@ export default function ForgotPassword({ navigation }) {
           <Button primary title="Concluir" onPress={handleForgotPassword} />
         </BtnContainer>
       </View>
-    )
+    );
   }
 
   return (

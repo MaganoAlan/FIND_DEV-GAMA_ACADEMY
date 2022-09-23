@@ -19,12 +19,6 @@ export const DevInfoText = styled.Text`
   color: #fff;
 `;
 
-export const StarContainer = styled.View`
-  align-items: center;
-  flex-direction: row;
-  justify-content: center;
-`;
-
 export const TechContainer = styled.View`
   width: 70px;
   height: 70px;
@@ -43,4 +37,9 @@ export const AvatarImage = styled.Image`
   width: 70px;
   height: 70px;
   border-radius: 35px;
+`;
+
+export const FooterLogo = styled.Image`
+  bottom: 0;
+  margin-bottom: 5%;
 `;
