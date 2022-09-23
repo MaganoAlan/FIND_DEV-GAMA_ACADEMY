@@ -81,7 +81,7 @@ export default function Profile(props) {
   const handlePressManageFavoriteProfiles = () => {
     if (isFavorite) {
       dispatch(removeFavorite(profile));
-      props.navigation.goBack();
+      props.navigation.navigate("main");
       return;
     }
 
