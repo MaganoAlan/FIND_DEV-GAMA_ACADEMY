@@ -1,13 +1,13 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-import ProfileList from "../screens/profileList";
-import Profile from "../screens/profile";
-import { Main } from "../screens/main";
 import { useSelector } from "react-redux";
 import { IThemeState } from "../types/IThemeState";
 import { ThemeProvider } from "styled-components";
+import Main from "../screens/main";
+import ProfileList from "../screens/profileList";
+import Profile from "../screens/profile";
 import Rating from "../screens/rating";
-import { FAQ } from "../screens/faq";
+import Faq from "../screens/faq";
 
 export default function AppRoutes() {
   const { Navigator, Screen } = createStackNavigator();
@@ -23,7 +23,7 @@ export default function AppRoutes() {
           <Screen name={"profileList"} component={ProfileList} />
           <Screen name={"profile"} component={Profile} />
           <Screen name={"rating"} component={Rating} />
-          <Screen name={"faq"} component={FAQ} />
+          <Screen name={"faq"} component={Faq} />
         </Navigator>
       </ThemeProvider>
     </NavigationContainer>

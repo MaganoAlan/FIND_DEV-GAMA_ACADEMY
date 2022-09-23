@@ -34,6 +34,8 @@ export default function OkModal({
         return <MaterialIcons name="error" size={24} color="#FFCA28" />;
       case "warning":
         return <MaterialIcons name="warning" size={24} color="#FFCA28" />;
+      case "none":
+        return <></>;
       default:
         return <MaterialIcons name="done" size={24} color="#FFCA28" />;
     }
