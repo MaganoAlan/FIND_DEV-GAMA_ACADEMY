@@ -4,11 +4,9 @@ export const Title = styled.Text`
   color: #fdfdfd;
   font-size: 18px;
   font-weight: 600;
-  margin-left: 4%;
-  margin-right: auto;
-  margin-top: 4%;
-  margin-bottom: 4%;
+  margin: 4% 0;
   text-align: center;
+  justify-content: center;
 `;
 export const Subs = styled.Text`
   color: #fdfdfd;
@@ -16,7 +14,6 @@ export const Subs = styled.Text`
   font-weight: 400;
   margin-left: 4%;
   margin-right: auto;
-  margin-top: 2%;
   text-align: justify;
 `;
 
@@ -34,9 +31,31 @@ export const Dev = styled.Image`
 
 export const BtnContainer = styled.View`
   width: 80%;
-  margin-bottom: 5%;
+  margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
+`;
+
+export const LogoContainerExterno = styled.View`
+  width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
+`;
+
+export const LogoContainerInterno = styled.View`
+  width: 50%;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const LogoGama = styled.Image`
+  width: 50%;
+`;
+
+export const LogoAcate = styled.Image`
+  width: 50%;
 `;
 
 export const FooterFaq = styled.Image`

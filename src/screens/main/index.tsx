@@ -52,7 +52,7 @@ export type IStatusBar = {
   height: number;
 };
 
-export function Main(props) {
+export default function Main(props) {
   const { currentTheme } = useSelector(
     (state: IThemeState) => state.themeState
   );

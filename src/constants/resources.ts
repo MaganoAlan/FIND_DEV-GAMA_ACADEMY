@@ -6,6 +6,8 @@ export const city_night = require("../assets/images/city_night.png");
 export const logo_day = require("../assets/images/logo_auth.png");
 export const logo_night = require("../assets/images/logo_auth_dark.png");
 export const logo_footer = require("../assets/images/footer_logo.png");
+export const logo_gama = require("../assets/images/logo_gama.png");
+export const logo_acate = require("../assets/images/logo_acate.png");
 
 //*Main background
 export const main_day = require("../assets/images/main_day.png");

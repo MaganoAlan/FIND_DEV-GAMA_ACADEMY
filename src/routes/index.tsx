@@ -8,5 +8,5 @@ export default function Router() {
     (state: IAuthSate) => state.authState
   );
 
-  return <>{true ? <AppRoutes /> : <AuthRoutes />}</>;
+  return <>{logged ? <AppRoutes /> : <AuthRoutes />}</>;
 }
