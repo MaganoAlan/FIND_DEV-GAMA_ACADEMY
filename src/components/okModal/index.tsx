@@ -31,11 +31,11 @@ export default function OkModal({
   function getIcon() {
     switch (type) {
       case "error":
-        return <MaterialIcons name="error" size={24} />;
+        return <MaterialIcons name="error" size={24} color="#FFCA28" />;
       case "warning":
-        return <MaterialIcons name="warning" size={24} />;
+        return <MaterialIcons name="warning" size={24} color="#FFCA28" />;
       default:
-        return <MaterialIcons name="done" size={24} />;
+        return <MaterialIcons name="done" size={24} color="#FFCA28" />;
     }
   }
 
