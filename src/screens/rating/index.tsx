@@ -135,7 +135,7 @@ export default function Rating(props) {
       <OkModal
         showModal={show}
         setShowModal={() => setShow(!show)}
-        text="valor transferido com sucesso!"
+        text="Valor transferido com sucesso!"
         title="Sucesso!"
       />
       <FooterLogo source={logo_footer} />

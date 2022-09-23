@@ -25,6 +25,7 @@
   <a href="#-requisitos">Requisitos</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-figma">Figma</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-aws">AWS</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-equipe">Equipe</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-api">API</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-licença">Licença</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
@@ -91,8 +92,9 @@
 - ``Expo bare workflow``
 - ``Redux Toolkit``
 - ``Typescript``
-- ``Phopsphor icons`` 
-- ``Amazon Cognito``
+- ``Phosphor icons`` 
+- ``AWS Amplify``
+- ``AWS Cognito``
 - ``Axios``  
 - ``Styled components``
 
@@ -204,8 +206,37 @@ O App construído com React Native deve ter integração com SSO AWS Cognito e e
 
 - ``Protótipo e animações``  [Protótipo interativo](https://www.figma.com/proto/kCneBOYcJgwj2f6zMBmwhq/FIND-DEV?page-id=461%3A1597&node-id=461%3A2048&viewport=467%2C348%2C0.14&scaling=min-zoom&starting-point-node-id=461%3A2048)
 
+<a href="#-como-usar">Como usar</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-aws">AWS</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 
-### 👤 Equipe.
+### 💡 como usar
+
+- ``Clone o repositório``
+- `` Inicie o projeto em sua IDE``
+- `` Execute expo run start ``
+
+
+
+### 💡 aws 
+
+<p>AWS Amplify | AWS Cognito:
+O Amplify é um serviço da Amazon Web Service, que oferece uma solução completa para desenvolvedores criarem as suas aplicações Web e Mobile, de forma robusta e
+realizando integrações rápidas com os outros serviços da AWS. Neste projeto, testamos e trabalhamos com o Amplify Studio, que é o ambiente de desenvolvimento web do Amplify. Ele permite gerenciar o serviço de autentificação integrado, o Amazon Cognito.
+Através desse recurso realizamos todo o sistema de configuração, gerenciamento e monitoramento dos usuários cadastrados no aplicativo.
+Através desse recurso, desenvolvemos uma solução que oferece segurança e confiabilidade para os nossos usuários, pois o nosso sistema de autenticação está configurado com etapas de verificação que atendem importantes pontos de Cyber Security, eliminando assim tentativas de:
+Spam, cadastros de usuários com e-mails fakes e redefinições indesejadas de senhas de
+segurança. Para mais informações a respeito desse serviço, recomendamos a leitura da documentação em :<p>
+
+ [Documentação do Amplify Studio](https://docs.amplify.aws/console/)
+ [AWS Amplify](https://docs.amplify.aws/lib/q/platform/js/)
+
+
+
+Equipe:
+- ``Alan Magano (Front-end | React | React Native | mobile)`` [Linkedin](https://www.linkedin.com/in/alanmagano/)
+- ``Gabriel Paulino (Front-end | React | React Native | mobile)`` [Linkedin](https://www.linkedin.com/in/gabriel-paulin0/)
+- ``Leonardo Moura (React Native | Figma | JS | Kotlin | Jetpack Compose)`` [Linkedin](https://www.linkedin.com/in/leonardo-moura-92b513209/)
+- ``Lucas Guimarães (Mobile Developer React Native | Javascript | Computer Engineer)`` [Linkedin](https://www.linkedin.com/in/lukeguima/)
 
 Instrutor:
 - `` Douglas Morais`` [Linkedin](https://www.linkedin.com/in/douglasmoraisdev/)
@@ -213,11 +244,6 @@ Instrutor:
 Analista de CRM:
 - `` Karoline Costa `` [Linkedin](https://www.linkedin.com/in/karolinecostaribeiro/)
 
-Equipe:
-- ``Alan Magano (Front-end | React | React Native | mobile)`` [Linkedin](https://www.linkedin.com/in/alanmagano/)
-- ``Gabriel Paulino (Front-end | React | React Native | mobile)`` [Linkedin](https://www.linkedin.com/in/gabriel-paulin0/)
-- ``Leonardo Moura (React Native | Figma | JS | Kotlin | Jetpack Compose)`` [Linkedin](https://www.linkedin.com/in/leonardo-moura-92b513209/)
-- ``Lucas Guimarães (Mobile Developer React Native | Javascript | Computer Engineer)`` [Linkedin](https://www.linkedin.com/in/lukeguima/)
 
 ### 🌎 API.
 

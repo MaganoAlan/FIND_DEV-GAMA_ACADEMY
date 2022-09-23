@@ -8,6 +8,8 @@ import {
   ModalBtn,
 } from "./styles";
 import { MaterialIcons } from "@expo/vector-icons";
+import { IThemeState } from "../../types/IThemeState";
+import { useSelector } from "react-redux";
 
 export interface IOkModalProps {
   type?: string;
@@ -17,6 +19,10 @@ export interface IOkModalProps {
   setShowModal: (value: boolean) => void;
 }
 
+export type ModalTheme = {
+  currentTheme: string;
+};
+
 export default function OkModal({
   type = "success",
   showModal,
@@ -24,6 +30,10 @@ export default function OkModal({
   text,
   setShowModal,
 }: IOkModalProps) {
+  const { currentTheme } = useSelector(
+    (state: IThemeState) => state.themeState
+  );
+
   function handleCloseModal() {
     setShowModal(!showModal);
   }
@@ -31,11 +41,13 @@ export default function OkModal({
   function getIcon() {
     switch (type) {
       case "error":
-        return <MaterialIcons name="error" size={24} />;
+        return <MaterialIcons name="error" size={24} color="#FFCA28" />;
       case "warning":
-        return <MaterialIcons name="warning" size={24} />;
+        return <MaterialIcons name="warning" size={24} color="#FFCA28" />;
+      case "none":
+        return <></>;
       default:
-        return <MaterialIcons name="done" size={24} />;
+        return <MaterialIcons name="done" size={24} color="#FFCA28" />;
     }
   }
 
@@ -47,7 +59,7 @@ export default function OkModal({
       transparent={true}
     >
       <BackModal onPress={handleCloseModal}>
-        <Container>
+        <Container currentTheme={currentTheme}>
           <TitleContainer>
             {getIcon()}
             <Title>{title}</Title>
